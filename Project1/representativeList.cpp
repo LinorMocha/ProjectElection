@@ -7,7 +7,10 @@ using namespace std;
 namespace proj {
     representativeList::representativeList()
     {
-        head = nullptr;
+        head = nullptr
+
+
+
         tail = nullptr;
     }
     representativeList::~representativeList()

@@ -4,6 +4,10 @@
 
 namespace proj
 {
+
+
+
+
 	politicalparty::politicalparty() :list(nullptr), name(nullptr), num(0),head(nullptr)
 	{
 
