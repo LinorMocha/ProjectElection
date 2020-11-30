@@ -1,18 +1,18 @@
 #pragma once
 #include "citizen.h"
-#include "representativelist.h"
+#include "citizenList.h"
 namespace proj
 {
 	class politicalparty
 	{
 	private:
-		representativeList** list;
+		citizenList** presentativeList;
 		char* name;
-		int num;
+		int numId;
 		citizen* head;
 	public:
 		politicalparty();
-		politicalparty(char* partyName, int IdHead);
+		//politicalparty(char* partyName, int IdHead);
 
 	};
 }

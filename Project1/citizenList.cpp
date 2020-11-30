@@ -1,19 +1,16 @@
 #pragma once
 #include <iostream>
-#include "representativeList.h"
+#include "citizenList.h"
 #include "citizen.h"
 using namespace std;
 
 namespace proj {
-    representativeList::representativeList()
+   citizenList::citizenList():head(nullptr),tail(nullptr)
     {
-        head = nullptr
-
-
-
-        tail = nullptr;
+       
+        cout << "cons" << endl;
     }
-    representativeList::~representativeList()
+   citizenList::~citizenList()
     {
             node* current = head;
             node* next;
@@ -23,12 +20,13 @@ namespace proj {
                 delete current;
                 current = next;
             }
+            cout << "delete" << endl;
     }
 
-   void representativeList::add_node(citizen newrepre)
+   void citizenList::add_node(citizen* input)
     {
         node* tmp = new node;
-        tmp->represent = &newrepre ;
+        tmp->value = input;
         tmp->next = nullptr;
         
         if (head == nullptr)
@@ -46,6 +44,18 @@ namespace proj {
         }
     }
 
+   citizen* citizenList::getItem(int _id)
+   {
+       node* current = head;
+
+       while (current != nullptr)
+       {
+           if (current->value->getId() == _id)
+               return current->value;
+           current = current->next;
+       }
+       return nullptr;
+   }
 
 
 }

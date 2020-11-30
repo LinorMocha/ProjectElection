@@ -3,11 +3,11 @@
 
 namespace proj
 {
-	citizen::citizen() : ID(0), numDistrict(0), name(nullptr),vote(-1)
+	citizen::citizen() : ID(0), numDistrict(0), name(nullptr),vote(-1), birthYear(0)
 	{
 		
 	}
-	citizen::citizen(const char* _name, int id, int numD) : ID(id), numDistrict(numD)
+	citizen::citizen(char* _name, int id, int numD,int _birthYear) : ID(id), numDistrict(numD), birthYear(_birthYear)
 	{
 		citizen::name =utils::my_strdup(_name);
 		vote = -1;
@@ -22,6 +22,14 @@ namespace proj
 		numDistrict = input.numDistrict;
 		vote = input.vote;
 		name = utils::my_strdup(input.name);
+	}
+	int citizen::getId()
+	{
+		return ID;
+	}
+	void citizen::setvote(int _vote)
+	{
+		vote = _vote;
 	}
 
 	

@@ -4,21 +4,17 @@
 
 namespace proj
 {
-
-
-
-
-	politicalparty::politicalparty() :list(nullptr), name(nullptr), num(0),head(nullptr)
+	politicalparty::politicalparty() :presentativeList(new citizenList*()), name(nullptr), numId(0),head(nullptr)
 	{
 
 	}
-	politicalparty::politicalparty(char* partyName, int IdHead)
-	{
-		politicalparty::name = utils::my_strdup(partyName);
-		head = getCitizenById(IdHead);
-		num=
-			
-	}
+	//politicalparty::politicalparty(char* partyName, int IdHead)
+	//{
+	//	politicalparty::name = utils::my_strdup(partyName);
+	//	//head = getCitizenById(IdHead);
+	//	num=
+	//		
+	//}
 
 
 }

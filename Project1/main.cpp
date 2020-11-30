@@ -1,12 +1,15 @@
 #include"citizen.h"
 #include "politicalParty.h"
-#include"representativeList.h"
+#include"citizenList.h"
 #include "utils.h"
 #include <iostream>
+#include"VotersBook.h"
 using namespace std;
 using namespace proj;
 
 int main()
 {
+	VotersBook c;
+	return(0);
 
 }

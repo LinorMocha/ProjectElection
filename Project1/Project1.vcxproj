@@ -139,17 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ElectionRound.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="citizen.h" />
     <ClInclude Include="politicalParty.h" />
-    <ClInclude Include="representativeList.h" />
+    <ClInclude Include="citizenList.h" />
+    <ClInclude Include="VotersBook.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="citizen.cpp" />
+    <ClCompile Include="ElectionRound.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="politicalParty.cpp" />
-    <ClCompile Include="representativeList.cpp" />
+    <ClCompile Include="citizenList.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="VotersBook.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
