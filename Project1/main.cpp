@@ -9,6 +9,8 @@ using namespace proj;
 
 int main()
 {
-	
+	politicalParty a;
+	a.getWinningRepresentitives(0, 0);
 
+	return 0;
 }

@@ -19,9 +19,12 @@ namespace proj
     public:
         citizenList();
         ~citizenList();
-        void add_node(citizen* input);
+
+        void operator=(const citizenList& input);
+        void addNodeToTail(citizen* input);
+        void addNodeToHead(citizen* input);
+
         citizen* getItem(int _id);
-        // להוסיף מחיקת איבר
-        //להוסיף getters
+        node* getHead();
     };
 }

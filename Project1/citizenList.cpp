@@ -8,7 +8,7 @@ namespace proj {
    citizenList::citizenList():head(nullptr),tail(nullptr)
     {
        
-        
+       cout << "const" << endl;
     }
    citizenList::~citizenList()
     {
@@ -23,12 +23,12 @@ namespace proj {
             cout << "delete" << endl;
     }
 
-   void citizenList::add_node(citizen* input)
+   void citizenList::addNodeToTail(citizen* input)
     {
         node* tmp = new node;
         tmp->value = input;
         tmp->next = nullptr;
-        
+      
         if (head == nullptr)
         {
             head = tmp;
@@ -43,6 +43,24 @@ namespace proj {
             
         }
     }
+   void citizenList::addNodeToHead(citizen* input)
+   {
+       node* tmp = new node;
+       tmp->value = input;
+       tmp->prev = nullptr;
+       if (head == nullptr)
+       {
+           head = tmp;
+           tail = tmp;
+           head->next = nullptr;
+       }
+       else
+       {
+           head->prev = tmp;
+           tmp->next = head;
+           head=tmp;
+       }
+   }
 
    citizen* citizenList::getItem(int _id)
    {
@@ -56,6 +74,15 @@ namespace proj {
        }
        return nullptr;
    }
+   node* citizenList::getHead()
+   {
+       
+       return head;
+   }
 
-
+   void citizenList::operator=(const citizenList& input)
+   {
+       head = input.head;
+       tail = input.tail;
+   }
 }

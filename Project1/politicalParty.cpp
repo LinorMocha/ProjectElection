@@ -1,38 +1,71 @@
-#include "citizen.h"
+
 #include "politicalParty.h"
 #include "utils.h"
 #include "ElectionRound.h"
+#include "citizenList.h"
 
 namespace proj
 {
-	politicalparty::politicalparty() :representativeList(new citizenList*[0]), name(nullptr), numId(0),head(nullptr)
+	politicalParty::politicalParty() :representativeList(new citizenList()), name(nullptr), numId(0),head(nullptr), lastState(0)
 	{
         ElectionRound::countPoliticalParty++;
         numId = ElectionRound::countPoliticalParty;
 	}
-    politicalparty::politicalparty(char* partyName, citizen* _head) : politicalparty()
+    politicalParty::politicalParty(char* partyName, citizen* _head) : politicalParty()
     {
         name = utils::my_strdup(partyName);
         head = _head;
     }
+    char *politicalParty::getName()
+    {
+        return name;
+    }
 
- //   void politicalparty::addRepresentitive(citizen* citizen, int state) {
- //       if (state > this->lastState){
- //           //resize array
- //           this->lastState = state;
- //       }
- //       this->representativeList[state]->add_node(citizen);
-	//}
+    citizen* politicalParty::getPoliticalPartyHead()
+    {
+        return head;
+    }
 
- //   citizenList* politicalparty::getWinningRepresentitives(int state, int repCount){
- //       citizenList* stateRepres = new citizenList[];
- //       node* head = this->representativeList[state].head;
- //       node* temp = head;
- //       for (int i = 0; i < repCount; ++i) {
- //           stateRepres->add_node(temp->value)
- //           temp = head->next
- //       }
- //       return stateRepres;
-	//}
+    int politicalParty::getNumId()
+    {
+        return numId;
+    }
+    void politicalParty::addRepresentitive(citizen* citizen, int state) 
+    {
+        if (state > lastState)
+        {
+            reSizeRepresentativeList(lastState + 1, state + 1);
+            lastState = state;
+        }
+       representativeList[state].addNodeToTail(citizen);
+    }
+
+    void politicalParty::reSizeRepresentativeList(int size, int newSize)
+    {
+        citizenList* res = new citizenList[newSize];
+       // No data in cell zero
+        for (int i = 1; i < size; i++)
+        {
+            res[i] = representativeList[i];
+        }
+                
+    }
+
+    citizenList* politicalParty::getWinningRepresentitives(int state, int repCount)
+    {
+        citizenList* stateRepres=new citizenList();
+        
+        node* head = representativeList[state].getHead();
+        
+        node* temp = head;
+        
+        for (int i = 0; i < repCount; ++i) 
+        {
+            stateRepres->addNodeToTail(temp->value);
+            temp = head->next;
+        }
+        
+        return stateRepres;
+	}
     
 }

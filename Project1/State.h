@@ -12,6 +12,9 @@ namespace proj
 	public:
 		State();
 		State(char* _name, int _numRep);
+		int getNumOfRepresentative();
+		int getNumId();
+		char* getName();
 		
 	};
 }

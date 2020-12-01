@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="ElectionRound.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="StateArray.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="citizen.h" />
     <ClInclude Include="politicalParty.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="politicalParty.cpp" />
     <ClCompile Include="citizenList.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateArray.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="VotersBook.cpp" />
   </ItemGroup>

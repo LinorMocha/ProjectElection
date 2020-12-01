@@ -20,5 +20,16 @@ namespace proj
 		name = utils::my_strdup(_name);
 	}
 
-
+	char* State::getName()
+	{
+		return name;
+	}
+	int State::getNumId()
+	{
+		return numId;
+	}
+	int State::getNumOfRepresentative()
+	{
+		return numOfRepresentative;
+	}
 }
