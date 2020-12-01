@@ -9,7 +9,7 @@ namespace proj
 	{
 		ElectionRound::countPoliticalParty++;
 		numId = ElectionRound::countPoliticalParty;
-	}
+	}j
 	State::State(char* _name, int _numRep) :numOfRepresentative(_numRep)
 	{
 		name = utils::my_strdup(_name);
