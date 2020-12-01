@@ -1,12 +1,14 @@
 #include "citizen.h"
 #include "politicalParty.h"
 #include "utils.h"
+#include "ElectionRound.h"
 
 namespace proj
 {
 	politicalparty::politicalparty() :representativeList(new citizenList*[]), name(nullptr), numId(0),head(nullptr)
 	{
-
+        ElectionRound::countPoliticalParty++;
+        numId = ElectionRound::countPoliticalParty;
 	}
 
     void politicalparty::addRepresentitive(citizen* citizen, int state) {
@@ -27,13 +29,9 @@ namespace proj
         }
         return stateRepres;
 	}
-	//politicalparty::politicalparty(char* partyName, int IdHead)
-	//{
-	//	politicalparty::name = utils::my_strdup(partyName);
-	//	//head = getCitizenById(IdHead);
-	//	num=
-	//		
-	//}
-
-
+    politicalparty::politicalparty(char* partyName, citizen* _head) :politicalparty()
+    {
+        name = utils::my_strdup(partyName);
+        head = _head;
+    }
 }

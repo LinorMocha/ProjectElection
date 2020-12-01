@@ -13,7 +13,7 @@ namespace proj {
         citizen *head;
     public:
         politicalparty();
-        //politicalparty(char* partyName, int IdHead);
+        politicalparty(char* partyName, citizen* _head);
 
     };
 }
