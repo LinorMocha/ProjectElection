@@ -6,7 +6,7 @@
 
 namespace proj
 {
-	politicalParty::politicalParty() :representativeList(new citizenList()), name(nullptr), numId(0),head(nullptr), lastState(0)
+	politicalParty::politicalParty() :representativeList(new citizenList[0]), name(nullptr), numId(0),head(nullptr), lastState(0)
 	{
         ElectionRound::countPoliticalParty++;
         numId = ElectionRound::countPoliticalParty;
@@ -46,7 +46,9 @@ namespace proj
        // No data in cell zero
         for (int i = 1; i < size; i++)
         {
-            res[i] = representativeList[i];
+            res[i].setHead(representativeList[i].getHead());
+
+          //  res[i]=representativeList[i];
         }
                 
     }

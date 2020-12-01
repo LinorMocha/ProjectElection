@@ -85,4 +85,10 @@ namespace proj {
        head = input.head;
        tail = input.tail;
    }
+   void citizenList::setHead( node* _head)
+   {
+       head = _head;
+
+   }
+
 }

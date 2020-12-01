@@ -26,5 +26,7 @@ namespace proj
 
         citizen* getItem(int _id);
         node* getHead();
+        void setHead(node* head);
+
     };
 }

@@ -26,6 +26,7 @@ namespace proj
 		vote = input.vote;
 		name = utils::my_strdup(input.name);
 	}
+
 	int citizen::getId()
 	{
 		return ID;

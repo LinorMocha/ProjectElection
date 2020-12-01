@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "citizenList.h"
 #include "utils.h"
+
 namespace proj
 {
 	class ElectionRound
@@ -8,11 +9,12 @@ namespace proj
 
 		private:
 			citizenList* _citizenList;
+			
 			Date date;
 
 			//רשימת או מערך מחוזות
 			//רשימת או מערך מפלגות
-			//תאריך
+			
 
 	public:
 		static int countPoliticalParty;
