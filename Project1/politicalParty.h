@@ -10,6 +10,7 @@ namespace proj {
         char *name;
         int numId;
         citizen *head;
+        jbj
     public:
         politicalparty();
         politicalparty(char* partyName, citizen* _head);
