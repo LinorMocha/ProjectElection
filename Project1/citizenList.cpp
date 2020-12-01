@@ -8,7 +8,7 @@ namespace proj {
    citizenList::citizenList():head(nullptr),tail(nullptr)
     {
        
-        cout << "cons" << endl;
+        
     }
    citizenList::~citizenList()
     {
