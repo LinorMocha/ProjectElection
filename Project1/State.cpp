@@ -9,6 +9,7 @@ namespace proj
 	{
 		ElectionRound::countPoliticalParty++;
 		numId = ElectionRound::countPoliticalParty;
+		//
 
 	}
 	
