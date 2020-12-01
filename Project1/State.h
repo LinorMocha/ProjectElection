@@ -3,7 +3,7 @@
 
 namespace proj
 {
-	class state
+	class State
 	{
 	private:
 		char* name;
