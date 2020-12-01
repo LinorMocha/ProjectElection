@@ -9,7 +9,6 @@ namespace proj {
         citizenList **representativeList;
         char *name;
         int numId;
-        int lastState;
         citizen *head;
     public:
         politicalparty();

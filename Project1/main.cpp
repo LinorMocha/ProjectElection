@@ -9,7 +9,6 @@ using namespace proj;
 
 int main()
 {
-	VotersBook c;
-	return(0);
+	
 
 }

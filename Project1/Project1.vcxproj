@@ -153,6 +153,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="politicalParty.cpp" />
     <ClCompile Include="citizenList.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="VotersBook.cpp" />
   </ItemGroup>

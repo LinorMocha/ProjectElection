@@ -5,6 +5,7 @@ namespace proj
 	{
 	public:
 		static int countPoliticalParty;
+		static int countState;
 
 
 	};

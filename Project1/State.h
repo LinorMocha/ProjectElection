@@ -8,13 +8,12 @@ namespace proj
 	private:
 		char* name;
 		int numId;
-		int numOfDelegates;
-		int numOfstate;  
-		int numOfCitizen;
-		int PercentageOfVoters;
-		
-
+		int numOfRepresentative;
 	public:
+		State();
+		State(char* _name, int _numRep);
 		
 	};
 }
+
+
