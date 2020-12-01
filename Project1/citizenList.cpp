@@ -9,7 +9,7 @@ namespace proj {
     {
        
         cout << "cons" << endl;
-    }jkkjo
+    }
    citizenList::~citizenList()
     {
             node* current = head;
