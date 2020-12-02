@@ -6,7 +6,7 @@
 namespace proj {
     class politicalParty {
     private:
-        citizenList* representativeList;
+        citizenList** representativeList;
         char *name;
         int numId;
         citizen *head;
@@ -19,7 +19,7 @@ namespace proj {
         int getNumId();
         char* getName();
         citizen* getPoliticalPartyHead();
-
+        void operator=(const politicalParty& input);
         void reSizeRepresentativeList(int size, int newSize);
             
         void addRepresentitive(citizen* citizen, int state);

@@ -7,7 +7,7 @@ using namespace std;
 namespace proj {
    citizenList::citizenList():head(nullptr),tail(nullptr)
     {
-       
+     
        cout << "const" << endl;
     }
    citizenList::~citizenList()
@@ -80,11 +80,12 @@ namespace proj {
        return head;
    }
 
-   void citizenList::operator=(const citizenList& input)
+   void citizenList::operator=(citizenList* input)
    {
-       head = input.head;
-       tail = input.tail;
+       head = input->head;
+       tail = input->tail;
    }
+
    void citizenList::setHead( node* _head)
    {
        head = _head;

@@ -6,7 +6,7 @@ namespace proj
 {
 	citizen::citizen() : ID(0), numDistrict(0), name(nullptr),vote(-1), birthYear(0)
 	{
-		ElectionRound::countCitizen++;
+		//ElectionRound::countCitizen++;
 		
 	}
 	citizen::citizen(char* _name, int id, int numD,int _birthYear) : ID(id), numDistrict(numD), birthYear(_birthYear)

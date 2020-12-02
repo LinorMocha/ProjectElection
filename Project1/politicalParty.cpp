@@ -1,4 +1,4 @@
-
+﻿
 #include "politicalParty.h"
 #include "utils.h"
 #include "ElectionRound.h"
@@ -6,7 +6,7 @@
 
 namespace proj
 {
-	politicalParty::politicalParty() :representativeList(new citizenList[0]), name(nullptr), numId(0),head(nullptr), lastState(0)
+	politicalParty::politicalParty() :representativeList(new citizenList*()), name(nullptr), numId(0),head(nullptr), lastState(0)
 	{
         ElectionRound::countPoliticalParty++;
         numId = ElectionRound::countPoliticalParty;
@@ -37,27 +37,34 @@ namespace proj
             reSizeRepresentativeList(lastState + 1, state + 1);
             lastState = state;
         }
-       representativeList[state].addNodeToTail(citizen);
+       representativeList[state]->addNodeToTail(citizen);
     }
 
     void politicalParty::reSizeRepresentativeList(int size, int newSize)
     {
-        citizenList* res = new citizenList[newSize];
-       // No data in cell zero
-        for (int i = 1; i < size; i++)
+        citizenList** res = new citizenList*[newSize];
+        for (int i = 0; i < newSize; i++)
         {
-            res[i].setHead(representativeList[i].getHead());
-
-          //  res[i]=representativeList[i];
+            res[i] = new citizenList();
+            
+            if(i < size && i!=0)
+                res[i] = representativeList[i];
+            else
+                res[i] = nullptr;
         }
-                
+
+        for (int j = 0; j < size; j++)
+        {
+           delete[] representativeList[j];
+        }
+       representativeList = res;
     }
 
     citizenList* politicalParty::getWinningRepresentitives(int state, int repCount)
     {
         citizenList* stateRepres=new citizenList();
         
-        node* head = representativeList[state].getHead();
+        node* head = representativeList[state]->getHead();
         
         node* temp = head;
         
@@ -69,5 +76,11 @@ namespace proj
         
         return stateRepres;
 	}
-    
+    void politicalParty::operator=(const politicalParty& input)
+    {
+        numId = input.numId;
+        representativeList=input.representativeList;
+        lastState = input.lastState;
+        name = utils::my_strdup(input.name);
+    }
 }

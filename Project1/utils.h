@@ -14,6 +14,7 @@ namespace proj
 	{
 	public:
 		static char* my_strdup(const char* input);
+
 		
 
 	};

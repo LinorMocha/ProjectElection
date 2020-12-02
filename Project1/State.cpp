@@ -7,13 +7,17 @@ namespace proj
 {
 	State::State() :name(nullptr), numOfRepresentative(0)
 	{
-		ElectionRound::countPoliticalParty++;
-		numId = ElectionRound::countPoliticalParty;
 		
-
+		numId = ElectionRound::countPoliticalParty;
+		ElectionRound::countPoliticalParty++;
 	}
 	
-	
+	void State::operator=(const State& input)
+	{
+		numId = input.numId;
+		numOfRepresentative = input.numOfRepresentative;
+		name = utils::my_strdup(input.name);
+	}
 	State::State(char* _name, int _numRep) :State()
 	{
 		numOfRepresentative = _numRep;

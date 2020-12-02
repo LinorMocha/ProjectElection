@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "citizenList.h"
 #include "utils.h"
-
+#include "StateArray.h"
 namespace proj
 {
 	class ElectionRound
@@ -9,10 +9,9 @@ namespace proj
 
 		private:
 			citizenList* _citizenList;
-			
+			StateArray _stateArray;
 			Date date;
 
-			//רשימת או מערך מחוזות
 			//רשימת או מערך מפלגות
 			
 
@@ -21,7 +20,9 @@ namespace proj
 		static int countState;
 		static int countCitizen;
 
-
+		ElectionRound();
+		~ElectionRound();
+		void addState(char* name, int numRep);
 	};
 
 }

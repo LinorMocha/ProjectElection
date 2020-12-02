@@ -10,7 +10,7 @@ using namespace proj;
 int main()
 {
 	politicalParty a;
-	a.getWinningRepresentitives(0, 0);
+	a.reSizeRepresentativeList(0, 4);
 
 	return 0;
 }
