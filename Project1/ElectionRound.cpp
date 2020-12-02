@@ -7,7 +7,7 @@ namespace proj
 	int ElectionRound::countState = 0;
 	int ElectionRound::countCitizen = 0;
 
-	ElectionRound::ElectionRound(): _stateArray(new StateArray()),_citizenList(new citizenList())
+	ElectionRound::ElectionRound(): _stateArray(),_citizenList(new citizenList())
 	{
 		date.day = 0;
 		date.month = 0;
@@ -15,7 +15,16 @@ namespace proj
 	}
 	ElectionRound::~ElectionRound()
 	{
-		delete[]_stateArray;
+		// delete _stateArray
 		delete _citizenList;
 	}
+	void ElectionRound::addState(char* name, int numRep)
+	{
+		_stateArray.addState(name, numRep);
+	}
+	void ElectionRound::printStateArray()
+	{
+
+	}
+
 }

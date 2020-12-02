@@ -3,14 +3,36 @@
 #include"citizenList.h"
 #include "utils.h"
 #include <iostream>
-#include"VotersBook.h"
+#include"ElectionRound.h"
+#include "StateArray.h"
 using namespace std;
 using namespace proj;
 
 int main()
 {
-	politicalParty a;
-	a.reSizeRepresentativeList(0, 4);
+	
+	char a[] = "jmvj";
+		
+		State d(a,12);
+		State b;
+		b = d;
+		cout << b.getNumOfRepresentative()<<endl;
+		cout << b.getName();
+		
+		StateArray ab;
+
+				ab.reSizeStateArray(2, 4);
+
+	/*char* n;
+		char c = 'a';
+		n = &c;
+		a.addState(n, 3);
+		a.addState(n, 3);
+		a.addState(n, 3);
+		a.reSizeStateArray(0, 4);
+		cout << ElectionRound::countState << endl;*/
+
+	
 
 	return 0;
 }

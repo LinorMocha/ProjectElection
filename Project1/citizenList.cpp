@@ -80,10 +80,10 @@ namespace proj {
        return head;
    }
 
-   void citizenList::operator=(citizenList* input)
+   void citizenList::operator=(const citizenList& input)
    {
-       head = input->head;
-       tail = input->tail;
+       head = input.head;
+       tail = input.tail;
    }
 
    void citizenList::setHead( node* _head)

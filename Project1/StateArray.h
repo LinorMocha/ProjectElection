@@ -14,10 +14,11 @@ namespace proj
     public:
         StateArray();
         ~StateArray();
-        State* getStateById(int Id);
+        const State& getStateById(int Id);
         int getStatenumOfRepresentative(int Id);
         void addState(char* name, int _numRep);
-        void reSizeStateArray(int size, int newSize)
+        void reSizeStateArray(int size, int newSize);
+
         // להוסיף מחיקת איבר
         //להוסיף getters
     };

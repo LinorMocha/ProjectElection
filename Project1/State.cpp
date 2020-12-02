@@ -10,6 +10,8 @@ namespace proj
 		
 		numId = ElectionRound::countPoliticalParty;
 		ElectionRound::countPoliticalParty++;
+		cout << "con state" << endl;
+
 	}
 	
 	void State::operator=(const State& input)
@@ -17,6 +19,7 @@ namespace proj
 		numId = input.numId;
 		numOfRepresentative = input.numOfRepresentative;
 		name = utils::my_strdup(input.name);
+		
 	}
 	State::State(char* _name, int _numRep) :State()
 	{

@@ -5,7 +5,7 @@ namespace proj
 {
 	StateArray::StateArray() : stateArray(new State()),phySize(1)
 	{
-				
+		cout << "con state aaray" << endl;
 	}
 
 	StateArray::~StateArray()
@@ -26,10 +26,17 @@ namespace proj
 
 	void StateArray::reSizeStateArray(int size, int newSize)
 	{
+		
 		State* res = new State [newSize];
-		for (int i = 1; i <= size; i++)
+		//res[2].getName();
+		
+	//	cout << res[2].getNumId() << "linor"<< endl;
+		res[0] = stateArray[0];
+			
+
+		for (int i = 0; i <= newSize; i++)
 		{
-			res[i] = stateArray[i];
+			res[i]=stateArray[i];
 		}
 		
 		delete stateArray;
@@ -38,9 +45,9 @@ namespace proj
 
 
 	// יש את הגטרים האלה גם במחוז עצמו צריך להבין אם יש להם צורך גם פה
-	State *StateArray::getStateById(int Id)
+	const State& StateArray::getStateById(int Id)
 	{
-		return &stateArray[Id];
+		return stateArray[Id];
 	}
 
 	int StateArray::getStatenumOfRepresentative(int Id)
