@@ -50,6 +50,11 @@ namespace proj
 
 	politicalPartyArray = res;
 	}
+	void PoliticalPartyArray::addRepToPoli(int PolId, int StateId, citizen* rep)
+	{
+		politicalPartyArray[PolId]->addRepresentitive(rep, StateId);
+	}
+
 	const citizenList& PoliticalPartyArray::getSelectedRepList(int PoliId, int StateId, int repCount)
 	{
 		return politicalPartyArray[PoliId]->getWinningRepresentitives(StateId, repCount);

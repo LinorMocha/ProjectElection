@@ -77,6 +77,14 @@ namespace proj
 		return _politicalPartyArray.getSelectedRepList(PoliId, StateId, repCount);
 	}
 
+	void ElectionRound::addRepresentativetoPoli(int repId ,int PoliId, int StateId)
+	{
+		citizen* rep = _citizenList.getItem(repId);
+		if (rep != nullptr)
+			_politicalPartyArray.addRepToPoli(PoliId, StateId, rep);
+		else
+			cout << "there is no citizen with this Id in the country" << endl;
 
+	}
 
 }

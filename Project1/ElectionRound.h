@@ -36,7 +36,7 @@ namespace proj
 		void printCitizenList();
 
 		////////////  Representative//////////
-
+		void addRepresentativetoPoli(int repId, int PoliId, int StateId);
 
 
 		////////////  POLITICALPARTY  //////////
