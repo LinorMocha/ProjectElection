@@ -5,9 +5,9 @@
 
 namespace proj
 {
-	State::State() :name(nullptr), numOfRepresentative(0)
+	State::State() :name(new char[30]), numOfRepresentative(0)
 	{
-		
+		name = nullptr;
 		numId = ElectionRound::countPoliticalParty;
 		ElectionRound::countPoliticalParty++;
 		cout << "con state" << endl;

@@ -28,11 +28,7 @@ namespace proj
 	{
 		
 		State* res = new State [newSize];
-		//res[2].getName();
 		
-	//	cout << res[2].getNumId() << "linor"<< endl;
-		res[0] = stateArray[0];
-			
 
 		for (int i = 0; i <= newSize; i++)
 		{
