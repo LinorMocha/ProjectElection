@@ -19,7 +19,7 @@ namespace proj
     public:
         citizenList();
         ~citizenList();
-
+        citizenList(const citizenList& input);
         void operator=(const citizenList& input);
         void addNodeToTail(citizen* input);
         void addNodeToHead(citizen* input);

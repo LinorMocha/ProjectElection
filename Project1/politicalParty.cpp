@@ -10,6 +10,14 @@ namespace proj
 	{
         
 	}
+    politicalParty::politicalParty(const politicalParty& pol)
+    {
+        numId = pol.numId;
+        head = pol.head;
+        representativeList = new citizenList * (*pol.representativeList);
+      //  name = new char(*pol.name);
+         name=   utils::my_strdup(pol.name);
+    }
     politicalParty::~politicalParty()
     {
         delete[] representativeList;
@@ -78,7 +86,7 @@ namespace proj
        representativeList = res;
     }
 
-    citizenList* politicalParty::getWinningRepresentitives(int state, int repCount)
+    const citizenList& politicalParty::getWinningRepresentitives(int state, int repCount)
     {
         citizenList* stateRepres=new citizenList();
         
@@ -92,15 +100,13 @@ namespace proj
             temp = head->next;
         }
         
-        return stateRepres;
+        return *stateRepres;
 	}
     void politicalParty::operator=(const politicalParty& input)
     {
         numId = input.numId;
         head = input.head;
         representativeList=input.representativeList;
-        
         name = input.name;
-      //  name = utils::my_strdup(input.name);
     }
 }

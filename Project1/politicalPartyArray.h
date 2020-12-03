@@ -7,7 +7,7 @@ namespace proj
     class PoliticalPartyArray
     {
     private:
-        politicalParty* politicalPartyArray;
+        politicalParty** politicalPartyArray;
         int phySize;
     public:
         PoliticalPartyArray();
@@ -18,6 +18,6 @@ namespace proj
         void reSizePoliticalPartyArray();
         void printPoliticalPartyArray();
         const citizen& getPoliticalPartyHead(int numID);
-
+        const citizenList& getSelectedRepList(int PoliId, int StateId, int repCount);
      };
 }

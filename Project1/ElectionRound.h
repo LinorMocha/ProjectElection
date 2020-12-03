@@ -2,6 +2,7 @@
 #include "citizenList.h"
 #include "utils.h"
 #include "StateArray.h"
+#include"politicalPartyArray.h"
 namespace proj
 {
 	class ElectionRound
@@ -10,6 +11,7 @@ namespace proj
 		private:
 			citizenList _citizenList;
 			StateArray _stateArray;
+			PoliticalPartyArray _politicalPartyArray;
 			Date date;
 
 			//רשימת או מערך מפלגות
@@ -39,6 +41,9 @@ namespace proj
 
 		////////////  POLITICALPARTY  //////////
 		void addPoliticalParty(char* name, int headId);
+		void printPoliticalPartyArray();
+		const politicalParty& getPoliById(int numId);
+		const citizenList& getSelectedRepList(int PoliId, int StateId,int repCount);
 	};
 
 }

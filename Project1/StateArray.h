@@ -9,7 +9,7 @@ namespace proj
     class StateArray
     {
     private:
-        State* stateArray;
+        State** stateArray;
         int phySize;
     public:
         StateArray();

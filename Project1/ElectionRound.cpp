@@ -7,7 +7,7 @@ namespace proj
 	int ElectionRound::countState = 0;
 	int ElectionRound::countCitizen = 0;
 
-	ElectionRound::ElectionRound(): _stateArray(),_citizenList()
+	ElectionRound::ElectionRound(): _stateArray(),_citizenList(),_politicalPartyArray()
 	{
 		date.day = 0;
 		date.month = 0;
@@ -54,9 +54,28 @@ namespace proj
 
 	void ElectionRound::addPoliticalParty(char* name, int headId)
 	{
-
+		citizen * headPoly=_citizenList.getItem(headId);
+		if (headPoly != nullptr)
+		{
+			_politicalPartyArray.addPoliticalParty(name, headPoly);
+		}
+		else
+			cout << "there is no citizen with this Id in the country" << endl;
+	}
+	void ElectionRound::printPoliticalPartyArray()
+	{
+		_politicalPartyArray.printPoliticalPartyArray();
 	}
 
+	const politicalParty& ElectionRound::getPoliById(int numId)
+	{
+		return _politicalPartyArray.getPoliticalPartyById(numId);
+		
+	}
+	const citizenList& ElectionRound::getSelectedRepList(int PoliId, int StateId,int repCount)
+	{
+		return _politicalPartyArray.getSelectedRepList(PoliId, StateId, repCount);
+	}
 
 
 

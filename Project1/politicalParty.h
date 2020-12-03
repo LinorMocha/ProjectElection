@@ -13,6 +13,7 @@ namespace proj {
        
     public:
         politicalParty();
+        politicalParty(const politicalParty& pol);
         politicalParty(char* partyName, citizen* _head);
         ~politicalParty();
         int getNumId();
@@ -23,7 +24,7 @@ namespace proj {
         void addRepresentitive(citizen* citizen, int state);
         void printPoliticalParty();
         // לאחר תוצאות הבחירות ניקח את הרשימה שלנו לפי מחוזות ונביא רק את הנציגים שנבחרו (לפי מספר סידורי)
-        citizenList* getWinningRepresentitives(int state, int repCount);
+        const citizenList& getWinningRepresentitives(int state, int repCount);
 
     };
 }

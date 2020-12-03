@@ -10,6 +10,16 @@ namespace proj {
      
        cout << "const" << endl;
     }
+   citizenList::citizenList(const citizenList& input):citizenList()
+   {
+       node* index = input.head;
+       while (index!=nullptr)
+       {
+           addNodeToTail(index->value);
+           index = index->next;
+        }
+
+   }
    citizenList::~citizenList()
     {
             node* current = head;

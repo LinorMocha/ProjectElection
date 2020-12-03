@@ -3,36 +3,40 @@
 
 namespace proj
 {
-	StateArray::StateArray() : stateArray(new State()),phySize(1)
+	StateArray::StateArray() : stateArray(new State*()),phySize(1)
 	{
 		cout << "con state aaray" << endl;
 	}
 
 	StateArray::~StateArray()
 	{
-		delete[]stateArray;
+		for (int i = 0; i <= ElectionRound::countState; i++)
+		{
+			delete[] stateArray[i];
+		}
 	}
 
 
 	void StateArray::addState(char* name, int _numRep)
 	{
-		State newState(name, _numRep);
+		State* newState = new State(name, _numRep);
+		
+
 		if (ElectionRound::countState > phySize)
 			reSizeStateArray();
 		
-		stateArray[newState.getNumId()] = newState;
-		phySize = phySize * 2;		
+		stateArray[newState->getNumId()] = newState;
+			
 	}
 
 	void StateArray::reSizeStateArray()
 	{
 		phySize *= 2;
-		State* res = new State[phySize];
+		State** res = new State*[phySize];
 
 		for (int i = 0; i <= ElectionRound::countState; i++)
 		{
-			State a=stateArray[i];
-			res[i] = a;
+			res[i]= new State(*stateArray[i]);
 		}
 		delete[] stateArray;
 		stateArray = res;
@@ -40,19 +44,17 @@ namespace proj
 	void StateArray::printStateArray()
 	{
 		for (int i = 1; i < ElectionRound::countState; i++)
-			stateArray[i].printState();
+			stateArray[i]->printState();
 	}
 
-
-	// יש את הגטרים האלה גם במחוז עצמו צריך להבין אם יש להם צורך גם פה
 	const State& StateArray::getStateById(int Id)
 	{
-		return stateArray[Id];
+		return *stateArray[Id];
 	}
 
 	int StateArray::getStatenumOfRepresentative(int Id)
 	{
-		return stateArray[Id].getNumOfRepresentative();
+		return stateArray[Id]->getNumOfRepresentative();
 	}
 
 
