@@ -5,24 +5,38 @@
 
 namespace proj
 {
-	State::State() :name(new char[30]), numOfRepresentative(0)
+	State::State():name(new char()), numOfRepresentative(0),numId(0)
 	{
 		name = nullptr;
-		numId = ElectionRound::countPoliticalParty;
-		ElectionRound::countPoliticalParty++;
-		cout << "con state" << endl;
-
+		
 	}
-	
+	State::State(const State& sta)
+	{
+		numId = sta.numId;
+		numOfRepresentative = sta.numOfRepresentative;
+		name = utils::my_strdup(sta.name);
+	}
+	void State::printState()
+	{
+		cout << numId << " ";
+		cout << name << " ";
+		cout << numOfRepresentative << " ";
+	}
+	State::~State()
+	{
+		delete[] name;
+	}
 	const State& State::operator=(const State& input)
 	{
 		numId = input.numId;
 		numOfRepresentative = input.numOfRepresentative;
-		name = utils::my_strdup(input.name);
+		name = input.name;
 		return *this;
 	}
 	State::State(char* _name, int _numRep) :State()
 	{
+		ElectionRound::countState++;
+		numId = ElectionRound::countState;
 		numOfRepresentative = _numRep;
 		name = utils::my_strdup(_name);
 	}

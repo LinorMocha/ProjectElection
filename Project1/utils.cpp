@@ -4,13 +4,26 @@
 using namespace std;
 
 namespace proj {
+
+    int utils::myStrlen(char* input)
+    {
+        int i = 0;
+        int count = 0;
+        while (input[i] != '\0')
+        {
+            i++;
+            count++;
+        }
+        return count;
+    }
  
     char* utils::my_strdup(char* input) 
     {
         if (input == nullptr)
             return nullptr;
-       
-        char* output = new char[30];
+        int len = utils::myStrlen(input);
+        len++;
+        char* output = new char[len];
         int i = 0;
         while (input[i] != '\0')
         {

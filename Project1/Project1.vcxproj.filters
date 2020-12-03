@@ -39,6 +39,9 @@
     <ClInclude Include="StateArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="politicalPartyArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="citizen.cpp">
@@ -66,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StateArray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PoliticalPartyArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

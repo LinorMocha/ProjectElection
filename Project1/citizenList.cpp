@@ -62,7 +62,7 @@ namespace proj {
        }
    }
 
-   citizen* citizenList::getItem(int _id)
+    citizen* citizenList::getItem(int _id)
    {
        node* current = head;
 
@@ -83,13 +83,18 @@ namespace proj {
    void citizenList::operator=(const citizenList& input)
    {
        head = input.head;
+       
        tail = input.tail;
    }
 
-   void citizenList::setHead( node* _head)
+   
+   void citizenList::printList()
    {
-       head = _head;
-
+       node* temp = head;
+       while (temp != nullptr)
+       {
+           temp->value->printCitizen();
+           temp = temp->next;
+       }
    }
-
 }

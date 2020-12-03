@@ -18,25 +18,29 @@ namespace proj
 	{
 		State newState(name, _numRep);
 		if (ElectionRound::countState > phySize)
-			reSizeStateArray(ElectionRound::countState, phySize * 2);
+			reSizeStateArray();
 		
 		stateArray[newState.getNumId()] = newState;
 		phySize = phySize * 2;		
 	}
 
-	void StateArray::reSizeStateArray(int size, int newSize)
+	void StateArray::reSizeStateArray()
 	{
-		
-		State* res = new State [newSize];
-		
+		phySize *= 2;
+		State* res = new State[phySize];
 
-		for (int i = 0; i <= newSize; i++)
+		for (int i = 0; i <= ElectionRound::countState; i++)
 		{
-			res[i]=stateArray[i];
+			State a=stateArray[i];
+			res[i] = a;
 		}
-		
-		delete stateArray;
+		delete[] stateArray;
 		stateArray = res;
+	}
+	void StateArray::printStateArray()
+	{
+		for (int i = 1; i < ElectionRound::countState; i++)
+			stateArray[i].printState();
 	}
 
 

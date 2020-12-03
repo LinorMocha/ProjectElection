@@ -8,7 +8,7 @@ namespace proj
 	{
 
 		private:
-			citizenList* _citizenList;
+			citizenList _citizenList;
 			StateArray _stateArray;
 			Date date;
 
@@ -22,8 +22,23 @@ namespace proj
 
 		ElectionRound();
 		~ElectionRound();
+
+		/////////// STATE //////////////////
 		void addState(char* name, int numRep);
 		void printStateArray();
+		const State& getStateById(int numId);
+
+		/////////// CITIZEN //////////////////
+		void addCitizen(char* _name, int id, int numD, int _birthYear);
+		const citizen& getCitizenById(int numId);
+		void printCitizenList();
+
+		////////////  Representative//////////
+
+
+
+		////////////  POLITICALPARTY  //////////
+		void addPoliticalParty(char* name, int headId);
 	};
 
 }

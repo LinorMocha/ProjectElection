@@ -23,10 +23,10 @@ namespace proj
         void operator=(const citizenList& input);
         void addNodeToTail(citizen* input);
         void addNodeToHead(citizen* input);
-
+        void printList();
         citizen* getItem(int _id);
         node* getHead();
-        void setHead(node* head);
+     
 
     };
 }

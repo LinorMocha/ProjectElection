@@ -4,17 +4,25 @@
 
 namespace proj
 {
-	citizen::citizen() : ID(0), numDistrict(0), name(nullptr),vote(-1), birthYear(0)
+	citizen::citizen() : ID(0), numDistrict(0), name(new char()),vote(-1), birthYear(0)
 	{
-		//ElectionRound::countCitizen++;
-		
+		name = nullptr;
 	}
 	citizen::citizen(char* _name, int id, int numD,int _birthYear) : ID(id), numDistrict(numD), birthYear(_birthYear)
 	{
 		ElectionRound::countCitizen++;
-		citizen::name =utils::my_strdup(_name);
+		name =utils::my_strdup(_name);
 		vote = -1;
 	}
+	citizen::citizen(const citizen& cit)
+	{
+		ID = cit.ID;
+		numDistrict = cit.numDistrict;
+		birthYear = cit.birthYear;
+		name = utils::my_strdup(cit.name);
+		vote = cit.vote;
+	}
+
 	citizen::~citizen()
 	{
 		delete[] name;
@@ -36,5 +44,11 @@ namespace proj
 		vote = _vote;
 	}
 
-	
+	void citizen::printCitizen()
+	{
+		cout << name << " ";
+		cout << ID << " ";
+		cout << numDistrict << " ";
+		cout << birthYear << " ";
+	}
 }

@@ -16,9 +16,11 @@ namespace proj
 	public:
 		citizen();
 		citizen(char* _name, int id, int numD,int _birthYear);
+		citizen(const citizen& cit);
 		~citizen();
 		void operator=(const citizen& input);
 		int getId();
 		void setvote(int _vote);
+		void printCitizen();
 	};
 }
