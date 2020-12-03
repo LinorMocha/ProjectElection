@@ -13,7 +13,7 @@ namespace proj
 	class utils
 	{
 	public:
-		static char* my_strdup(const char* input);
+		static char* my_strdup(char* input);
 
 		
 

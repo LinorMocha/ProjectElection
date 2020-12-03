@@ -15,7 +15,7 @@ namespace proj
 		int getNumOfRepresentative();
 		int getNumId();
 		char* getName();
-		void operator=(const State& input);
+		const State& operator=(const State& input);
 	};
 }
 

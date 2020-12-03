@@ -14,12 +14,12 @@ namespace proj
 
 	}
 	
-	void State::operator=(const State& input)
+	const State& State::operator=(const State& input)
 	{
 		numId = input.numId;
 		numOfRepresentative = input.numOfRepresentative;
 		name = utils::my_strdup(input.name);
-		
+		return *this;
 	}
 	State::State(char* _name, int _numRep) :State()
 	{
