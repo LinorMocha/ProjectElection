@@ -15,8 +15,7 @@ namespace proj
         numId = pol.numId;
         head = pol.head;
         representativeList = new citizenList * (*pol.representativeList);
-      //  name = new char(*pol.name);
-         name=   utils::my_strdup(pol.name);
+        name=   utils::my_strdup(pol.name);
     }
     politicalParty::~politicalParty()
     {
@@ -71,18 +70,14 @@ namespace proj
         citizenList** res = new citizenList*[newSize];
         for (int i = 0; i < newSize; i++)
         {
-            res[i] = new citizenList();
-            
             if(i < size && i!=0)
                 res[i] = representativeList[i];
             else
-                res[i] = nullptr;
+                res[i] = new citizenList();
         }
-        /// delete???
-       /* for (int j = 0; j < size; j++)
-        {
-           delete[] representativeList[j];
-        }*/
+        
+		delete[] representativeList;
+        
        representativeList = res;
     }
 
