@@ -6,20 +6,21 @@
 
 namespace proj
 {
-	politicalParty::politicalParty() :representativeList(new citizenList*()), name(nullptr), numId(0),head(nullptr)
+	politicalParty::politicalParty() :representativeListByStateArray(new citizenList*()), name(nullptr), numId(0),head(nullptr),votesByStatesArray(new int()),phySize(1)
 	{
-        
+        votesByStatesArray[0] = 0;
 	}
-    politicalParty::politicalParty(const politicalParty& pol)
-    {
-        numId = pol.numId;
-        head = pol.head;
-        representativeList = new citizenList * (*pol.representativeList);
-        name=   utils::my_strdup(pol.name);
-    }
+    //politicalParty::politicalParty(const politicalParty& pol)
+    //{
+    //    numId = pol.numId;
+    //    head = pol.head;
+    //    votesByStatesArray = new int[];
+    //    representativeListByStateArray = new citizenList * (*pol.representativeListByStateArray);
+    //    name=   utils::my_strdup(pol.name);
+    //}
     politicalParty::~politicalParty()
     {
-        delete[] representativeList;
+        delete[] representativeListByStateArray;
         delete[] name;
         delete[] head;
     }
@@ -39,7 +40,7 @@ namespace proj
         for (int i = 0; i < ElectionRound::countState; i++)
         {
             cout << "Representative List for State:" << i << " ";
-            representativeList[i]->printList();
+            representativeListByStateArray[i]->printList();
         }
     }
     char *politicalParty::getName()
@@ -58,34 +59,59 @@ namespace proj
     }
     void politicalParty::addRepresentitive(citizen* citizen, int state) 
     {
-        if (state > ElectionRound::countState)
-        {
-            reSizeRepresentativeList(ElectionRound::countState+1, state + 1);
-        }
-       representativeList[state]->addNodeToTail(citizen);
+            representativeListByStateArray[state]->addNodeToTail(citizen);
     }
-
-    void politicalParty::reSizeRepresentativeList(int size, int newSize)
+    void politicalParty::addState()
     {
-        citizenList** res = new citizenList*[newSize];
-        for (int i = 0; i < newSize; i++)
+        if (phySize < ElectionRound::countState)
         {
-            if(i < size && i!=0)
-                res[i] = representativeList[i];
+            reSizeRepresentativeList();
+            reSizeVotesByStateArray();
+        }
+    }
+    void politicalParty::addVote(int stateId)
+    {
+        votesByStatesArray[stateId]++;
+    }
+        void politicalParty::reSizeVotesByStateArray()
+    {
+        int* res = new int[phySize];
+        for (int i = 0; i < phySize; i++)
+        {
+            if (ElectionRound::countState > i)
+                res[i] = votesByStatesArray[i];
             else
+                res[i] = 0;
+        }
+
+        delete[]votesByStatesArray;
+        votesByStatesArray = res;
+    }
+    void politicalParty::reSizeRepresentativeList()
+    {
+        phySize *= 2;
+        citizenList** res = new citizenList*[phySize];
+        for (int i = 0; i < phySize; i++)
+        {
+            if(i < ElectionRound::countState && i!=0)
+                res[i] = representativeListByStateArray[i];
+            else
+            {
                 res[i] = new citizenList();
+                res[i] = nullptr;
+            }
         }
         
-		delete[] representativeList;
+		delete[] representativeListByStateArray;
         
-       representativeList = res;
+       representativeListByStateArray = res;
     }
 
     const citizenList& politicalParty::getWinningRepresentitives(int state, int repCount)
     {
         citizenList* stateRepres=new citizenList();
         
-        node* head = representativeList[state]->getHead();
+        node* head = representativeListByStateArray[state]->getHead();
         
         node* temp = head;
         
@@ -97,11 +123,11 @@ namespace proj
         
         return *stateRepres;
 	}
-    void politicalParty::operator=(const politicalParty& input)
+    /*void politicalParty::operator=(const politicalParty& input)
     {
         numId = input.numId;
         head = input.head;
-        representativeList=input.representativeList;
+        representativeListByStateArray=input.representativeListByStateArray;
         name = input.name;
-    }
+    }*/
 }

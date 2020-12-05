@@ -72,7 +72,7 @@ namespace proj {
        }
    }
 
-    citizen* citizenList::getItem(int _id)
+    citizen* citizenList::getCitizenById(int _id)
    {
        node* current = head;
 

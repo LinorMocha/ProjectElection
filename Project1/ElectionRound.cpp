@@ -23,7 +23,12 @@ namespace proj
 	void ElectionRound::addState(char* name, int numRep)
 	{
 		_stateArray.addState(name, numRep);
+		
+		_politicalPartyArray.addState();
 	}
+
+
+
 	void ElectionRound::printStateArray()
 	{
 		_stateArray.printStateArray();
@@ -36,13 +41,13 @@ namespace proj
 	///////////// CITIZEN implementation//////////////////
 	void ElectionRound::addCitizen(char* _name, int id, int numD, int _birthYear)
 	{
-		
+		_stateArray.addCitizenCountToState(numD);
 		citizen newC(_name, id, numD, _birthYear);
 		_citizenList.addNodeToTail(&newC);
 	}
 	const citizen& ElectionRound::getCitizenById(int numId)
 	{
-		return *_citizenList.getItem(numId);
+		return *_citizenList.getCitizenById(numId);
 	}
 	void ElectionRound::printCitizenList()
 	{
@@ -50,11 +55,11 @@ namespace proj
 	}
 
 
-	////////////  POLITICALPARTY  //////////
+	////////////  POLITICALPARTY implementation  //////////
 
 	void ElectionRound::addPoliticalParty(char* name, int headId)
 	{
-		citizen * headPoly=_citizenList.getItem(headId);
+		citizen * headPoly=_citizenList.getCitizenById(headId);
 		if (headPoly != nullptr)
 		{
 			_politicalPartyArray.addPoliticalParty(name, headPoly);
@@ -79,7 +84,7 @@ namespace proj
 
 	void ElectionRound::addRepresentativetoPoli(int repId ,int PoliId, int StateId)
 	{
-		citizen* rep = _citizenList.getItem(repId);
+		citizen* rep = _citizenList.getCitizenById(repId);
 		if (rep != nullptr)
 			_politicalPartyArray.addRepToPoli(PoliId, StateId, rep);
 		else
@@ -87,4 +92,13 @@ namespace proj
 
 	}
 
+
+	///////////// Vote implementation///////////////
+
+	void ElectionRound::addVote(int citizenId, int poliId)
+	{
+		citizen* cit = _citizenList.getCitizenById(citizenId);
+		cit->setvote(poliId);
+		_politicalPartyArray.addVote(poliId, cit->getStateId());
+	}
 }

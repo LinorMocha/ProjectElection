@@ -10,6 +10,8 @@ namespace proj
 		int numId;
 		int numOfRepresentative;
 	public:
+		int countCitizens;
+
 		State();
 		State(char* _name, int _numRep);
 		State(const State& Sta);

@@ -19,6 +19,6 @@ namespace proj
         void addState(char* name, int _numRep);
         void reSizeStateArray();
         void printStateArray();
-
+        void addCitizenCountToState(int stateId);
     };
 }

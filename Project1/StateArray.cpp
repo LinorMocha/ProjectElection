@@ -15,7 +15,10 @@ namespace proj
 			delete[] stateArray[i];
 		}
 	}
-
+	void StateArray::addCitizenCountToState(int stateId)
+	{
+		(stateArray[stateId]->countCitizens)++;
+	}
 
 	void StateArray::addState(char* name, int _numRep)
 	{

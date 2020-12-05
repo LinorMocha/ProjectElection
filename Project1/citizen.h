@@ -9,7 +9,7 @@ namespace proj
 	private:
 		char* name;
 		int ID;
-		int numDistrict;
+		int stateId;
 		int birthYear;
 		int vote;
 
@@ -22,5 +22,6 @@ namespace proj
 		int getId();
 		void setvote(int _vote);
 		void printCitizen();
+		int getStateId();
 	};
 }

@@ -44,6 +44,9 @@ namespace proj
 		void printPoliticalPartyArray();
 		const politicalParty& getPoliById(int numId);
 		const citizenList& getSelectedRepList(int PoliId, int StateId,int repCount);
+	
+		/////////// Vote //////////////
+		void addVote(int citizenId, int poliId);
 	};
 
 }

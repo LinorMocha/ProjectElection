@@ -11,6 +11,18 @@ namespace proj
 	{
 		delete[]politicalPartyArray;
 	}
+	void PoliticalPartyArray::addState()
+	{
+		for (int i = 0; i < ElectionRound::countPoliticalParty; i++)
+		{
+			politicalPartyArray[i]->addState();
+		}
+	}
+	void PoliticalPartyArray::addVote(int poliId,int stateId)
+	{
+		politicalPartyArray[poliId]->addVote(stateId);
+	}
+
 	void PoliticalPartyArray::addPoliticalParty(char* name, citizen* head)
 	{
 		politicalParty *newParty=new politicalParty(name, head);
