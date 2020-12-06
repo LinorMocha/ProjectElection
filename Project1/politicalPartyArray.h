@@ -13,6 +13,8 @@ namespace proj
         PoliticalPartyArray();
         ~PoliticalPartyArray();
 
+        int getOverAllVotesForPoli(int poliId);
+        int getOverAllVotesForPoliInState(int poliId, int stateId);
         void addState();
         const politicalParty& getPoliticalPartyById(int Id);
         void addPoliticalParty(char* name, citizen * head);

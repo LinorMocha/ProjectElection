@@ -26,9 +26,6 @@ namespace proj
 		
 		_politicalPartyArray.addState();
 	}
-
-
-
 	void ElectionRound::printStateArray()
 	{
 		_stateArray.printStateArray();
@@ -98,7 +95,16 @@ namespace proj
 	void ElectionRound::addVote(int citizenId, int poliId)
 	{
 		citizen* cit = _citizenList.getCitizenById(citizenId);
-		cit->setvote(poliId);
-		_politicalPartyArray.addVote(poliId, cit->getStateId());
+		if(cit==nullptr)
+			cout << "there is no citizen with this Id in the country" << endl;
+
+		if (cit->getVote() != -1)
+		{
+			cit->setvote(poliId);
+			_politicalPartyArray.addVote(poliId, cit->getStateId());
+		}
+		else
+			cout << "You already voted" << endl;
 	}
+
 }

@@ -28,16 +28,25 @@ namespace proj
 	{
 		delete[] name;
 	}
-	int citizen::getStateId()
-	{
-		return stateId;
-	}
 	void citizen::operator=(const citizen& input)
 	{
 		ID = input.ID;
 		stateId = input.stateId;
 		vote = input.vote;
 		name = utils::my_strdup(input.name);
+	}
+	int citizen::getStateId()
+	{
+		return stateId;
+	}
+	
+	int citizen::getVote()
+	{
+		return vote;
+	}
+	int citizen::getBirthYear()
+	{
+		return birthYear;
 	}
 
 	int citizen::getId()
@@ -56,4 +65,6 @@ namespace proj
 		cout << stateId << " ";
 		cout << birthYear << " ";
 	}
+
+
 }

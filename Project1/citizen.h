@@ -19,9 +19,16 @@ namespace proj
 		citizen(const citizen& cit);
 		~citizen();
 		void operator=(const citizen& input);
-		int getId();
-		void setvote(int _vote);
 		void printCitizen();
+
+		///// GETERS////////
+		int getId();
 		int getStateId();
+		int getVote();
+		int getBirthYear();
+
+		///// SETERS//////
+		void setvote(int _vote);
+
 	};
 }

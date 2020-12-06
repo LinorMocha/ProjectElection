@@ -20,5 +20,6 @@ namespace proj
         void reSizeStateArray();
         void printStateArray();
         void addCitizenCountToState(int stateId);
+
     };
 }

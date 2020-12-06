@@ -43,6 +43,19 @@ namespace proj
             representativeListByStateArray[i]->printList();
         }
     }
+    int politicalParty::getHowManyVotesOverAll()
+    {
+        int res=0;
+        for (int i = 0; i < ElectionRound::countState; i++)
+        {
+            res += votesByStatesArray[i];
+        }
+        return res;
+    }
+    int politicalParty::getHowManyVotesForState(int stateId)
+    {
+        return votesByStatesArray[stateId];
+    }
     char *politicalParty::getName()
     {
         return name;

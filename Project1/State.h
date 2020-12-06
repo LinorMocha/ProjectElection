@@ -9,18 +9,26 @@ namespace proj
 		char* name;
 		int numId;
 		int numOfRepresentative;
+		int countCitizensInState;
+
 	public:
-		int countCitizens;
 
 		State();
 		State(char* _name, int _numRep);
 		State(const State& Sta);
 		~State();
+		const State& operator=(const State& input);
+		void printState();
+		
+		/// GETERS ///
 		int getNumOfRepresentative();
 		int getNumId();
 		char* getName();
-		const State& operator=(const State& input);
-		void printState();
+		int getHomManyCitizens();
+		
+		//// SETERS /////
+		void addCitizen();
+
 	};
 }
 

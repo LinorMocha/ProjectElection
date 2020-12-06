@@ -18,6 +18,15 @@ namespace proj
 			politicalPartyArray[i]->addState();
 		}
 	}
+	int PoliticalPartyArray::getOverAllVotesForPoliInState(int poliId, int stateId)
+	{
+		return politicalPartyArray[poliId]->getHowManyVotesForState(stateId);
+	}
+	int PoliticalPartyArray::getOverAllVotesForPoli(int poliId)
+	{
+		return politicalPartyArray[poliId]->getHowManyVotesOverAll();
+	}
+
 	void PoliticalPartyArray::addVote(int poliId,int stateId)
 	{
 		politicalPartyArray[poliId]->addVote(stateId);

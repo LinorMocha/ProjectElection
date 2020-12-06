@@ -5,16 +5,18 @@
 
 namespace proj
 {
-	State::State():name(new char()), numOfRepresentative(0),numId(0)
+	State::State():name(new char()), numOfRepresentative(0),numId(0), countCitizensInState(0)
 	{
 		name = nullptr;
 		
 	}
+	
 	State::State(const State& sta)
 	{
 		numId = sta.numId;
 		numOfRepresentative = sta.numOfRepresentative;
 		name = utils::my_strdup(sta.name);
+		countCitizensInState = sta.countCitizensInState;
 	}
 	void State::printState()
 	{
@@ -31,6 +33,7 @@ namespace proj
 		numId = input.numId;
 		numOfRepresentative = input.numOfRepresentative;
 		name = input.name;
+		countCitizensInState = input.countCitizensInState;
 		return *this;
 	}
 	State::State(char* _name, int _numRep) :State()
@@ -53,4 +56,14 @@ namespace proj
 	{
 		return numOfRepresentative;
 	}
+	int State::getHomManyCitizens()
+	{
+		return countCitizensInState;
+	}
+
+	void State::addCitizen()
+	{
+		countCitizensInState++;
+	}
+
 }

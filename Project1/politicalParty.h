@@ -14,20 +14,26 @@ namespace proj {
         int phySize;
     public:
         politicalParty();
-       // politicalParty(const politicalParty& pol);
         politicalParty(char* partyName, citizen* _head);
         ~politicalParty();
+        // to check if necessery
+        //void operator=(const politicalParty& input);
+       // politicalParty(const politicalParty& pol);
+
+        //// GETERS
         int getNumId();
         char* getName();
         citizen* getPoliticalPartyHead();
-        //void operator=(const politicalParty& input);
+        int getHowManyVotesOverAll();
+        int getHowManyVotesForState(int stateId);
+
+        /// OTHER FUNCATIONS
         void reSizeRepresentativeList();
         void addRepresentitive(citizen* citizen, int state);
         void printPoliticalParty();
         void addState();
         void reSizeVotesByStateArray();
         void addVote(int stateId);
-        // לאחר תוצאות הבחירות ניקח את הרשימה שלנו לפי מחוזות ונביא רק את הנציגים שנבחרו (לפי מספר סידורי)
         const citizenList& getWinningRepresentitives(int state, int repCount);
 
     };
