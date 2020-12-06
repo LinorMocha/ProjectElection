@@ -15,7 +15,10 @@ namespace proj
         StateArray();
         ~StateArray();
         const State& getStateById(int Id);
+        
         int getStatenumOfRepresentative(int Id);
+        int getCitizenCount(int stateId);
+
         void addState(char* name, int _numRep);
         void reSizeStateArray();
         void printStateArray();

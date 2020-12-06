@@ -12,10 +12,7 @@ namespace proj
 			citizenList _citizenList;
 			StateArray _stateArray;
 			PoliticalPartyArray _politicalPartyArray;
-			Date date;
-
-			//רשימת או מערך מפלגות
-			
+			Date date;			
 
 	public:
 		static int countPoliticalParty;
@@ -29,6 +26,7 @@ namespace proj
 		void addState(char* name, int numRep);
 		void printStateArray();
 		const State& getStateById(int numId);
+		int printElectionResultsForState(int stateId,int*wininigPoliId);
 
 		/////////// CITIZEN //////////////////
 		void addCitizen(char* _name, int id, int numD, int _birthYear);
@@ -38,15 +36,20 @@ namespace proj
 		////////////  Representative//////////
 		void addRepresentativetoPoli(int repId, int PoliId, int StateId);
 
-
 		////////////  POLITICALPARTY  //////////
 		void addPoliticalParty(char* name, int headId);
 		void printPoliticalPartyArray();
 		const politicalParty& getPoliById(int numId);
-		const citizenList& getSelectedRepList(int PoliId, int StateId,int repCount);
-	
+		//const citizenList& getSelectedRepList(int PoliId, int StateId,int repCount);
+		void printElectionResultsForPoli(int poliId);
+
+
 		/////////// Vote //////////////
 		void addVote(int citizenId, int poliId);
+		int calculateNumOfRepInPoliForState(int poliId, int stateId);
+
+		////// Turn Out ///////
+		void printElectionResults();
 	};
 
 }

@@ -26,6 +26,10 @@ namespace proj
 	{
 		return politicalPartyArray[poliId]->getHowManyVotesOverAll();
 	}
+	char* PoliticalPartyArray::getName(int poliId)
+	{
+		return politicalPartyArray[poliId]->getName();
+	}
 
 	void PoliticalPartyArray::addVote(int poliId,int stateId)
 	{
@@ -76,9 +80,15 @@ namespace proj
 		politicalPartyArray[PolId]->addRepresentitive(rep, StateId);
 	}
 
-	const citizenList& PoliticalPartyArray::getSelectedRepList(int PoliId, int StateId, int repCount)
+	/*const citizenList& PoliticalPartyArray::getSelectedRepList(int PoliId, int StateId, int repCount)
 	{
 		return politicalPartyArray[PoliId]->getWinningRepresentitives(StateId, repCount);
-	}
+	}*/
 
+	void PoliticalPartyArray::printSelectedRepList(int PoliId, int StateId, int repCount)
+	{
+		citizenList res= politicalPartyArray[PoliId]->getWinningRepresentitives(StateId, repCount);
+		res.printList();
+	}
+	
 }

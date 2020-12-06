@@ -60,5 +60,8 @@ namespace proj
 		return stateArray[Id]->getNumOfRepresentative();
 	}
 
-
+	int StateArray::getCitizenCount(int stateId)
+	{
+		return stateArray[stateId]->getHomManyCitizens();
+	}
 }

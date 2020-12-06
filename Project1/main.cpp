@@ -31,7 +31,9 @@ int main()
 		mk= n;
 		cout << *mk << endl;*/
 
-	
-
+	int num = 60;
+	int b = 100;
+	float a= (float)num / b;
+	cout << a;
 	return 0;
 }
