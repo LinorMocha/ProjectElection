@@ -34,7 +34,7 @@ namespace proj {
         void addState();
         void reSizeVotesByStateArray();
         void addVote(int stateId);
-        const citizenList& getWinningRepresentitives(int state, int repCount);
+       void PrintWinningRepresentitives(int state, int repCount);
 
     };
 }

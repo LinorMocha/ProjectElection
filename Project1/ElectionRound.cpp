@@ -122,9 +122,9 @@ namespace proj
 	
 	int ElectionRound::printElectionResultsForState(int stateId, int *winingPoliID)
 	{
-		int numberOfRepresentatvie;
+		int numberOfRepresentatvie=0;
 		int maxVote=0;
-		int countVotes;
+		int countVotes=0;
 		float precent;
 		int votesForPoli;
 		int numOfCitizenInState = _stateArray.getCitizenCount(stateId);
@@ -158,7 +158,8 @@ namespace proj
 	////////// Turn Out ////
 	void ElectionRound::printElectionResults()
 	{
-		int* numOfRepForPoliArray = new int[countPoliticalParty + 1];
+		int len = countPoliticalParty + 1;
+		int* numOfRepForPoliArray = new int[len];
 		int temp;
 		int tempId;
 		for (int i = 0; i <= countState; i++)
@@ -166,6 +167,5 @@ namespace proj
 			temp = printElectionResultsForState(i, &tempId);
 			numOfRepForPoliArray[tempId] = temp;
 		}
-		
 	}
 }

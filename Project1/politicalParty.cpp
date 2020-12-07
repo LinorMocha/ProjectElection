@@ -120,21 +120,10 @@ namespace proj
        representativeListByStateArray = res;
     }
 
-    const citizenList& politicalParty::getWinningRepresentitives(int state, int repCount)
+    void politicalParty::PrintWinningRepresentitives(int state, int repCount)
     {
-        citizenList* stateRepres=new citizenList();
-        
-        node* head = representativeListByStateArray[state]->getHead();
-        
-        node* temp = head;
-        
-        for (int i = 0; i < repCount; ++i) 
-        {
-            stateRepres->addNodeToTail(temp->value);
-            temp = head->next;
-        }
-        
-        return *stateRepres;
+        representativeListByStateArray[state]->printList(repCount);
+           
 	}
     /*void politicalParty::operator=(const politicalParty& input)
     {

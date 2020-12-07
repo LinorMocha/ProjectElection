@@ -24,6 +24,7 @@ namespace proj
         void addNodeToTail(citizen* input);
         void addNodeToHead(citizen* input);
         void printList();
+        void printList(int numOfNodeToPrint);
         citizen* getCitizenById(int _id);
         node* getHead();
      

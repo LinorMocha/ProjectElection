@@ -97,7 +97,17 @@ namespace proj {
        tail = input.tail;
    }
 
-   
+   void citizenList::printList(int numOfNodeToPrint)
+   {
+       node* temp = head;
+       int counter = 1;
+       while (temp != nullptr && counter <= numOfNodeToPrint)
+       {
+           temp->value->printCitizen();
+           temp = temp->next;
+           counter++;
+       }
+   }
    void citizenList::printList()
    {
        node* temp = head;

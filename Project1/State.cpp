@@ -18,6 +18,7 @@ namespace proj
 		name = utils::my_strdup(sta.name);
 		countCitizensInState = sta.countCitizensInState;
 	}
+
 	void State::printState()
 	{
 		cout << numId << " ";

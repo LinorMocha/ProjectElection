@@ -87,8 +87,7 @@ namespace proj
 
 	void PoliticalPartyArray::printSelectedRepList(int PoliId, int StateId, int repCount)
 	{
-		citizenList res= politicalPartyArray[PoliId]->getWinningRepresentitives(StateId, repCount);
-		res.printList();
+		politicalPartyArray[PoliId]->PrintWinningRepresentitives(StateId, repCount);
 	}
 	
 }
