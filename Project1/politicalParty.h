@@ -18,7 +18,7 @@ namespace proj {
         ~politicalParty();
         // to check if necessery
         //void operator=(const politicalParty& input);
-       // politicalParty(const politicalParty& pol);
+         politicalParty(const politicalParty& pol);
 
         //// GETERS
         int getNumId();

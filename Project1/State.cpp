@@ -43,6 +43,7 @@ namespace proj
 		numId = ElectionRound::countState;
 		numOfRepresentative = _numRep;
 		name = utils::my_strdup(_name);
+
 	}
 
 	char* State::getName()

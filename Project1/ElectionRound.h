@@ -18,15 +18,17 @@ namespace proj
 		static int countPoliticalParty;
 		static int countState;
 		static int countCitizen;
-
+		
 		ElectionRound();
 		~ElectionRound();
+
+		
 
 		/////////// STATE //////////////////
 		void addState(char* name, int numRep);
 		void printStateArray();
 		const State& getStateById(int numId);
-		int printElectionResultsForState(int stateId,int*wininigPoliId);
+		int printElectionResultsForState(int stateId);
 
 		/////////// CITIZEN //////////////////
 		void addCitizen(char* _name, int id, int numD, int _birthYear);

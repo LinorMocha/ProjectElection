@@ -26,7 +26,7 @@ namespace proj
 		int getStateId();
 		int getVote();
 		int getBirthYear();
-
+		char* getName();
 		///// SETERS//////
 		void setvote(int _vote);
 

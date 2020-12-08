@@ -4,7 +4,7 @@
 using namespace std;
 
 namespace proj {
-
+    int utils::MAXSIZE = 30;
     int utils::myStrlen(char* input)
     {
         int i = 0;
@@ -32,6 +32,13 @@ namespace proj {
         }
         output[i] = '\0';
         return output;
+    }
+    void utils::initArr(int* arr,int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            arr[i] = 0;
+        }
     }
 
     

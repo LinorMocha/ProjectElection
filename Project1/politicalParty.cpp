@@ -10,14 +10,15 @@ namespace proj
 	{
         votesByStatesArray[0] = 0;
 	}
-    //politicalParty::politicalParty(const politicalParty& pol)
-    //{
-    //    numId = pol.numId;
-    //    head = pol.head;
-    //    votesByStatesArray = new int[];
-    //    representativeListByStateArray = new citizenList * (*pol.representativeListByStateArray);
-    //    name=   utils::my_strdup(pol.name);
-    //}
+    politicalParty::politicalParty(const politicalParty& pol)
+    {
+        numId = pol.numId;
+        head = pol.head;
+        votesByStatesArray = new int(*pol.votesByStatesArray);
+        representativeListByStateArray = new citizenList * (*pol.representativeListByStateArray);
+        name=   utils::my_strdup(pol.name);
+        phySize = pol.phySize;
+    }
     politicalParty::~politicalParty()
     {
         delete[] representativeListByStateArray;

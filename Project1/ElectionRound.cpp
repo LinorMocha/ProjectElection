@@ -1,4 +1,5 @@
 #include "ElectionRound.h"
+#include "utils.h"
 
 
 namespace proj
@@ -6,7 +7,7 @@ namespace proj
 	int ElectionRound::countPoliticalParty = 0;
 	int ElectionRound::countState = 0;
 	int ElectionRound::countCitizen = 0;
-
+	
 	ElectionRound::ElectionRound() : _stateArray(), _citizenList(), _politicalPartyArray()
 	{
 		date.day = 0;
@@ -18,6 +19,7 @@ namespace proj
 
 	}
 
+	
 
 	///////////// STATE implementation//////////////////
 	void ElectionRound::addState(char* name, int numRep)
@@ -120,7 +122,7 @@ namespace proj
 	}
 	
 	
-	int ElectionRound::printElectionResultsForState(int stateId, int *winingPoliID)
+	int ElectionRound::printElectionResultsForState(int stateId)
 	{
 		int numberOfRepresentatvie=0;
 		int maxVote=0;
@@ -129,7 +131,7 @@ namespace proj
 		int votesForPoli;
 		int numOfCitizenInState = _stateArray.getCitizenCount(stateId);
 		int winingPoli = 0;
-		int winingPoliNumOfRepre = 0;
+		
 		
 		for (int i = 1; i < countPoliticalParty; i++)
 		{
@@ -144,7 +146,6 @@ namespace proj
 			{
 				maxVote = votesForPoli;
 				winingPoli = i;
-				winingPoliNumOfRepre = numberOfRepresentatvie;
 			}
 			countVotes += votesForPoli;
 		}
@@ -152,20 +153,34 @@ namespace proj
 
 		cout << " the votes turn out is" << votesTurnOut;
 		cout << " the wining political party is:" << _politicalPartyArray.getName(winingPoli) << endl;
-		*winingPoliID = winingPoli;
-		return numberOfRepresentatvie;
+		
+		return winingPoli;
 	}
 	////////// Turn Out ////
 	void ElectionRound::printElectionResults()
 	{
 		int len = countPoliticalParty + 1;
 		int* numOfRepForPoliArray = new int[len];
-		int temp;
-		int tempId;
-		for (int i = 0; i <= countState; i++)
+		utils::initArr(numOfRepForPoliArray, len);
+		int winingPoli;
+		
+		for (int i = 1; i <= countState; i++)
 		{
-			temp = printElectionResultsForState(i, &tempId);
-			numOfRepForPoliArray[tempId] = temp;
+			winingPoli = printElectionResultsForState(i);
+			numOfRepForPoliArray[winingPoli] += _stateArray.getStatenumOfRepresentative(i);
 		}
+
+		int max = 0;
+		int maxId = 0;
+		for (int j = 1; j < len; j++)
+		{
+			if (numOfRepForPoliArray[j] > max)
+			{
+				max = numOfRepForPoliArray[j];
+				maxId = j;
+			}
+		}
+		char* wining = _citizenList.getCitizenName(_politicalPartyArray.getPoliticalPartyHead(maxId));
+		cout << " the wining in the elecation is:" << _politicalPartyArray.getPoliticalPartyHead(maxId) << endl;
 	}
 }

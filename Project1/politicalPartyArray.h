@@ -24,7 +24,7 @@ namespace proj
         void addPoliticalParty(char* name, citizen * head);
         void reSizePoliticalPartyArray();
         void printPoliticalPartyArray();
-        const citizen& getPoliticalPartyHead(int numID);
+        citizen* getPoliticalPartyHead(int numID);
         //const citizenList& getSelectedRepList(int PoliId, int StateId, int repCount);
         void printSelectedRepList(int PoliId, int StateId, int repCount);
 

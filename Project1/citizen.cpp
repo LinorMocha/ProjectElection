@@ -53,6 +53,10 @@ namespace proj
 	{
 		return ID;
 	}
+	char* citizen::getName()
+	{
+		return name;
+	}
 	void citizen::setvote(int _vote)
 	{
 		vote = _vote;

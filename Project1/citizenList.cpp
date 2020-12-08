@@ -71,6 +71,10 @@ namespace proj {
            head=tmp;
        }
    }
+   char* citizenList::getCitizenName( citizen* input)
+   {
+       return input->getName();
+   }
 
     citizen* citizenList::getCitizenById(int _id)
    {

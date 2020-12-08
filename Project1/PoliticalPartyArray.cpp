@@ -13,7 +13,7 @@ namespace proj
 	}
 	void PoliticalPartyArray::addState()
 	{
-		for (int i = 0; i < ElectionRound::countPoliticalParty; i++)
+		for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
 		{
 			politicalPartyArray[i]->addState();
 		}
@@ -50,13 +50,13 @@ namespace proj
 	{
 		return *politicalPartyArray[numId];
 	}
-	const citizen& PoliticalPartyArray::getPoliticalPartyHead(int numId)
+	 citizen* PoliticalPartyArray::getPoliticalPartyHead(int numId)
 	{
-		return *politicalPartyArray[numId]->getPoliticalPartyHead();
+		return politicalPartyArray[numId]->getPoliticalPartyHead();
 	}
 	void PoliticalPartyArray::printPoliticalPartyArray()
 	{
-		for (int i = 0; i < ElectionRound::countPoliticalParty; i++)
+		for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
 		{
 			politicalPartyArray[i]->printPoliticalParty();
 		}
@@ -67,10 +67,16 @@ namespace proj
 		phySize *= 2;
 		politicalParty** res = new politicalParty*[phySize];
 
-		for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
+		for (int i = 0; i < ElectionRound::countPoliticalParty; i++)
 		{
-			res[i] = new politicalParty();
-			res[i] =politicalPartyArray[i];
+			if (i == 0)
+				res[i] = nullptr;
+			else
+			{
+				res[i] = new politicalParty(*politicalPartyArray[i]);
+
+			}
+			//res[i] =politicalPartyArray[i];
 		}
 
 	politicalPartyArray = res;

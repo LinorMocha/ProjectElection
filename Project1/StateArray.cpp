@@ -25,7 +25,7 @@ namespace proj
 		State* newState = new State(name, _numRep);
 		
 
-		if (ElectionRound::countState > phySize)
+		if (ElectionRound::countState >= phySize)
 			reSizeStateArray();
 		
 		stateArray[newState->getNumId()] = newState;
@@ -37,8 +37,11 @@ namespace proj
 		phySize *= 2;
 		State** res = new State*[phySize];
 
-		for (int i = 0; i <= ElectionRound::countState; i++)
+		for (int i = 0; i < ElectionRound::countState; i++)
 		{
+			if (i == 0)
+				res[i] = nullptr;
+			else
 			res[i]= new State(*stateArray[i]);
 		}
 		delete[] stateArray;
@@ -46,7 +49,7 @@ namespace proj
 	}
 	void StateArray::printStateArray()
 	{
-		for (int i = 1; i < ElectionRound::countState; i++)
+		for (int i = 1; i <= ElectionRound::countState; i++)
 			stateArray[i]->printState();
 	}
 
