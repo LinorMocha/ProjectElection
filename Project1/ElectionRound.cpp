@@ -41,8 +41,8 @@ namespace proj
 	void ElectionRound::addCitizen(char* _name, int id, int numD, int _birthYear)
 	{
 		_stateArray.addCitizenCountToState(numD);
-		citizen newC(_name, id, numD, _birthYear);
-		_citizenList.addNodeToTail(&newC);
+		citizen *newC=new citizen(_name, id,_stateArray.getStateById(numD) , _birthYear);
+		_citizenList.addNodeToTail(newC);
 	}
 	const citizen& ElectionRound::getCitizenById(int numId)
 	{

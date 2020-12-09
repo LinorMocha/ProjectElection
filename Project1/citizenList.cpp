@@ -7,8 +7,7 @@ using namespace std;
 namespace proj {
    citizenList::citizenList():head(nullptr),tail(nullptr)
     {
-     
-       cout << "const" << endl;
+        cout << "const" << endl;
     }
    citizenList::citizenList(const citizenList& input):citizenList()
    {
@@ -27,7 +26,8 @@ namespace proj {
             while (current != nullptr) 
             {
                 next = current->next;
-                delete current;
+                delete current->value;
+                /// add delete
                 current = next;
             }
             cout << "delete" << endl;
@@ -114,11 +114,15 @@ namespace proj {
    }
    void citizenList::printList()
    {
-       node* temp = head;
-       while (temp != nullptr)
-       {
-           temp->value->printCitizen();
-           temp = temp->next;
+       if (head == nullptr)
+           cout << "list is Empty" << endl;
+       else {
+           node* temp = head;
+           while (temp != nullptr)
+           {
+               temp->value->printCitizen();
+               temp = temp->next;
+           }
        }
    }
 }

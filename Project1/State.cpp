@@ -21,9 +21,10 @@ namespace proj
 
 	void State::printState()
 	{
-		cout << numId << " ";
-		cout << name << " ";
-		cout << numOfRepresentative << " ";
+		cout <<"state number:"<< numId <<" ";
+		cout <<"state name:"<< name << " ";
+		cout << "state number of rep:" << numOfRepresentative << " " << endl;
+		
 	}
 	State::~State()
 	{

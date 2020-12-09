@@ -1,27 +1,25 @@
 #include "utils.h"
 #include "citizen.h"
-#include "ElectionRound.h"
+#include"ElectionRound.h"
 
 namespace proj
 {
-	citizen::citizen() : ID(0), stateId(0), name(new char()),vote(-1), birthYear(0)
+	citizen::citizen(): name(nullptr),ID(0),birthYear(0),vote(-1),state(nullptr)
 	{
-		name = nullptr;
+		
 	}
-	citizen::citizen(char* _name, int id, int numD,int _birthYear) : ID(id), stateId(numD), birthYear(_birthYear)
+	citizen::citizen(char* _name, int id, State & _state,int _birthYear) : state(&_state),ID(id), birthYear(_birthYear)
 	{
 		ElectionRound::countCitizen++;
 		name =utils::my_strdup(_name);
 		vote = -1;
 	}
 
-	citizen::citizen(const citizen& cit)
+	citizen::citizen(const citizen& cit):state(cit.state),ID(cit.ID),birthYear(cit.birthYear),vote(cit.vote)
 	{
-		ID = cit.ID;
-		stateId = cit.stateId;
-		birthYear = cit.birthYear;
+		
 		name = utils::my_strdup(cit.name);
-		vote = cit.vote;
+		
 	}
 
 	citizen::~citizen()
@@ -31,19 +29,20 @@ namespace proj
 	void citizen::operator=(const citizen& input)
 	{
 		ID = input.ID;
-		stateId = input.stateId;
+		state= input.state;
 		vote = input.vote;
 		name = utils::my_strdup(input.name);
 	}
 	int citizen::getStateId()
 	{
-		return stateId;
+		return state->getNumId();
 	}
 	
 	int citizen::getVote()
 	{
 		return vote;
 	}
+
 	int citizen::getBirthYear()
 	{
 		return birthYear;
@@ -66,7 +65,7 @@ namespace proj
 	{
 		cout << name << " ";
 		cout << ID << " ";
-		cout << stateId << " ";
+		state->printState();
 		cout << birthYear << " ";
 	}
 

@@ -6,7 +6,7 @@
 
 namespace proj
 {
-	politicalParty::politicalParty() :representativeListByStateArray(new citizenList*()), name(nullptr), numId(0),head(nullptr),votesByStatesArray(new int()),phySize(1)
+	politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(new int()),phySize(1)
 	{
         votesByStatesArray[0] = 0;
 	}
@@ -29,6 +29,12 @@ namespace proj
     {
         ElectionRound::countPoliticalParty++;
         numId = ElectionRound::countPoliticalParty;
+        int len = ElectionRound::countState + 1;
+        representativeListByStateArray = new citizenList * [len];
+        for (int i = 0; i < len; i++)
+        {
+            representativeListByStateArray[i] = new citizenList();
+        }
         name = utils::my_strdup(partyName);
         head = _head;
     }
@@ -38,7 +44,7 @@ namespace proj
         cout << name << " ";
         cout << "The Head of the Political Party is:" << " ";
         head->printCitizen();
-        for (int i = 0; i < ElectionRound::countState; i++)
+        for (int i = 1; i <= ElectionRound::countState; i++)
         {
             cout << "Representative List for State:" << i << " ";
             representativeListByStateArray[i]->printList();

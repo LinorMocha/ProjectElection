@@ -1,4 +1,5 @@
 #include <iostream>
+#include "State.h"
 using namespace std;
 
 #pragma once
@@ -9,13 +10,13 @@ namespace proj
 	private:
 		char* name;
 		int ID;
-		int stateId;
+		State* state;
 		int birthYear;
 		int vote;
 
 	public:
 		citizen();
-		citizen(char* _name, int id, int numD,int _birthYear);
+		citizen(char* _name, int id, State & _state,int _birthYear);
 		citizen(const citizen& cit);
 		~citizen();
 		void operator=(const citizen& input);

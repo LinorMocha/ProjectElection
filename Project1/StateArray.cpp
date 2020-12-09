@@ -53,7 +53,7 @@ namespace proj
 			stateArray[i]->printState();
 	}
 
-	const State& StateArray::getStateById(int Id)
+	State& StateArray::getStateById(int Id)
 	{
 		return *stateArray[Id];
 	}

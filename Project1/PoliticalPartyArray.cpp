@@ -40,7 +40,7 @@ namespace proj
 	{
 		politicalParty *newParty=new politicalParty(name, head);
 
-		if (ElectionRound::countPoliticalParty > phySize)
+		if (ElectionRound::countPoliticalParty >= phySize)
 			reSizePoliticalPartyArray();
 		politicalPartyArray[newParty->getNumId()] = newParty;
 		

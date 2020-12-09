@@ -14,7 +14,7 @@ namespace proj
     public:
         StateArray();
         ~StateArray();
-        const State& getStateById(int Id);
+        State& getStateById(int Id);
         
         int getStatenumOfRepresentative(int Id);
         int getCitizenCount(int stateId);

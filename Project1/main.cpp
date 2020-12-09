@@ -5,6 +5,7 @@
 #include <iostream>
 #include"ElectionRound.h"
 #include "StateArray.h"
+
 using namespace std;
 using namespace proj;
 
@@ -12,12 +13,15 @@ void exe(int n);
 void printMenu();
 void exe1();
 void exe2();
+void exe3();
+void exe4();
 ElectionRound a;
 
 int main()
 {
 	
 	printMenu();
+	
 	int chose;
 	cin >> chose;
 	
@@ -61,11 +65,14 @@ void exe(int n)
 		exe2();
 		break;
 	case 3:
-		exe1();
+		exe3();
 		break;
+	case 4:
+		exe4();
+		break;
+
 	}
 }
-
 void exe1()
 {
 	cout << "please enter state name" << endl;
@@ -95,4 +102,32 @@ void exe2()
 	cin >> stateNum;
 	a.addCitizen(name, id,stateNum, birthYear);
 	a.printCitizenList();
+}
+void exe3()
+{
+	cout << "please enter political party name" << endl;
+	char* input = new char[utils::MAXSIZE];
+	cin >> input;
+	char* name = utils::my_strdup(input);
+	cout << "please enter political party head Id" << endl;
+	int input2;
+	cin >> input2;
+	a.addPoliticalParty(name, input2);
+	a.printPoliticalPartyArray();
+}
+void exe4()
+{
+	cout << "please enter representative ID" << endl;
+	int input;
+	cin >> input;
+	
+	cout << "please enter political party number" << endl;
+	int input2;
+	cin >> input2;
+	cout << "please enter state number" << endl;
+	int input3;
+	cin >> input3;
+
+	a.addRepresentativetoPoli(input, input2, input3);
+	a.printPoliticalPartyArray();
 }
