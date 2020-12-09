@@ -51,7 +51,8 @@ namespace proj {
             tmp->prev = tail;
             tail->next = tmp;
             tail = tail->next;
-            
+        
+
         }
     }
    void citizenList::addNodeToHead(citizen* input)
