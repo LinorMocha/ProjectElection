@@ -2,6 +2,7 @@
 #include <iostream>
 #include "citizenList.h"
 #include "citizen.h"
+
 using namespace std;
 
 namespace proj {
