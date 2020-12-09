@@ -9,13 +9,31 @@
 using namespace std;
 using namespace proj;
 
+/// const ///
+const int ADD_STATE = 1;
+const int ADD_CITIZEN = 2;
+const int ADD_POLITICAL_PARTY = 3;
+const int ADD_REPRESENTATIVE = 4;
+const int PRINT_STATES = 5;
+const int PRINT_CITIZENS = 6;
+const int PRINT_POLITICAL_PARTIES = 7;
+const int ADD_VOTE = 8;
+const int PRINT_RESULT = 9;
+
+
 void exe(int n);
 void printMenu();
-void exe1();
-void exe2();
-void exe3();
-void exe4();
-ElectionRound a;
+void addState();
+void addCitizen();
+void addPoliticalParties();
+void addRepresentative();
+void printStates();
+void printCitizens();
+void printPoliticalParties();
+void addVote();
+void printResult();
+
+ElectionRound Round;
 
 int main()
 {
@@ -58,22 +76,37 @@ void exe(int n)
 {
 	switch (n)
 	{
-	case 1:
-		exe1();
+	case ADD_STATE:
+		addState();
 		break;
-	case 2:
-		exe2();
+	case ADD_CITIZEN:
+		addCitizen();
 		break;
-	case 3:
-		exe3();
+	case ADD_POLITICAL_PARTY:
+		addPoliticalParties();
 		break;
-	case 4:
-		exe4();
+	case ADD_REPRESENTATIVE:
+		addRepresentative();
+		break;
+	case PRINT_STATES:
+		printStates();
+		break;
+	case PRINT_CITIZENS:
+		printCitizens();
+		break;
+	case PRINT_POLITICAL_PARTIES:
+		printPoliticalParties();
+		break;
+	case ADD_VOTE:
+		addVote();
+		break;
+	case PRINT_RESULT:
+		printResult();
 		break;
 
 	}
 }
-void exe1()
+void addState()
 {
 	cout << "please enter state name" << endl;
 	char* input = new char[utils::MAXSIZE];
@@ -82,10 +115,10 @@ void exe1()
 	cout << "please enter state number of representative" << endl;
 	int input2;
 	cin >> input2;
-	a.addState(name, input2);
-	a.printStateArray();
+	Round.addState(name, input2);
+
 }
-void exe2()
+void addCitizen()
 {
 	cout << "please enter citizen name" << endl;
 	char* input = new char[utils::MAXSIZE];
@@ -100,10 +133,10 @@ void exe2()
 	cout << "please enter state number" << endl;
 	int stateNum;
 	cin >> stateNum;
-	a.addCitizen(name, id,stateNum, birthYear);
-	a.printCitizenList();
+	Round.addCitizen(name, id,stateNum, birthYear);
+
 }
-void exe3()
+void addPoliticalParties()
 {
 	cout << "please enter political party name" << endl;
 	char* input = new char[utils::MAXSIZE];
@@ -112,10 +145,10 @@ void exe3()
 	cout << "please enter political party head Id" << endl;
 	int input2;
 	cin >> input2;
-	a.addPoliticalParty(name, input2);
-	a.printPoliticalPartyArray();
+	Round.addPoliticalParty(name, input2);
+	
 }
-void exe4()
+void addRepresentative()
 {
 	cout << "please enter representative ID" << endl;
 	int input;
@@ -128,6 +161,38 @@ void exe4()
 	int input3;
 	cin >> input3;
 
-	a.addRepresentativetoPoli(input, input2, input3);
-	a.printPoliticalPartyArray();
+	Round.addRepresentativetoPoli(input, input2, input3);
+	
+}
+void printStates()
+{
+	cout << "the State in the country are:" << endl;
+	Round.printStateArray();
+}
+void printCitizens()
+{
+	cout << "the citizen in the country are:" << endl;
+	Round.printCitizenList();
+}
+void printPoliticalParties()
+{
+	cout << "the political parties in the country are:" << endl;
+	Round.printPoliticalPartyArray();
+	
+}
+void addVote()
+{
+	cout << "please enter citizen ID" << endl;
+	int input;
+	cin >> input;
+	cout << "please choose political party" << endl;
+	int input1;
+	cin >> input1;
+	Round.addVote(input, input1);
+}
+
+void printResult()
+{
+	cout << "Elecation round result" << endl;
+	Round.printElectionResults();
 }
