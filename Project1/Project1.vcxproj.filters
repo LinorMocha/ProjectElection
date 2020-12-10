@@ -24,9 +24,6 @@
     <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VotersBook.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="citizenList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -54,9 +51,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="politicalParty.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VotersBook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="citizenList.cpp">
