@@ -117,6 +117,7 @@ void addState()
 	Round.addState(name, input2);
 
 }
+
 void addCitizen()
 {
 	cout << "please enter citizen name" << endl;  
@@ -162,6 +163,7 @@ void addPoliticalParties()
 	Round.addPoliticalParty(name, input2);
 	
 }
+
 void addRepresentative()
 {
 	cout << "please enter representative ID" << endl;

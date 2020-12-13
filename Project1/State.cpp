@@ -27,13 +27,13 @@ namespace proj
 		return os;
 	}
 
-	void State::printState()
+	/*void State::printState()
 	{
 		cout <<"state number:"<< numId <<endl;
 		cout <<"state name:"<< name << endl;
 		cout << "state number of rep:" << numOfRepresentative << endl;
 		
-	}
+	}*/
 	State::~State()
 	{
 		delete[] name;
@@ -71,10 +71,10 @@ namespace proj
 	{
 		return countCitizensInState;
 	}
-	bool State:: IsStateIDValid(int Numid)
-	{
+	//bool State:: IsStateIDValid(int Numid)
+	//{
 
-	}
+	//}
 
 	bool State::addCitizen()
 	{

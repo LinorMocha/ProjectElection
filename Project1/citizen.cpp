@@ -81,7 +81,7 @@ namespace proj
 		cout <<"name of citizen:"<< name <<endl;
 		cout <<"ID of citizen: "<<ID <<endl;
 		cout << "birth year of citizen " << birthYear << endl << endl;
-		state->printState();
+		//state->printState();
 		
 			
 	}
