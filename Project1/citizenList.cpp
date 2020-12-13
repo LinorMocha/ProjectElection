@@ -120,9 +120,10 @@ namespace proj {
            cout << "list is Empty" << endl;
        else {
            node* temp = head;
-           while (temp != nullptr)
+           while (temp != nullptr) 
            {
                temp->value->printCitizen();
+               //cout<<*(temp->value)<endl;
                temp = temp->next;
            }
        }

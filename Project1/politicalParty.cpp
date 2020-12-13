@@ -38,6 +38,22 @@ namespace proj
         name = utils::my_strdup(partyName);
         head = _head;
     }
+
+    /*ostream& operator(ostream& os, const politicalParty& p_party)
+    {
+        os <<"political party ID: "<< p_party.getNumId<< endl;
+        os << "political party name: " << p_party.getName << endl;
+        os << "the head of political party is: " << endl;
+        os << p_party.getPoliticalPartyHead<<endl;
+        for (int i = 1; i <= ElectionRound::countState; i++)
+        {
+            os << "Representative List for State:" << i << endl;
+            os << representativeListByStateArray[i] << endl;
+        }
+        
+        return os;
+    }*/
+
     void politicalParty::printPoliticalParty()
     {
         cout << numId << " ";
@@ -50,6 +66,7 @@ namespace proj
             representativeListByStateArray[i]->printList();
         }
     }
+
     int politicalParty::getHowManyVotesOverAll()
     {
         int res=0;
@@ -93,7 +110,8 @@ namespace proj
     {
         votesByStatesArray[stateId]++;
     }
-        void politicalParty::reSizeVotesByStateArray()
+
+    void politicalParty::reSizeVotesByStateArray()
     {
         int* res = new int[phySize];
         for (int i = 0; i < phySize; i++)

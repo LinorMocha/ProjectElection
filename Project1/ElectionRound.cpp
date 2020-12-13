@@ -19,8 +19,6 @@ namespace proj
 
 	}
 
-	
-
 	///////////// STATE implementation//////////////////
 	void ElectionRound::addState(char* name, int numRep)
 	{
@@ -127,7 +125,7 @@ namespace proj
 		int numberOfRepresentatvie=0;
 		int maxVote=0;
 		int countVotes=0;
-		float precent;
+		float percent;
 		int votesForPoli;
 		int numOfCitizenInState = _stateArray.getCitizenCount(stateId);
 		int winingPoli = 0;
@@ -136,9 +134,9 @@ namespace proj
 		for (int i = 1; i < countPoliticalParty; i++)
 		{
 			votesForPoli = _politicalPartyArray.getOverAllVotesForPoliInState(i, stateId);
-			precent = (float)votesForPoli/numOfCitizenInState ;
-			numberOfRepresentatvie = precent * _stateArray.getStatenumOfRepresentative(stateId);
-			cout << "for:" << _politicalPartyArray.getName(i) << " number of votes:" << votesForPoli << "precent:" << precent << endl;
+			percent = (float)votesForPoli/numOfCitizenInState ;
+			numberOfRepresentatvie = percent * _stateArray.getStatenumOfRepresentative(stateId);
+			cout << "for:" << _politicalPartyArray.getName(i) << " number of votes:" << votesForPoli << "percent:" << percent <<'%'<< endl;
 			cout << "selected representative list:" << endl;
 			_politicalPartyArray.printSelectedRepList(i, stateId, numberOfRepresentatvie);
 

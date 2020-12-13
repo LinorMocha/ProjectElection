@@ -22,8 +22,6 @@ namespace proj
 		ElectionRound();
 		~ElectionRound();
 
-		
-
 		/////////// STATE //////////////////
 		void addState(char* name, int numRep);
 		void printStateArray();

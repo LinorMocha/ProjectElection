@@ -14,10 +14,11 @@ namespace proj
     public:
         StateArray();
         ~StateArray();
-        State& getStateById(int Id);
-        
-        int getStatenumOfRepresentative(int Id);
-        int getCitizenCount(int stateId);
+
+        State& getStateById(int Id) const;
+        int getStatenumOfRepresentative(int Id) const;
+        int getCitizenCount(int stateId) const;
+        int getPhySize() const;
 
         void addState(char* name, int _numRep);
         void reSizeStateArray();

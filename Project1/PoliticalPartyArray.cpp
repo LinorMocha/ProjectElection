@@ -56,10 +56,15 @@ namespace proj
 	}
 	void PoliticalPartyArray::printPoliticalPartyArray()
 	{
+		bool IsThereP_P = false;
 		for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
 		{
+			IsThereP_P = true;;
 			politicalPartyArray[i]->printPoliticalParty();
 		}
+		if (!IsThereP_P)
+			cout << "political parties were NOT entered yet"<<endl;
+
 		
 	}
 	void PoliticalPartyArray::reSizePoliticalPartyArray()

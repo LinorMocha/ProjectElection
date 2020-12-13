@@ -1,6 +1,7 @@
 #pragma once
 
-
+#include<iostream>
+using namespace std;
 namespace proj
 {
 	class State
@@ -18,16 +19,18 @@ namespace proj
 		State(const State& Sta);
 		~State();
 		const State& operator=(const State& input);
-		void printState();
-		
+		bool IsStateIDValid(int Numid);
+		//void printState();
+		friend ostream& operator<<(ostream& os, const State& state);
+	
 		/// GETERS ///
-		int getNumOfRepresentative();
-		int getNumId();
-		char* getName();
-		int getHomManyCitizens();
+		int getNumOfRepresentative()const;
+		int getNumId()const;
+		char* getName()const;
+		int getHowManyCitizens()const;
 		
 		//// SETERS /////
-		void addCitizen();
+	     bool addCitizen();
 
 	};
 }

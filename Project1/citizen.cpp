@@ -26,6 +26,7 @@ namespace proj
 	{
 		delete[] name;
 	}
+	
 	void citizen::operator=(const citizen& input)
 	{
 		ID = input.ID;
@@ -33,41 +34,58 @@ namespace proj
 		vote = input.vote;
 		name = utils::my_strdup(input.name);
 	}
-	int citizen::getStateId()
+	int citizen::getStateId() const
 	{
 		return state->getNumId();
 	}
 	
-	int citizen::getVote()
+	int citizen::getVote() const
 	{
 		return vote;
 	}
 
-	int citizen::getBirthYear()
+	int citizen::getBirthYear() const
 	{
 		return birthYear;
 	}
 
-	int citizen::getId()
+	int citizen::getId() const
 	{
 		return ID;
 	}
-	char* citizen::getName()
+	char* citizen::getName() const
 	{
 		return name;
 	}
-	void citizen::setvote(int _vote)
+	bool citizen::setvote(int _vote) 
 	{
-		vote = _vote;
+		 vote = _vote;
+		 return true;
 	}
+
+	//ostream& operator<<(ostream& os, const citizen& Citizen)
+	//{
+	//	os <<" Name: " <<Citizen.getName <<endl;
+	//  os <<"citizen ID: " <<Citizen.getId << endl;
+	//	os <<"birth year: " << Citizen.getBirthYear << endl;
+	//	os <<"state: " << Citizen.getStateId << endl;
+	///	state->printState();*/
+	//	
+	//	return os;
+	//}
+
 
 	void citizen::printCitizen()
 	{
-		cout << name << " ";
-		cout << ID << " ";
+		cout << endl;
+		cout <<"name of citizen:"<< name <<endl;
+		cout <<"ID of citizen: "<<ID <<endl;
+		cout << "birth year of citizen " << birthYear << endl << endl;
 		state->printState();
-		cout << birthYear << " ";
+		
+			
 	}
 
-
+	//check if id exist
+	
 }

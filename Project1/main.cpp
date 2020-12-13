@@ -37,12 +37,11 @@ ElectionRound Round;
 
 int main()
 {
-	
 	printMenu();
 	
 	int chose;
 	cin >> chose;
-	
+
 	while (chose != 10)
 	{
 		if (chose < 1 || chose>10)
@@ -120,25 +119,40 @@ void addState()
 }
 void addCitizen()
 {
-	cout << "please enter citizen name" << endl;
+	cout << "please enter citizen name" << endl;  
 	char* input = new char[utils::MAXSIZE];
 	cin >> input;
 	char* name = utils::my_strdup(input);
-	cout << "please enter ID number" << endl;
+	cout << "please enter ID number " << endl;
 	int id;
 	cin >> id;
+
+	//checking if the user entered an exist id
+ //   if(Round.getCitizenById(id))
+	//{
+	//	cout << "the ID number that was entered is already exist, enter again" << endl;
+	//	//cin >> id;
+ //    	break;
+	//}
+
 	cout << "please enter birth year" << endl;
 	int birthYear;
 	cin >> birthYear;
 	cout << "please enter state number" << endl;
 	int stateNum;
 	cin >> stateNum;
+	/*if ((Round.getStateById) == nullptr)
+	{
+		cout << "the state is NOT exist" << endl;
+	break;
+	}*/
+	
 	Round.addCitizen(name, id,stateNum, birthYear);
 
 }
 void addPoliticalParties()
 {
-	cout << "please enter political party name" << endl;
+	cout << "please enter political party name" << endl; 
 	char* input = new char[utils::MAXSIZE];
 	cin >> input;
 	char* name = utils::my_strdup(input);
@@ -157,21 +171,31 @@ void addRepresentative()
 	cout << "please enter political party number" << endl;
 	int input2;
 	cin >> input2;
+
 	cout << "please enter state number" << endl;
 	int input3;
 	cin >> input3;
+	/*if ((Round.getStateById) == nullptr)
+	{
+		cout << "the state is NOT exist" << endl;
+		break;
+	}*/
 
 	Round.addRepresentativetoPoli(input, input2, input3);
 	
 }
 void printStates()
 {
-	cout << "the State in the country are:" << endl;
+	cout << "the States in the country are:" << endl;
+	/*for (int i = 1; i <= ElectionRound::countState; i++) //using the operator overloading
+		cout<<Round.getStateById(i)<<endl;*/
+
 	Round.printStateArray();
 }
 void printCitizens()
 {
-	cout << "the citizen in the country are:" << endl;
+	cout << "the citizens in the country are:" << endl;
+	
 	Round.printCitizenList();
 }
 void printPoliticalParties()
@@ -182,9 +206,10 @@ void printPoliticalParties()
 }
 void addVote()
 {
-	cout << "please enter citizen ID" << endl;
+	cout << "please enter citizen ID " << endl;
 	int input;
 	cin >> input;
+
 	cout << "please choose political party" << endl;
 	int input1;
 	cin >> input1;

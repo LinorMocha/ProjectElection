@@ -19,11 +19,19 @@ namespace proj
 		countCitizensInState = sta.countCitizensInState;
 	}
 
+	ostream& operator << (ostream& os, const State& state)
+	{
+		os << "state number:" << state.getNumId()<< endl;
+		os << "state name:" << state.getName() << endl;
+		os << "state number of rep:" << state.getNumOfRepresentative() << endl;
+		return os;
+	}
+
 	void State::printState()
 	{
-		cout <<"state number:"<< numId <<" ";
-		cout <<"state name:"<< name << " ";
-		cout << "state number of rep:" << numOfRepresentative << " " << endl;
+		cout <<"state number:"<< numId <<endl;
+		cout <<"state name:"<< name << endl;
+		cout << "state number of rep:" << numOfRepresentative << endl;
 		
 	}
 	State::~State()
@@ -47,26 +55,30 @@ namespace proj
 
 	}
 
-	char* State::getName()
+	char* State::getName()const
 	{
 		return name;
 	}
-	int State::getNumId()
+	int State::getNumId()const
 	{
 		return numId;
 	}
-	int State::getNumOfRepresentative()
+	int State::getNumOfRepresentative()const
 	{
 		return numOfRepresentative;
 	}
-	int State::getHomManyCitizens()
+	int State::getHowManyCitizens()const
 	{
 		return countCitizensInState;
 	}
-
-	void State::addCitizen()
+	bool State:: IsStateIDValid(int Numid)
 	{
-		countCitizensInState++;
+
+	}
+
+	bool State::addCitizen()
+	{
+		return countCitizensInState++;  // there`s a break up point here when we add citizen before we add state - should return a statment to the user
 	}
 
 }

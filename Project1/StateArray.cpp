@@ -50,21 +50,30 @@ namespace proj
 	void StateArray::printStateArray()
 	{
 		for (int i = 1; i <= ElectionRound::countState; i++)
-			stateArray[i]->printState();
+		{
+			//stateArray[i]->printState();
+			cout<<*(stateArray[i]);
+		}
 	}
 
-	State& StateArray::getStateById(int Id)
+	
+
+	State& StateArray::getStateById(int Id) const
 	{
 		return *stateArray[Id];
 	}
 
-	int StateArray::getStatenumOfRepresentative(int Id)
+	int StateArray::getStatenumOfRepresentative(int Id) const
 	{
 		return stateArray[Id]->getNumOfRepresentative();
 	}
 
-	int StateArray::getCitizenCount(int stateId)
+	int StateArray::getCitizenCount(int stateId) const
 	{
-		return stateArray[stateId]->getHomManyCitizens();
+		return stateArray[stateId]->getHowManyCitizens();
+	}
+	int StateArray:: getPhySize() const
+	{
+		return phySize;
 	}
 }

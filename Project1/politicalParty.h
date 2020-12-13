@@ -30,6 +30,8 @@ namespace proj {
         /// OTHER FUNCATIONS
         void reSizeRepresentativeList();
         void addRepresentitive(citizen* citizen, int state);
+
+        //friend ostream& operator(ostream& os,const politicalParty& p_party);
         void printPoliticalParty();
         void addState();
         void reSizeVotesByStateArray();

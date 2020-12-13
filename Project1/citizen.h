@@ -19,17 +19,20 @@ namespace proj
 		citizen(char* _name, int id, State & _state,int _birthYear);
 		citizen(const citizen& cit);
 		~citizen();
+	
 		void operator=(const citizen& input);
 		void printCitizen();
+		//friend ostream& operator<<(ostream& os, const citizen& Citizen);  //overloading to opertor << 
 
 		///// GETERS////////
-		int getId();
-		int getStateId();
-		int getVote();
-		int getBirthYear();
-		char* getName();
+		int getId() const;
+		int getStateId() const;
+		int getVote() const;
+		int getBirthYear() const;
+		char* getName() const;
+
 		///// SETERS//////
-		void setvote(int _vote);
+		bool setvote(int _vote);
 
 	};
 }

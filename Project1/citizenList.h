@@ -28,9 +28,7 @@ namespace proj
         void addNodeToTail(citizen* input);
         void addNodeToHead(citizen* input);
         void printList();
+       
         void printList(int numOfNodeToPrint);
-        
-     
-
     };
 }
