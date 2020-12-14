@@ -9,7 +9,7 @@ namespace proj
 	}
 	PoliticalPartyArray::~PoliticalPartyArray()
 	{
-		delete[]politicalPartyArray;
+		delete[] politicalPartyArray;
 	}
 	void PoliticalPartyArray::addState()
 	{
@@ -111,10 +111,12 @@ namespace proj
 				res[i] = new politicalParty(*politicalPartyArray[i]);
 
 			}
-			//res[i] =politicalPartyArray[i];
+			
 		}
+		delete[] politicalPartyArray;
 
 	politicalPartyArray = res;
+	
 	}
 	void PoliticalPartyArray::addRepToPoli(int PolId, int StateId, citizen* rep)
 	{

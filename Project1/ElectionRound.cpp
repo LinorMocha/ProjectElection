@@ -69,6 +69,7 @@ namespace proj
 		if (headPoly != nullptr && _politicalPartyArray.getPoliticalPartyByHead(*headPoly)==nullptr)
 		{
 			_politicalPartyArray.addPoliticalParty(name, headPoly);
+			
 			return true;
 		}
 		else
@@ -95,6 +96,7 @@ namespace proj
 			if (rep != nullptr && !_politicalPartyArray.isCitizenIsRep(*rep))
 			{
 				_politicalPartyArray.addRepToPoli(PoliId, StateId, rep);
+				cout << _politicalPartyArray.getPoliticalPartyById(countPoliticalParty) << endl;
 				return true;
 			}
 		}

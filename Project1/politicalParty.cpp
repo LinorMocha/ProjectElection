@@ -15,7 +15,14 @@ namespace proj
         numId = pol.numId;
         head = pol.head;
         votesByStatesArray = new int(*pol.votesByStatesArray);
-        representativeListByStateArray = new citizenList * (*pol.representativeListByStateArray);
+        representativeListByStateArray = new citizenList * [pol.phySize];
+        for (int i = 0; i < pol.phySize; i++)
+        {
+            pol.representativeListByStateArray[i]->printList();
+            representativeListByStateArray[i] = new citizenList(*pol.representativeListByStateArray[i]);
+        }
+        
+        
         name=   utils::my_strdup(pol.name);
         phySize = pol.phySize;
     }
@@ -88,8 +95,11 @@ namespace proj
     {
         for (int i = 1; i <= ElectionRound::countState; i++)
         {
-            if (representativeListByStateArray[i]->getCitizenById(cit.getId()) != nullptr)
-                return true;
+            if (representativeListByStateArray[i] != nullptr)
+            {
+                if (representativeListByStateArray[i]->getCitizenById(cit.getId()) != nullptr)
+                    return true;
+            }
         }
         return false;
     }
