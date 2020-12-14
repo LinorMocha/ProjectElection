@@ -18,6 +18,11 @@ namespace proj
 			politicalPartyArray[i]->addState();
 		}
 	}
+	int  PoliticalPartyArray::getRepListLengthForStateInPoli(int poliId, int stateId)
+	{
+		return politicalPartyArray[poliId]->getNumOfRepInList(stateId);
+	}
+
 	int PoliticalPartyArray::getOverAllVotesForPoliInState(int poliId, int stateId)
 	{
 		return politicalPartyArray[poliId]->getHowManyVotesForState(stateId);
@@ -54,16 +59,41 @@ namespace proj
 	{
 		return politicalPartyArray[numId]->getPoliticalPartyHead();
 	}
+
+	 politicalParty* PoliticalPartyArray::getPoliticalPartyByHead(const citizen& head)
+	 {
+		 for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
+		 {
+			 if (politicalPartyArray[i]->getPoliticalPartyHead()->getId() == head.getId())
+			 {
+				 return politicalPartyArray[i];
+			 }
+		 }
+		 return nullptr;
+	 }
+	bool PoliticalPartyArray::isCitizenIsRep(const citizen& cit)
+	{
+		 for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
+		 {
+			 if (politicalPartyArray[i]->getPoliticalPartyHead()->getId() == cit.getId())
+				 return true;
+			 if (politicalPartyArray[i]->isRep(cit))
+				 return true;
+		 }
+		 return false;
+	}
+
+
 	void PoliticalPartyArray::printPoliticalPartyArray()
 	{
 		bool IsThereP_P = false;
 		for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
 		{
 			IsThereP_P = true;;
-			politicalPartyArray[i]->printPoliticalParty();
+			cout<<*politicalPartyArray[i];
 		}
 		if (!IsThereP_P)
-			cout << "political parties were NOT entered yet"<<endl;
+			cout << "There is not political parties"<<endl;
 
 		
 	}

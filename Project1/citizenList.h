@@ -20,9 +20,9 @@ namespace proj
         citizenList();
         ~citizenList();
         citizen* getCitizenById(int _id);
-        char* getCitizenName( citizen* input);
+        //char* getCitizenName( citizen* input);
         node* getHead();
-
+        int getListSize();
         citizenList(const citizenList& input);
         void operator=(const citizenList& input);
         void addNodeToTail(citizen* input);

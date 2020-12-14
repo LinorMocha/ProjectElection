@@ -41,6 +41,19 @@ namespace proj {
         }
     }
 
-    
+    int utils::returnMaxIndexInArray(float* arr, int size)
+    {
+        float max = 0;
+        int maxId = 0;
+        for (int i = 0; i < size; i++)
+        {
+            if (max < arr[i])
+            {
+                max = arr[i];
+                maxId = i;
+            }
+        }
+        return maxId;
+    }
 
 }

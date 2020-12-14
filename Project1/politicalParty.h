@@ -2,6 +2,8 @@
 
 #include "citizen.h"
 #include "citizenList.h"
+#include <iostream>
+using namespace std;
 
 namespace proj {
     class politicalParty {
@@ -12,6 +14,7 @@ namespace proj {
         citizen *head;
         int* votesByStatesArray;
         int phySize;
+        
     public:
         politicalParty();
         politicalParty(char* partyName, citizen* _head);
@@ -26,17 +29,16 @@ namespace proj {
         citizen* getPoliticalPartyHead();
         int getHowManyVotesOverAll();
         int getHowManyVotesForState(int stateId);
-
+        int getNumOfRepInList(int stateId);
         /// OTHER FUNCATIONS
         void reSizeRepresentativeList();
         void addRepresentitive(citizen* citizen, int state);
 
-        //friend ostream& operator(ostream& os,const politicalParty& p_party);
-        void printPoliticalParty();
+        friend ostream& operator<<(ostream& os,const politicalParty& p_party);
         void addState();
         void reSizeVotesByStateArray();
         void addVote(int stateId);
-       void PrintWinningRepresentitives(int state, int repCount);
-
+        void PrintWinningRepresentitives(int state, int repCount);
+        bool isRep(const citizen& cit);
     };
 }

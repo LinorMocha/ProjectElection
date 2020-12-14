@@ -17,6 +17,7 @@ namespace proj
 		static int myStrlen(char* input);
 		static void initArr(int* arr,int size);
 		static int MAXSIZE;
+		static int returnMaxIndexInArray(float* arr, int size);
 
 	};
 

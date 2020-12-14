@@ -29,27 +29,27 @@ namespace proj
 		int printElectionResultsForState(int stateId);
 
 		/////////// CITIZEN //////////////////
-		void addCitizen(char* _name, int id, int numD, int _birthYear);
+		bool addCitizen(char* _name, int id, int numD, int _birthYear);
 		const citizen& getCitizenById(int numId);
 		void printCitizenList();
 
 		////////////  Representative//////////
-		void addRepresentativetoPoli(int repId, int PoliId, int StateId);
-
+		bool addRepresentativetoPoli(int repId, int PoliId, int StateId);
+		bool isRepListComplete();
+		
 		////////////  POLITICALPARTY  //////////
-		void addPoliticalParty(char* name, int headId);
+		bool addPoliticalParty(char* name, int headId);
 		void printPoliticalPartyArray();
 		const politicalParty& getPoliById(int numId);
-		//const citizenList& getSelectedRepList(int PoliId, int StateId,int repCount);
-		void printElectionResultsForPoli(int poliId);
+		
+		
 
 
 		/////////// Vote //////////////
-		void addVote(int citizenId, int poliId);
-		int calculateNumOfRepInPoliForState(int poliId, int stateId);
-
+		bool addVote(int citizenId, int poliId);
+		
 		////// Turn Out ///////
-		void printElectionResults();
+		int printElectionResults();
 	};
 
 }

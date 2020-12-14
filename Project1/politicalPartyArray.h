@@ -17,7 +17,8 @@ namespace proj
         int getOverAllVotesForPoli(int poliId);
         int getOverAllVotesForPoliInState(int poliId, int stateId);
         char* getName(int poliId);
-
+        int getRepListLengthForStateInPoli(int poliId, int stateId);
+        bool isCitizenIsRep(const citizen& cit);
 
         void addState();
         const politicalParty& getPoliticalPartyById(int Id);
@@ -25,6 +26,8 @@ namespace proj
         void reSizePoliticalPartyArray();
         void printPoliticalPartyArray();
         citizen* getPoliticalPartyHead(int numID);
+        politicalParty* getPoliticalPartyByHead(const citizen& head);
+        
         //const citizenList& getSelectedRepList(int PoliId, int StateId, int repCount);
         void printSelectedRepList(int PoliId, int StateId, int repCount);
 

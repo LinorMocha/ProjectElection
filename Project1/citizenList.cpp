@@ -8,8 +8,20 @@ using namespace std;
 namespace proj {
    citizenList::citizenList():head(nullptr),tail(nullptr)
     {
-        cout << "const" << endl;
+        
     }
+   int citizenList::getListSize()
+   {
+       int count = 0;
+       node* current = head;
+
+       while (current != nullptr)
+       {
+           count++;
+           current = current->next;
+       }
+       return count;
+   }
    citizenList::citizenList(const citizenList& input):citizenList()
    {
        node* index = input.head;
@@ -28,10 +40,10 @@ namespace proj {
             {
                 next = current->next;
                 delete current->value;
-                /// add delete
+                
                 current = next;
             }
-            cout << "delete" << endl;
+       
     }
 
    void citizenList::addNodeToTail(citizen* input)
@@ -73,10 +85,7 @@ namespace proj {
            head=tmp;
        }
    }
-   char* citizenList::getCitizenName( citizen* input)
-   {
-       return input->getName();
-   }
+  
 
     citizen* citizenList::getCitizenById(int _id)
    {
@@ -109,7 +118,7 @@ namespace proj {
        int counter = 1;
        while (temp != nullptr && counter <= numOfNodeToPrint)
        {
-           temp->value->printCitizen();
+           cout<<*temp->value;
            temp = temp->next;
            counter++;
        }
@@ -117,13 +126,12 @@ namespace proj {
    void citizenList::printList()
    {
        if (head == nullptr)
-           cout << "list is Empty" << endl;
+           return;
        else {
            node* temp = head;
            while (temp != nullptr) 
            {
-               temp->value->printCitizen();
-               //cout<<*(temp->value)<endl;
+               cout<<*temp->value;
                temp = temp->next;
            }
        }

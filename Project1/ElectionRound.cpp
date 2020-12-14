@@ -1,4 +1,4 @@
-#include "ElectionRound.h"
+﻿#include "ElectionRound.h"
 #include "utils.h"
 
 
@@ -36,11 +36,17 @@ namespace proj
 	}
 
 	///////////// CITIZEN implementation//////////////////
-	void ElectionRound::addCitizen(char* _name, int id, int numD, int _birthYear)
+	bool ElectionRound::addCitizen(char* _name, int id, int numD, int _birthYear)
 	{
-		_stateArray.addCitizenCountToState(numD);
-		citizen *newC=new citizen(_name, id,_stateArray.getStateById(numD) , _birthYear);
-		_citizenList.addNodeToTail(newC);
+		if (_citizenList.getCitizenById(id) == nullptr && numD<= countState)
+		{
+			_stateArray.addCitizenCountToState(numD);
+			citizen* newC = new citizen(_name, id, _stateArray.getStateById(numD), _birthYear);
+			_citizenList.addNodeToTail(newC);
+			return true;
+		}
+
+		return false;
 	}
 	const citizen& ElectionRound::getCitizenById(int numId)
 	{
@@ -48,21 +54,25 @@ namespace proj
 	}
 	void ElectionRound::printCitizenList()
 	{
+		if (_citizenList.getHead() == nullptr)
+			cout << "There is not citizens "<<endl;
+		else
 		_citizenList.printList();
 	}
 
 
 	////////////  POLITICALPARTY implementation  //////////
 
-	void ElectionRound::addPoliticalParty(char* name, int headId)
+	bool ElectionRound::addPoliticalParty(char* name, int headId)
 	{
 		citizen* headPoly = _citizenList.getCitizenById(headId);
-		if (headPoly != nullptr)
+		if (headPoly != nullptr && _politicalPartyArray.getPoliticalPartyByHead(*headPoly)==nullptr)
 		{
 			_politicalPartyArray.addPoliticalParty(name, headPoly);
+			return true;
 		}
 		else
-			cout << "there is no citizen with this Id in the country" << endl;
+			return false;
 	}
 	void ElectionRound::printPoliticalPartyArray()
 	{
@@ -74,89 +84,132 @@ namespace proj
 		return _politicalPartyArray.getPoliticalPartyById(numId);
 
 	}
-	/*const citizenList& ElectionRound::getSelectedRepList(int PoliId, int StateId, int repCount)
-	{
-		return _politicalPartyArray.getSelectedRepList(PoliId, StateId, repCount);
-	}*/
+	
+	/////// REPRESENTATIVE ////////
 
-	void ElectionRound::addRepresentativetoPoli(int repId, int PoliId, int StateId)
+	bool ElectionRound::addRepresentativetoPoli(int repId, int PoliId, int StateId)
 	{
-		citizen* rep = _citizenList.getCitizenById(repId);
-		if (rep != nullptr)
-			_politicalPartyArray.addRepToPoli(PoliId, StateId, rep);
-		else
-			cout << "there is no citizen with this Id in the country" << endl;
-
+		if (PoliId <= countPoliticalParty && StateId <= countState)
+		{
+			citizen* rep = _citizenList.getCitizenById(repId);
+			if (rep != nullptr && !_politicalPartyArray.isCitizenIsRep(*rep))
+			{
+				_politicalPartyArray.addRepToPoli(PoliId, StateId, rep);
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
-	void ElectionRound::printElectionResultsForPoli(int poliId)
+	
+	bool ElectionRound::isRepListComplete()
 	{
-
+		int numOfExsitesRep;
+		for (int i = 1; i <= countState; i++)
+		{
+			for (int j = 1; j <= countPoliticalParty; j++)
+			{
+				numOfExsitesRep=_politicalPartyArray.getRepListLengthForStateInPoli(j, i);
+				if (numOfExsitesRep < _stateArray.getStatenumOfRepresentative(i))
+					return false;
+			}
+		}
+		return true;
 	}
 
 	///////////// Vote implementation///////////////
 
-	void ElectionRound::addVote(int citizenId, int poliId)
+	bool ElectionRound::addVote(int citizenId, int poliId)
 	{
 		citizen* cit = _citizenList.getCitizenById(citizenId);
-		if (cit == nullptr)
-			cout << "there is no citizen with this Id in the country" << endl;
-
-		if (cit->getVote() != -1)
+		if (cit != nullptr && cit->getVote() != -1)
 		{
 			cit->setvote(poliId);
 			_politicalPartyArray.addVote(poliId, cit->getStateId());
+			_stateArray.addVoteCountToState(cit->getStateId());
+			return true;
 		}
 		else
-			cout << "You already voted" << endl;
+		{
+			return false;
+		}
 	}
 
 
-	int ElectionRound::calculateNumOfRepInPoliForState(int poliId, int stateId)
-	{
-		float precent =(float) _politicalPartyArray.getOverAllVotesForPoliInState(poliId, stateId) /_stateArray.getCitizenCount(stateId);
-		int num = precent * _stateArray.getStatenumOfRepresentative(stateId);
-		return num;
-	}
 	
 	
 	int ElectionRound::printElectionResultsForState(int stateId)
 	{
-		int numberOfRepresentatvie=0;
-		int maxVote=0;
-		int countVotes=0;
-		float percent;
-		int votesForPoli;
-		int numOfCitizenInState = _stateArray.getCitizenCount(stateId);
-		int winingPoli = 0;
-		
-		
-		for (int i = 1; i < countPoliticalParty; i++)
+		State& sta = _stateArray.getStateById(stateId);
+		cout << sta;
+		float precent;
+		int winningPoli = 1;
+		if (sta.getCountVotesInState() != 0)
 		{
-			votesForPoli = _politicalPartyArray.getOverAllVotesForPoliInState(i, stateId);
-			percent = (float)votesForPoli/numOfCitizenInState ;
-			numberOfRepresentatvie = percent * _stateArray.getStatenumOfRepresentative(stateId);
-			cout << "for:" << _politicalPartyArray.getName(i) << " number of votes:" << votesForPoli << "percent:" << percent <<'%'<< endl;
-			cout << "selected representative list:" << endl;
-			_politicalPartyArray.printSelectedRepList(i, stateId, numberOfRepresentatvie);
 
-			if (votesForPoli > maxVote)
+			float* temp = new float[countPoliticalParty];
+			int* howManyRep = new int[countPoliticalParty];
+			utils::initArr(howManyRep, countPoliticalParty);
+			for (int i = 0; i < ElectionRound::countPoliticalParty; i++)
 			{
-				maxVote = votesForPoli;
-				winingPoli = i;
-			}
-			countVotes += votesForPoli;
-		}
-		int votesTurnOut = (float)(countVotes / numOfCitizenInState) * 100;
+				temp[i] = (float)_politicalPartyArray.getOverAllVotesForPoliInState(i + 1, stateId);
 
-		cout << " the votes turn out is" << votesTurnOut;
-		cout << " the wining political party is:" << _politicalPartyArray.getName(winingPoli) << endl;
+			}
+			/// כמות ההצבעות חלקי כמות הנציגים
+			float votesForRep = (float)sta.getCountVotesInState() / sta.getNumOfRepresentative();
+
+			int j = utils::returnMaxIndexInArray(temp, countState);
+			winningPoli = j + 1;
+			for (int i = 0; i < _stateArray.getStatenumOfRepresentative(stateId); i++)
+			{
+				temp[j] -= votesForRep;
+				howManyRep[j]++;
+				j = utils::returnMaxIndexInArray(temp, countState);
+
+			}
+
+			int votesForPoli;
+			int numOfRep;
+			for (int i = 1; i <= countPoliticalParty; i++)
+			{
+				votesForPoli = _politicalPartyArray.getOverAllVotesForPoliInState(i, stateId);
+				precent = (float)votesForPoli / sta.getHowManyCitizens();
+				cout << "number of votes : " << votesForPoli;
+				cout << "for political party:" << _politicalPartyArray.getName(i);
+				cout << "percent of votes:" << precent << '%' << endl;
+				cout << "selected representative list:" << endl;
+				numOfRep = howManyRep[i + 1];
+				_politicalPartyArray.printSelectedRepList(i, stateId, numOfRep);
+				cout << endl;
+			}
+		}
+
+		precent = (float)sta.getCountVotesInState() / sta.getHowManyCitizens();
 		
-		return winingPoli;
+		cout << " the State voter turn out is:" << precent << '%' << endl;
+
+		cout << " the State chose:" << _politicalPartyArray.getName(winningPoli) << "to be president!!!" << endl;
+
+		return winningPoli;
+	
 	}
-	////////// Turn Out ////
-	void ElectionRound::printElectionResults()
+	
+	
+
+	////////// Turn Out /////////////////////
+	int ElectionRound::printElectionResults()
 	{
+		if (countState == 0 || countPoliticalParty == 0 || countCitizen == 0)
+		{
+			return 0;
+		}
+		if (!isRepListComplete())
+		{
+			return 1;
+		}
+		cout << "__________________________________________________________" << endl;
+		cout << "Elecation Round result:" << endl;
 		int len = countPoliticalParty + 1;
 		int* numOfRepForPoliArray = new int[len];
 		utils::initArr(numOfRepForPoliArray, len);
@@ -172,13 +225,21 @@ namespace proj
 		int maxId = 0;
 		for (int j = 1; j < len; j++)
 		{
+			cout << _politicalPartyArray.getPoliticalPartyById(j)<<endl;
+			cout<< "political party got "<<_politicalPartyArray.getOverAllVotesForPoli(j)<<"votes in the elecation"<<endl;
+			cout << " number of representative for this party: " << numOfRepForPoliArray[j];
+			
 			if (numOfRepForPoliArray[j] > max)
 			{
 				max = numOfRepForPoliArray[j];
 				maxId = j;
 			}
 		}
-		char* wining = _citizenList.getCitizenName(_politicalPartyArray.getPoliticalPartyHead(maxId));
-		cout << " the wining in the elecation is:" << _politicalPartyArray.getPoliticalPartyHead(maxId) << endl;
+
+		cout << " the wining party in the elecation is:" << _politicalPartyArray.getName(maxId)<< endl;
+		cout << " the president in the elecation is:" << _politicalPartyArray.getPoliticalPartyHead(maxId) << endl;
+		cout << "__________________________________________________________________" << endl;
+
+		return 2;
 	}
 }

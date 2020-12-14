@@ -11,6 +11,7 @@ namespace proj
 		int numId;
 		int numOfRepresentative;
 		int countCitizensInState;
+		int countVotesInState;
 
 	public:
 
@@ -19,8 +20,8 @@ namespace proj
 		State(const State& Sta);
 		~State();
 		const State& operator=(const State& input);
-		bool IsStateIDValid(int Numid);
-		//void printState();
+
+		
 		friend ostream& operator<<(ostream& os, const State& state);
 	
 		/// GETERS ///
@@ -28,10 +29,11 @@ namespace proj
 		int getNumId()const;
 		char* getName()const;
 		int getHowManyCitizens()const;
-		
-		//// SETERS /////
-	     bool addCitizen();
+		int getCountVotesInState()const;
 
+		//// SETERS /////
+	     void addCitizen();
+		 void addVote();
 	};
 }
 

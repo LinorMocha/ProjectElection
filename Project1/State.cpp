@@ -5,7 +5,7 @@
 
 namespace proj
 {
-	State::State():name(new char()), numOfRepresentative(0),numId(0), countCitizensInState(0)
+	State::State():name(new char()), numOfRepresentative(0),numId(0), countCitizensInState(0),countVotesInState(0)
 	{
 		name = nullptr;
 		
@@ -17,6 +17,7 @@ namespace proj
 		numOfRepresentative = sta.numOfRepresentative;
 		name = utils::my_strdup(sta.name);
 		countCitizensInState = sta.countCitizensInState;
+		countVotesInState = sta.countVotesInState;
 	}
 
 	ostream& operator << (ostream& os, const State& state)
@@ -27,23 +28,18 @@ namespace proj
 		return os;
 	}
 
-	/*void State::printState()
-	{
-		cout <<"state number:"<< numId <<endl;
-		cout <<"state name:"<< name << endl;
-		cout << "state number of rep:" << numOfRepresentative << endl;
-		
-	}*/
 	State::~State()
 	{
 		delete[] name;
 	}
+
 	const State& State::operator=(const State& input)
 	{
 		numId = input.numId;
 		numOfRepresentative = input.numOfRepresentative;
 		name = input.name;
 		countCitizensInState = input.countCitizensInState;
+		countVotesInState = input.countVotesInState;
 		return *this;
 	}
 	State::State(char* _name, int _numRep) :State()
@@ -71,14 +67,19 @@ namespace proj
 	{
 		return countCitizensInState;
 	}
-	//bool State:: IsStateIDValid(int Numid)
-	//{
 
-	//}
-
-	bool State::addCitizen()
+	int State::getCountVotesInState()const
 	{
-		return countCitizensInState++;  // there`s a break up point here when we add citizen before we add state - should return a statment to the user
+		return countVotesInState;
 	}
 
+	void State::addCitizen()
+	{
+	 countCitizensInState++; 
+	}
+
+	void State::addVote()
+	{
+		countVotesInState++;
+	}
 }

@@ -5,7 +5,7 @@ namespace proj
 {
 	StateArray::StateArray() : stateArray(new State*()),phySize(1)
 	{
-		cout << "con state aaray" << endl;
+		
 	}
 
 	StateArray::~StateArray()
@@ -18,6 +18,10 @@ namespace proj
 	void StateArray::addCitizenCountToState(int stateId)
 	{
 		stateArray[stateId]->addCitizen();
+	}
+	void StateArray::addVoteCountToState(int stateId)
+	{
+		stateArray[stateId]->addVote();
 	}
 
 	void StateArray::addState(char* name, int _numRep)
@@ -49,11 +53,14 @@ namespace proj
 	}
 	void StateArray::printStateArray()
 	{
-		for (int i = 1; i <= ElectionRound::countState; i++)
+		int i;
+		for ( i = 1; i <= ElectionRound::countState; i++)
 		{
-			//stateArray[i]->printState();
 			cout<<*(stateArray[i]);
 		}
+		if(i==1)
+			cout << "There is not states" << endl;
+
 	}
 
 	
