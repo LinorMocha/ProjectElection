@@ -20,8 +20,6 @@ namespace proj
 		State(const State& Sta);
 		~State();
 		const State& operator=(const State& input);
-
-		
 		friend ostream& operator<<(ostream& os, const State& state);
 	
 		/// GETERS ///

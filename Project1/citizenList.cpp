@@ -131,7 +131,7 @@ namespace proj {
            node* temp = head;
            while (temp != nullptr) 
            {
-               cout<<*temp->value<<endl;
+               cout<<*temp->value;
                temp = temp->next;
            }
        }

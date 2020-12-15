@@ -11,7 +11,7 @@ namespace proj {
         citizenList** representativeListByStateArray;
         char *name;
         int numId;
-        citizen *head;
+        citizen* head;
         int* votesByStatesArray;
         int phySize;
         
@@ -21,7 +21,8 @@ namespace proj {
         ~politicalParty();
         // to check if necessery
         //void operator=(const politicalParty& input);
-         politicalParty(const politicalParty& pol);
+        
+        politicalParty(const politicalParty& pol);
 
         //// GETERS
         int getNumId();
@@ -30,11 +31,11 @@ namespace proj {
         int getHowManyVotesOverAll();
         int getHowManyVotesForState(int stateId);
         int getNumOfRepInList(int stateId);
+        
         /// OTHER FUNCATIONS
         void reSizeRepresentativeList();
         void addRepresentitive(citizen* citizen, int state);
         void PrintRepListForAllState();
-
         friend ostream& operator<<(ostream& os,const politicalParty& p_party);
         void addState();
         void reSizeVotesByStateArray();

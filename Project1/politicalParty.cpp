@@ -6,20 +6,20 @@
 
 namespace proj
 {
-	politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(new int()),phySize(1)
+	politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(nullptr),phySize(1)
 	{
-        votesByStatesArray[0] = 0;
-	}
+    }
     politicalParty::politicalParty(const politicalParty& pol)
     {
         numId = pol.numId;
         head = pol.head;
-        votesByStatesArray = new int(*pol.votesByStatesArray);
+        votesByStatesArray = new int[pol.phySize];
         representativeListByStateArray = new citizenList * [pol.phySize];
         for (int i = 0; i < pol.phySize; i++)
         {
             pol.representativeListByStateArray[i]->printList();
             representativeListByStateArray[i] = new citizenList(*pol.representativeListByStateArray[i]);
+            votesByStatesArray[i] = pol.votesByStatesArray[i];
         }
         
         
@@ -38,11 +38,14 @@ namespace proj
         numId = ElectionRound::countPoliticalParty;
         phySize = ElectionRound::countState + 1;
         representativeListByStateArray = new citizenList * [phySize];
+        votesByStatesArray = new int[phySize];
+
         for (int i = 0; i < phySize; i++)
         {
             representativeListByStateArray[i] = new citizenList();
+            votesByStatesArray[i] = 0;
         }
-
+        
         name = utils::my_strdup(partyName);
         head = _head;
     }
@@ -114,7 +117,7 @@ namespace proj
         int* res = new int[phySize];
         for (int i = 0; i < phySize; i++)
         {
-            if (ElectionRound::countState > i)
+            if (ElectionRound::countState > i && i!=0)
                 res[i] = votesByStatesArray[i];
             else
                 res[i] = 0;
@@ -160,9 +163,9 @@ namespace proj
     ostream& operator<<(ostream& os, const politicalParty& p_party)
     {
         
-        os << "Name:" << p_party.name<< endl;
-        os << "ID" << p_party.numId << endl;
-        os << "the head of political party is:      " ;
+        os << "political party name: " << p_party.name;
+        os << "  ||  ID: " << p_party.numId;
+        os << "  ||  the head of political party is: " ;
         os << *(p_party.head) <<endl;
         for (int i = 1; i <= ElectionRound::countState; i++)
         {

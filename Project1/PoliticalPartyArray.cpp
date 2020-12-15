@@ -90,7 +90,7 @@ namespace proj
 		for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
 		{
 			IsThereP_P = true;;
-			cout<<*politicalPartyArray[i];
+			cout << *politicalPartyArray[i] << endl;
 		}
 		if (!IsThereP_P)
 			cout << "There is not political parties"<<endl;
@@ -108,8 +108,6 @@ namespace proj
 				res[i] = nullptr;
 			else
 			{
-				cout << "before:" << endl;
-				politicalPartyArray[i]->PrintRepListForAllState();
 				res[i] = new politicalParty(*politicalPartyArray[i]);
 
 			}
@@ -120,23 +118,13 @@ namespace proj
 	politicalPartyArray = res;
 
 
-	/*for (int i = 1; i < ElectionRound::countPoliticalParty; i++)
-	{
-			cout << "after:" << endl;
-			politicalPartyArray[i]->PrintRepListForAllState();
-	}*/
-
-	
 }
 	void PoliticalPartyArray::addRepToPoli(int PolId, int StateId, citizen* rep)
 	{
 		politicalPartyArray[PolId]->addRepresentitive(rep, StateId);
 	}
 
-	/*const citizenList& PoliticalPartyArray::getSelectedRepList(int PoliId, int StateId, int repCount)
-	{
-		return politicalPartyArray[PoliId]->getWinningRepresentitives(StateId, repCount);
-	}*/
+	
 
 	void PoliticalPartyArray::printSelectedRepList(int PoliId, int StateId, int repCount)
 	{
