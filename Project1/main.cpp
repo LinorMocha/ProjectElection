@@ -48,7 +48,7 @@ int main()
 	cout << "enter year" << endl;
 	int _year;
 	cin >> _year;
-
+	Round.setDate(_day, _month, _year);
 
 	printMenu();
 	

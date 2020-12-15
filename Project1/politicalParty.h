@@ -17,11 +17,9 @@ namespace proj {
         
     public:
         politicalParty();
-        politicalParty(char* partyName, citizen* _head);
         ~politicalParty();
-        // to check if necessery
-        //void operator=(const politicalParty& input);
-        
+
+        politicalParty(char* partyName, citizen* _head);
         politicalParty(const politicalParty& pol);
 
         //// GETERS

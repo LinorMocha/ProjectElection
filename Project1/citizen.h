@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include "State.h"
 using namespace std;
@@ -22,7 +21,6 @@ namespace proj
 		~citizen();
 	
 		void operator=(const citizen& input);
-		
 		friend ostream& operator<<(ostream& os, const citizen& Citizen); 
 
 		///// GETERS////////

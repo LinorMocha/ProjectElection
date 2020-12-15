@@ -14,14 +14,18 @@ namespace proj
 		date.month = 0;
 		date.year = 0;
 	}
-	ElectionRound::~ElectionRound()	{}
+	ElectionRound::~ElectionRound()
+	{
 
-	void ElectionRound::setDate(int day, int month, int year)
+	}
+
+	bool ElectionRound::setDate(int day, int month, int year)
 	{
 		
 		date.day = day;
 		date.month = month;
 		date.year = year;
+		return true;
 	}
 
 	///////////// STATE implementation//////////////////
@@ -168,7 +172,7 @@ namespace proj
 				temp[i] = (float)_politicalPartyArray.getOverAllVotesForPoliInState(i + 1, stateId);
 
 			}
-			/// כמות ההצבעות חלקי כמות הנציגים
+			
 			float votesForRep = (float) sta.getCountVotesInState() / sta.getNumOfRepresentative();
 
 			int j = utils::returnMaxIndexInArray(temp, countState);
@@ -198,10 +202,10 @@ namespace proj
 				cout << endl;
 			}
 		}
-
+		
 		precent = (float)sta.getCountVotesInState() / sta.getHowManyCitizens();
 		
-		cout << " the State voter turn out is:" << precent*100 << '%' << endl;
+		cout << " the State voter turn out is:" << precent *100 << '%' << endl;
 
 		cout << " the State chose:" << _politicalPartyArray.getName(winningPoli) << "  to be president!!!" << endl;
 

@@ -9,7 +9,11 @@ namespace proj
 	}
 	PoliticalPartyArray::~PoliticalPartyArray()
 	{
-		delete[] politicalPartyArray;
+		for (int i = 0; i <= ElectionRound::countPoliticalParty; i++)
+		{
+			delete politicalPartyArray[i];
+		}
+
 	}
 	void PoliticalPartyArray::addState()
 	{

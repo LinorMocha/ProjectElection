@@ -6,10 +6,32 @@
 using namespace std;
 
 namespace proj {
-   citizenList::citizenList():head(nullptr),tail(nullptr)
+   
+    citizenList::citizenList():head(nullptr),tail(nullptr) {}
+    citizenList::citizenList(const citizenList& input) : citizenList()
     {
-        
+        node* index = input.head;
+        while (index != nullptr)
+        {
+            addNodeToTail(index->value);
+            index = index->next;
+        }
+
     }
+    citizenList::~citizenList()
+    {
+        node* current = head;
+        node* next;
+        while (current != nullptr)
+        {
+            next = current->next;
+            delete current->value;
+
+            current = next;
+        }
+
+    }
+
    int citizenList::getListSize()
    {
        int count = 0;
@@ -22,29 +44,6 @@ namespace proj {
        }
        return count;
    }
-   citizenList::citizenList(const citizenList& input):citizenList()
-   {
-       node* index = input.head;
-       while (index!=nullptr)
-       {
-           addNodeToTail(index->value);
-           index = index->next;
-        }
-
-   }
-   citizenList::~citizenList()
-    {
-            node* current = head;
-            node* next;
-            while (current != nullptr) 
-            {
-                next = current->next;
-                delete current->value;
-                
-                current = next;
-            }
-       
-    }
 
    void citizenList::addNodeToTail(citizen* input)
     {
@@ -66,7 +65,8 @@ namespace proj {
         
 
         }
-    }
+   }
+
    void citizenList::addNodeToHead(citizen* input)
    {
        node* tmp = new node;
@@ -99,16 +99,12 @@ namespace proj {
        }
        return nullptr;
    }
-   node* citizenList::getHead()
-   {
-       
-       return head;
-   }
+   
+    node* citizenList::getHead() {return head;}
 
    void citizenList::operator=(const citizenList& input)
    {
        head = input.head;
-       
        tail = input.tail;
    }
 

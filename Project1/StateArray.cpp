@@ -12,8 +12,11 @@ namespace proj
 	{
 		for (int i = 0; i <= ElectionRound::countState; i++)
 		{
-			delete[] stateArray[i];
+			delete stateArray[i];
 		}
+		
+
+
 	}
 	void StateArray::addCitizenCountToState(int stateId)
 	{

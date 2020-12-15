@@ -30,8 +30,8 @@ namespace proj
     {
         delete[] representativeListByStateArray;
         delete[] name;
-        delete[] head;
-    }
+        delete[] votesByStatesArray;
+     }
     politicalParty::politicalParty(char* partyName, citizen* _head) : politicalParty()
     {
         ElectionRound::countPoliticalParty++;
