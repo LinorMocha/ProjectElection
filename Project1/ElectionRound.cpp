@@ -16,7 +16,15 @@ namespace proj
 	}
 	ElectionRound::~ElectionRound()
 	{
+		
+	}
 
+	void ElectionRound::setDate(int day, int month, int year)
+	{
+		
+		date.day = day;
+		date.month = month;
+		date.year = year;
 	}
 
 	///////////// STATE implementation//////////////////
@@ -66,7 +74,7 @@ namespace proj
 	bool ElectionRound::addPoliticalParty(char* name, int headId)
 	{
 		citizen* headPoly = _citizenList.getCitizenById(headId);
-		if (headPoly != nullptr && _politicalPartyArray.getPoliticalPartyByHead(*headPoly)==nullptr)
+		if (headPoly != nullptr && !_politicalPartyArray.isCitizenIsRepORHead(*headPoly))
 		{
 			_politicalPartyArray.addPoliticalParty(name, headPoly);
 			
@@ -93,7 +101,7 @@ namespace proj
 		if (PoliId <= countPoliticalParty && StateId <= countState)
 		{
 			citizen* rep = _citizenList.getCitizenById(repId);
-			if (rep != nullptr && !_politicalPartyArray.isCitizenIsRep(*rep))
+			if (rep != nullptr && !_politicalPartyArray.isCitizenIsRepORHead(*rep))
 			{
 				_politicalPartyArray.addRepToPoli(PoliId, StateId, rep);
 				cout << _politicalPartyArray.getPoliticalPartyById(countPoliticalParty) << endl;
@@ -125,7 +133,7 @@ namespace proj
 	bool ElectionRound::addVote(int citizenId, int poliId)
 	{
 		citizen* cit = _citizenList.getCitizenById(citizenId);
-		if (cit != nullptr && cit->getVote() != -1)
+		if (cit != nullptr && cit->getVote() == -1)
 		{
 			cit->setvote(poliId);
 			_politicalPartyArray.addVote(poliId, cit->getStateId());

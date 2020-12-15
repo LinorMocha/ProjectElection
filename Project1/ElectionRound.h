@@ -21,7 +21,9 @@ namespace proj
 		
 		ElectionRound();
 		~ElectionRound();
-
+		void setDate( int day,int month,int year);
+		
+		
 		/////////// STATE //////////////////
 		void addState(char* name, int numRep);
 		void printStateArray();

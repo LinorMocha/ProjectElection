@@ -148,16 +148,25 @@ namespace proj
         representativeListByStateArray[state]->printList(repCount);
            
 	}
+    void politicalParty::PrintRepListForAllState()
+    {
+        for (int i = 1; i <= ElectionRound::countState; i++)
+        {
+            representativeListByStateArray[i]->printList();
+        }
+
+    }
 
     ostream& operator<<(ostream& os, const politicalParty& p_party)
     {
-        os << "Name:" << p_party.name;
-        os << "ID" << p_party.numId;
-        os << "the head of political party is: " << endl;
-        os << *(p_party.head)<<endl;
+        
+        os << "Name:" << p_party.name<< endl;
+        os << "ID" << p_party.numId << endl;
+        os << "the head of political party is:      " ;
+        os << *(p_party.head) <<endl;
         for (int i = 1; i <= ElectionRound::countState; i++)
         {
-                os << "Representative List for State:" << i << endl;
+                os << "Representative List for State number " << i <<"is:" <<endl;
                 p_party.representativeListByStateArray[i]->printList();
         }
         return os;

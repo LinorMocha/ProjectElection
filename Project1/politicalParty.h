@@ -33,6 +33,7 @@ namespace proj {
         /// OTHER FUNCATIONS
         void reSizeRepresentativeList();
         void addRepresentitive(citizen* citizen, int state);
+        void PrintRepListForAllState();
 
         friend ostream& operator<<(ostream& os,const politicalParty& p_party);
         void addState();

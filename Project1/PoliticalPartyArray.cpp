@@ -71,7 +71,7 @@ namespace proj
 		 }
 		 return nullptr;
 	 }
-	bool PoliticalPartyArray::isCitizenIsRep(const citizen& cit)
+	bool PoliticalPartyArray::isCitizenIsRepORHead(const citizen& cit)
 	{
 		 for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
 		 {
@@ -108,6 +108,8 @@ namespace proj
 				res[i] = nullptr;
 			else
 			{
+				cout << "before:" << endl;
+				politicalPartyArray[i]->PrintRepListForAllState();
 				res[i] = new politicalParty(*politicalPartyArray[i]);
 
 			}
@@ -116,8 +118,16 @@ namespace proj
 		delete[] politicalPartyArray;
 
 	politicalPartyArray = res;
+
+
+	/*for (int i = 1; i < ElectionRound::countPoliticalParty; i++)
+	{
+			cout << "after:" << endl;
+			politicalPartyArray[i]->PrintRepListForAllState();
+	}*/
+
 	
-	}
+}
 	void PoliticalPartyArray::addRepToPoli(int PolId, int StateId, citizen* rep)
 	{
 		politicalPartyArray[PolId]->addRepresentitive(rep, StateId);

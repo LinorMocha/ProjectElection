@@ -37,6 +37,19 @@ ElectionRound Round;
 
 int main()
 {
+	cout << "*********************************" << endl;
+	cout << "please enter date first:" << endl;
+	cout << "enter day" << endl;
+	int _day;
+	cin >> _day;
+	cout << "enter month" << endl;
+	int _month;
+	cin >> _month;
+	cout << "enter year" << endl;
+	int _year;
+	cin >> _year;
+
+
 	printMenu();
 	
 	int chose;
@@ -45,14 +58,14 @@ int main()
 	while (chose != 10)
 	{
 		if (chose < 1 || chose>10)
-			cout << "worng . enter again" << endl;
+			cout << "worng . enter again chose a nuber between 1-10" << endl;
 		else
 		exe(chose);
 		printMenu();
 		cin >> chose;
 	}
 	
-	cout << "bay bay";
+	cout << "Good bye";
 
 	return 0;
 }
@@ -138,7 +151,7 @@ void addCitizen()
 	int stateNum;
 	cin >> stateNum;
 	if (!Round.addCitizen(name, id, stateNum, birthYear))
-		cout << "worng input"<<endl;
+		cout << "EROR! please enter an exsited state and a new ID"<<endl;
 }
 void addPoliticalParties()
 {
@@ -152,7 +165,7 @@ void addPoliticalParties()
 
 	if (!Round.addPoliticalParty(name, input2))
 	{
-		cout << "worng input" << endl;
+		cout << "EROR! please enter an exsited state and citizen" << endl;
     }
 	
 }
@@ -173,7 +186,7 @@ void addRepresentative()
 	
 
 	if (!Round.addRepresentativetoPoli(input, input2, input3))
-		cout << "worng input" << endl;
+		cout << "EROR! please enter an exsited state, citizen and political party, Representative can represent only one political party! " << endl;
 	
 }
 void printStates()
