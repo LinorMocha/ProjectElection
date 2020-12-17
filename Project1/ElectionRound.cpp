@@ -16,16 +16,16 @@ namespace proj
 	}
 	ElectionRound::~ElectionRound()
 	{
-	
-
+		
 	}
 
-	void ElectionRound::setDate(int day, int month, int year)
+	bool ElectionRound::setDate(int day, int month, int year)
 	{
 		
 		date.day = day;
 		date.month = month;
 		date.year = year;
+		return true;
 	}
 
 	///////////// STATE implementation//////////////////
@@ -173,7 +173,7 @@ namespace proj
 
 			}
 			/// כמות ההצבעות חלקי כמות הנציגים
-			float votesForRep = (float) sta.getCountVotesInState() / sta.getNumOfRepresentative();
+			float votesForRep = (float)sta.getCountVotesInState() / sta.getNumOfRepresentative();
 
 			int j = utils::returnMaxIndexInArray(temp, countState);
 			
@@ -192,20 +192,20 @@ namespace proj
 			for (int i = 1; i <= countPoliticalParty; i++)
 			{
 				votesForPoli = _politicalPartyArray.getOverAllVotesForPoliInState(i, stateId);
-				precent = (float)votesForPoli / sta.getHowManyCitizens();
+				precent = (float)votesForPoli / sta.getCountVotesInState();
 				cout << "number of votes : " << votesForPoli;
-				cout << " for political party:" << _politicalPartyArray.getName(i);
-				cout << "percent of votes: " << precent << '%' << endl;
+				cout << "for political party:" << _politicalPartyArray.getName(i);
+				cout << "percent of votes:" << precent << '%' << endl;
 				cout << "selected representative list:" << endl;
 				numOfRep = howManyRep[i - 1];
 				_politicalPartyArray.printSelectedRepList(i, stateId, numOfRep);
 				cout << endl;
 			}
 		}
-
+		
 		precent = (float)sta.getCountVotesInState() / sta.getHowManyCitizens();
 		
-		cout << " the State voter turn out is:" << precent << '%' << endl;
+		cout << " the State voter turn out is:" << precent *100 << '%' << endl;
 
 		cout << " the State chose:" << _politicalPartyArray.getName(winningPoli) << "  to be president!!!" << endl;
 

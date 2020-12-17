@@ -9,7 +9,11 @@ namespace proj
 	}
 	PoliticalPartyArray::~PoliticalPartyArray()
 	{
-		delete[] politicalPartyArray;
+		for (int i = 0; i <= ElectionRound::countPoliticalParty; i++)
+		{
+			delete politicalPartyArray[i];
+		}
+
 	}
 	void PoliticalPartyArray::addState()
 	{
@@ -90,7 +94,7 @@ namespace proj
 		for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
 		{
 			IsThereP_P = true;;
-			
+			cout << *politicalPartyArray[i] << endl;
 		}
 		if (!IsThereP_P)
 			cout << "There is not political parties"<<endl;

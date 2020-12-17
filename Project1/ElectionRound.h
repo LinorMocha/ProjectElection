@@ -21,7 +21,8 @@ namespace proj
 		
 		ElectionRound();
 		~ElectionRound();
-		void setDate( int day,int month,int year);
+		
+		bool setDate( int day,int month,int year);
 		
 		
 		/////////// STATE //////////////////
@@ -44,9 +45,6 @@ namespace proj
 		void printPoliticalPartyArray();
 		const politicalParty& getPoliById(int numId);
 		
-		
-
-
 		/////////// Vote //////////////
 		bool addVote(int citizenId, int poliId);
 		
