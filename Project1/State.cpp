@@ -22,9 +22,9 @@ namespace proj
 
 	ostream& operator << (ostream& os, const State& state)
 	{
-		os << "state number:" << state.getNumId()<< endl;
-		os << "state name:" << state.getName() << endl;
-		os << "state number of rep:" << state.getNumOfRepresentative() << endl;
+		os << "state number: " << state.getNumId();
+		os << "  ||  state name: " << state.getName();
+		os << "  ||  state number of rep: " << state.getNumOfRepresentative() << endl;
 		return os;
 	}
 

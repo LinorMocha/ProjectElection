@@ -65,10 +65,10 @@ namespace proj
 
 	ostream& operator<<(ostream& os, const citizen& Citizen)
 	{
-		os << " Name: " << Citizen.getName() << endl;
-		os << "citizen ID: " << Citizen.getId() << endl;
-		os << "birth year: " << Citizen.getBirthYear() << endl;
-		os << "state: " << Citizen.getStateId() << endl;
+		os << "citizen name: " << Citizen.getName();
+		os << "  ||  citizen ID: " << Citizen.getId();
+		os << "  ||  birth year: " << Citizen.getBirthYear();
+		os << "  ||  state: " << Citizen.getStateId() << endl;
 		return os;
 	}
 

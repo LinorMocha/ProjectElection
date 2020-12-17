@@ -16,7 +16,8 @@ namespace proj
 	}
 	ElectionRound::~ElectionRound()
 	{
-		
+	
+
 	}
 
 	void ElectionRound::setDate(int day, int month, int year)
@@ -104,7 +105,7 @@ namespace proj
 			if (rep != nullptr && !_politicalPartyArray.isCitizenIsRepORHead(*rep))
 			{
 				_politicalPartyArray.addRepToPoli(PoliId, StateId, rep);
-				cout << _politicalPartyArray.getPoliticalPartyById(countPoliticalParty) << endl;
+				
 				return true;
 			}
 		}
@@ -133,10 +134,11 @@ namespace proj
 	bool ElectionRound::addVote(int citizenId, int poliId)
 	{
 		citizen* cit = _citizenList.getCitizenById(citizenId);
-		if (cit != nullptr && cit->getVote() == -1)
+		if (cit != nullptr && cit->getVote() == -1 && poliId>0 && poliId <= countPoliticalParty )
 		{
 			cit->setvote(poliId);
 			_politicalPartyArray.addVote(poliId, cit->getStateId());
+			cout <<"the vote for poli is"<< _politicalPartyArray.getOverAllVotesForPoliInState(poliId, cit->getStateId())<<endl;
 			_stateArray.addVoteCountToState(cit->getStateId());
 			return true;
 		}
@@ -152,25 +154,31 @@ namespace proj
 	int ElectionRound::printElectionResultsForState(int stateId)
 	{
 		State& sta = _stateArray.getStateById(stateId);
+		
 		cout << sta;
+		
 		float precent;
+		
 		int winningPoli = 1;
+		
 		if (sta.getCountVotesInState() != 0)
 		{
 
 			float* temp = new float[countPoliticalParty];
 			int* howManyRep = new int[countPoliticalParty];
 			utils::initArr(howManyRep, countPoliticalParty);
-			for (int i = 0; i < ElectionRound::countPoliticalParty; i++)
+			for (int i = 0; i < countPoliticalParty; i++)
 			{
 				temp[i] = (float)_politicalPartyArray.getOverAllVotesForPoliInState(i + 1, stateId);
 
 			}
 			/// כמות ההצבעות חלקי כמות הנציגים
-			float votesForRep = (float)sta.getCountVotesInState() / sta.getNumOfRepresentative();
+			float votesForRep = (float) sta.getCountVotesInState() / sta.getNumOfRepresentative();
 
 			int j = utils::returnMaxIndexInArray(temp, countState);
+			
 			winningPoli = j + 1;
+			
 			for (int i = 0; i < _stateArray.getStatenumOfRepresentative(stateId); i++)
 			{
 				temp[j] -= votesForRep;
@@ -186,10 +194,10 @@ namespace proj
 				votesForPoli = _politicalPartyArray.getOverAllVotesForPoliInState(i, stateId);
 				precent = (float)votesForPoli / sta.getHowManyCitizens();
 				cout << "number of votes : " << votesForPoli;
-				cout << "for political party:" << _politicalPartyArray.getName(i);
-				cout << "percent of votes:" << precent << '%' << endl;
+				cout << " for political party:" << _politicalPartyArray.getName(i);
+				cout << "percent of votes: " << precent << '%' << endl;
 				cout << "selected representative list:" << endl;
-				numOfRep = howManyRep[i + 1];
+				numOfRep = howManyRep[i - 1];
 				_politicalPartyArray.printSelectedRepList(i, stateId, numOfRep);
 				cout << endl;
 			}
@@ -199,7 +207,7 @@ namespace proj
 		
 		cout << " the State voter turn out is:" << precent << '%' << endl;
 
-		cout << " the State chose:" << _politicalPartyArray.getName(winningPoli) << "to be president!!!" << endl;
+		cout << " the State chose:" << _politicalPartyArray.getName(winningPoli) << "  to be president!!!" << endl;
 
 		return winningPoli;
 	
@@ -219,7 +227,8 @@ namespace proj
 			return 1;
 		}
 		cout << "__________________________________________________________" << endl;
-		cout << "Elecation Round result:" << endl;
+		cout << " the Elecation Round in date:" <<date.day<<"/"<<date.month <<"/"<< date.year << "   result:"<<	endl;
+
 		int len = countPoliticalParty + 1;
 		int* numOfRepForPoliArray = new int[len];
 		utils::initArr(numOfRepForPoliArray, len);
@@ -236,7 +245,7 @@ namespace proj
 		for (int j = 1; j < len; j++)
 		{
 			cout << _politicalPartyArray.getPoliticalPartyById(j)<<endl;
-			cout<< "political party got "<<_politicalPartyArray.getOverAllVotesForPoli(j)<<"votes in the elecation"<<endl;
+			cout<< "political party got "<<_politicalPartyArray.getOverAllVotesForPoli(j)<<" votes in the elecation"<<endl;
 			cout << " number of representative for this party: " << numOfRepForPoliArray[j];
 			
 			if (numOfRepForPoliArray[j] > max)
@@ -247,7 +256,7 @@ namespace proj
 		}
 
 		cout << " the wining party in the elecation is:" << _politicalPartyArray.getName(maxId)<< endl;
-		cout << " the president in the elecation is:" << _politicalPartyArray.getPoliticalPartyHead(maxId) << endl;
+		cout << " the president in the elecation is:" << *_politicalPartyArray.getPoliticalPartyHead(maxId) << endl;
 		cout << "__________________________________________________________________" << endl;
 
 		return 2;
