@@ -12,6 +12,8 @@ namespace proj
 		int numOfRepresentative;
 		int countCitizensInState;
 		int countVotesInState;
+		/// true= union false= sperated
+		bool stateStatus;
 
 	public:
 
@@ -23,6 +25,7 @@ namespace proj
 		friend ostream& operator<<(ostream& os, const State& state);
 	
 		/// GETERS ///
+		bool getStateStatus()const;
 		int getNumOfRepresentative()const;
 		int getNumId()const;
 		char* getName()const;

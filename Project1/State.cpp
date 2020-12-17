@@ -5,7 +5,7 @@
 
 namespace proj
 {
-	State::State():name(new char()), numOfRepresentative(0),numId(0), countCitizensInState(0),countVotesInState(0)
+	State::State():name(new char()), numOfRepresentative(0),numId(0), countCitizensInState(0),countVotesInState(0),stateStatus(true)
 	{
 		name = nullptr;
 		
@@ -17,6 +17,7 @@ namespace proj
 		numOfRepresentative = sta.numOfRepresentative;
 		name = utils::my_strdup(sta.name);
 		countCitizensInState = sta.countCitizensInState;
+		stateStatus = sta.stateStatus;
 		countVotesInState = sta.countVotesInState;
 	}
 
@@ -25,6 +26,11 @@ namespace proj
 		os << "state number: " << state.getNumId();
 		os << "  ||  state name: " << state.getName();
 		os << "  ||  state number of rep: " << state.getNumOfRepresentative() << endl;
+		if (state.getStateStatus())
+			os << "  ||  state brand: union ";
+		else
+			os << "  ||  state brand: sperated ";
+
 		return os;
 	}
 
@@ -50,7 +56,10 @@ namespace proj
 		name = utils::my_strdup(_name);
 
 	}
-
+	bool State::getStateStatus()const
+	{
+		return stateStatus;
+	}
 	char* State::getName()const
 	{
 		return name;
