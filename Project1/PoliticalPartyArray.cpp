@@ -3,7 +3,7 @@
 
 namespace proj
 {
-	PoliticalPartyArray::PoliticalPartyArray() :politicalPartyArray(new politicalParty*()), phySize(1)
+	PoliticalPartyArray::PoliticalPartyArray() :politicalPartyArray(new politicalParty* ()), phySize(1)
 	{
 
 	}
@@ -40,26 +40,26 @@ namespace proj
 		return politicalPartyArray[poliId]->getName();
 	}
 
-	void PoliticalPartyArray::addVote(int poliId,int stateId)
+	void PoliticalPartyArray::addVote(int poliId, int stateId)
 	{
 		politicalPartyArray[poliId]->addVote(stateId);
 	}
 
 	void PoliticalPartyArray::addPoliticalParty(char* name, citizen* head)
 	{
-		politicalParty *newParty=new politicalParty(name, head);
+		politicalParty* newParty = new politicalParty(name, head);
 
 		if (ElectionRound::countPoliticalParty >= phySize)
 			reSizePoliticalPartyArray();
 		politicalPartyArray[newParty->getNumId()] = newParty;
-		
+
 	}
 
 	const politicalParty& PoliticalPartyArray::getPoliticalPartyById(int numId)
 	{
 		return *politicalPartyArray[numId];
 	}
-	 citizen* PoliticalPartyArray::getPoliticalPartyHead(int numId)
+	const citizen& PoliticalPartyArray::getPoliticalPartyHead(int numId)
 	{
 		return politicalPartyArray[numId]->getPoliticalPartyHead();
 	}
@@ -68,7 +68,7 @@ namespace proj
 	 {
 		 for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
 		 {
-			 if (politicalPartyArray[i]->getPoliticalPartyHead()->getId() == head.getId())
+			 if (politicalPartyArray[i]->getPoliticalPartyHead().getId() == head.getId())
 			 {
 				 return politicalPartyArray[i];
 			 }
@@ -79,7 +79,7 @@ namespace proj
 	{
 		 for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
 		 {
-			 if (politicalPartyArray[i]->getPoliticalPartyHead()->getId() == cit.getId())
+			if( politicalPartyArray[i]->getPoliticalPartyHead().getId()== cit.getId())
 				 return true;
 			 if (politicalPartyArray[i]->isRep(cit))
 				 return true;

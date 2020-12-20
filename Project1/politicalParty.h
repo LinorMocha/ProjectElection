@@ -11,7 +11,7 @@ namespace proj {
         citizenList** representativeListByStateArray;
         char *name;
         int numId;
-        citizen* head;
+        citizen& head;
         int* votesByStatesArray;
         int phySize;
         
@@ -23,12 +23,12 @@ namespace proj {
         politicalParty(const politicalParty& pol);
 
         //// GETERS
-        int getNumId();
-        char* getName();
-        citizen* getPoliticalPartyHead();
-        int getHowManyVotesOverAll();
-        int getHowManyVotesForState(int stateId);
-        int getNumOfRepInList(int stateId);
+        int getNumId()const;
+        char* getName()const;
+        const citizen& getPoliticalPartyHead() const;
+        int getHowManyVotesOverAll()const;
+        int getHowManyVotesForState(int stateId)const;
+        int getNumOfRepInList(int stateId)const;
         
         /// OTHER FUNCATIONS
         void reSizeRepresentativeList();

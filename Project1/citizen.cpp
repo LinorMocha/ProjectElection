@@ -4,11 +4,11 @@
 
 namespace proj
 {
-	citizen::citizen() : name(nullptr), ID(0), birthYear(0), vote(-1), state(nullptr)
+	/*citizen::citizen() : name(nullptr), ID(0), birthYear(0), vote(-1), state
 	{
 
-	}
-	citizen::citizen(char* _name, int id, State& _state, int _birthYear) : state(&_state), ID(id), birthYear(_birthYear)
+	}*/
+	citizen::citizen(char* _name, int id, State& _state, int _birthYear) : state(_state), ID(id), birthYear(_birthYear)
 	{
 		ElectionRound::countCitizen++;
 		name = utils::my_strdup(_name);
@@ -34,9 +34,10 @@ namespace proj
 		vote = input.vote;
 		name = utils::my_strdup(input.name);
 	}
+	
 	int citizen::getStateId() const
 	{
-		return state->getNumId();
+		return state.getNumId();
 	}
 
 	int citizen::getVote() const
@@ -57,6 +58,9 @@ namespace proj
 	{
 		return name;
 	}
+
+
+
 	bool citizen::setvote(int _vote)
 	{
 		vote = _vote;

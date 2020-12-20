@@ -92,7 +92,6 @@ namespace proj
 	const politicalParty& ElectionRound::getPoliById(int numId)
 	{
 		return _politicalPartyArray.getPoliticalPartyById(numId);
-
 	}
 	
 	/////// REPRESENTATIVE ////////
@@ -256,7 +255,7 @@ namespace proj
 		}
 
 		cout << " the wining party in the elecation is:" << _politicalPartyArray.getName(maxId)<< endl;
-		cout << " the president in the elecation is:" << *_politicalPartyArray.getPoliticalPartyHead(maxId) << endl;
+		cout << " the president in the elecation is:" << _politicalPartyArray.getPoliticalPartyHead(maxId) << endl;
 		cout << "__________________________________________________________________" << endl;
 
 		return 2;

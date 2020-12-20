@@ -6,13 +6,32 @@
 
 namespace proj
 {
-	politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(nullptr),phySize(1)
+	/*politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(nullptr),phySize(1)
 	{
+    }*/
+    politicalParty::politicalParty(char* partyName, citizen* _head) : head(*_head)
+    {
+
+        ElectionRound::countPoliticalParty++;
+        numId = ElectionRound::countPoliticalParty;
+        phySize = ElectionRound::countState + 1;
+        representativeListByStateArray = new citizenList * [phySize];
+        votesByStatesArray = new int[phySize];
+
+        for (int i = 0; i < phySize; i++)
+        {
+            representativeListByStateArray[i] = new citizenList();
+            votesByStatesArray[i] = 0;
+        }
+
+        name = utils::my_strdup(partyName);
+       
     }
-    politicalParty::politicalParty(const politicalParty& pol)
+
+    politicalParty::politicalParty(const politicalParty& pol): head(pol.head)
     {
         numId = pol.numId;
-        head = pol.head;
+      
         votesByStatesArray = new int[pol.phySize];
         representativeListByStateArray = new citizenList * [pol.phySize];
         for (int i = 0; i < pol.phySize; i++)
@@ -32,29 +51,31 @@ namespace proj
         delete[] name;
         delete[] votesByStatesArray;
      }
-    politicalParty::politicalParty(char* partyName, citizen* _head) : politicalParty()
-    {
-        ElectionRound::countPoliticalParty++;
-        numId = ElectionRound::countPoliticalParty;
-        phySize = ElectionRound::countState + 1;
-        representativeListByStateArray = new citizenList * [phySize];
-        votesByStatesArray = new int[phySize];
 
-        for (int i = 0; i < phySize; i++)
+   
+    ostream& operator<<(ostream& os, const politicalParty& p_party)
+    {
+
+        os << "political party name: " << p_party.name;
+        os << "  ||  ID: " << p_party.numId;
+        os << "  ||  the head of political party is: ";
+        os << p_party.head << endl;
+        for (int i = 1; i <= ElectionRound::countState; i++)
         {
-            representativeListByStateArray[i] = new citizenList();
-            votesByStatesArray[i] = 0;
+            os << "Representative List for State number " << i << "is:" << endl;
+            p_party.representativeListByStateArray[i]->printList();
         }
-        
-        name = utils::my_strdup(partyName);
-        head = _head;
+        return os;
     }
-    int politicalParty::getNumOfRepInList(int stateId)
+
+    ///////// GETERS /////////
+
+    int politicalParty::getNumOfRepInList(int stateId)const
     {
         return representativeListByStateArray[stateId]->getListSize();
     }
 
-   int politicalParty::getHowManyVotesOverAll()
+   int politicalParty::getHowManyVotesOverAll()const
     {
         int res=0;
         for (int i = 0; i < ElectionRound::countState; i++)
@@ -63,24 +84,27 @@ namespace proj
         }
         return res;
     }
-    int politicalParty::getHowManyVotesForState(int stateId)
+    int politicalParty::getHowManyVotesForState(int stateId)const
     {
         return votesByStatesArray[stateId];
     }
-    char *politicalParty::getName()
+    char *politicalParty::getName() const 
     {
         return name;
     }
 
-    citizen* politicalParty::getPoliticalPartyHead()
+    const citizen& politicalParty::getPoliticalPartyHead() const
     {
         return head;
     }
 
-    int politicalParty::getNumId()
+    int politicalParty::getNumId()const
     {
         return numId;
     }
+
+    //////////////////////////////////////
+
     void politicalParty::addRepresentitive(citizen* citizen, int state) 
     {
             representativeListByStateArray[state]->addNodeToTail(citizen);
@@ -160,20 +184,7 @@ namespace proj
 
     }
 
-    ostream& operator<<(ostream& os, const politicalParty& p_party)
-    {
-        
-        os << "political party name: " << p_party.name;
-        os << "  ||  ID: " << p_party.numId;
-        os << "  ||  the head of political party is: " ;
-        os << *(p_party.head) <<endl;
-        for (int i = 1; i <= ElectionRound::countState; i++)
-        {
-                os << "Representative List for State number " << i <<"is:" <<endl;
-                p_party.representativeListByStateArray[i]->printList();
-        }
-        return os;
-    }
+  
 
  
 }

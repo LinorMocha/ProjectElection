@@ -32,7 +32,7 @@ namespace proj {
 
     }
 
-   int citizenList::getListSize()
+   int citizenList::getListSize()const
    {
        int count = 0;
        node* current = head;
@@ -87,7 +87,7 @@ namespace proj {
    }
   
 
-    citizen* citizenList::getCitizenById(int _id)
+    citizen* citizenList::getCitizenById(int _id)const
    {
        node* current = head;
 
@@ -100,7 +100,7 @@ namespace proj {
        return nullptr;
    }
    
-    node* citizenList::getHead() {return head;}
+    node* citizenList::getHead()const {return head;}
 
    void citizenList::operator=(const citizenList& input)
    {

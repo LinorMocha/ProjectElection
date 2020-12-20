@@ -10,7 +10,7 @@ namespace proj
 	private:
 		char* name;
 		int ID;
-		State* state;
+		State& state;
 		int birthYear;
 		int vote;
 
