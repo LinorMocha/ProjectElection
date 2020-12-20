@@ -1,7 +1,14 @@
 #include "ELectionProportiaonal.h"
 #pragma once
+namespace proj {
 
-proj::ElectionProportiaonal::ElectionProportiaonal(int numRep) : ElectionRound()
-{
-	_stateArray.addState("backgroundState", numRep , false); //name ?
+
+	ElectionProportiaonal::ElectionProportiaonal(int numRep) : ElectionRound()
+	{
+		_stateArray.addState("backgroundState", numRep, false); //name ?
+	}
+
+	int ElectionProportiaonal::countState = 1;
+	
+
 }

@@ -91,4 +91,22 @@ namespace proj
 	{
 		countVotesInState++;
 	}
+	void State::save(ostream& out) const
+	{
+		out.write(rcastcc(&name), sizeof(name));
+		out.write(rcastcc(&numId), sizeof(numId));
+		out.write(rcastcc(&numOfRepresentative), sizeof(numOfRepresentative));
+		out.write(rcastcc(&countCitizensInState), sizeof(countCitizensInState));
+		out.write(rcastcc(&countVotesInState), sizeof(countVotesInState));
+		out.write(rcastcc(&stateStatus), sizeof(stateStatus));
+	}
+	void State::load(istream& in)
+	{
+		in.read(rcastc(&name), sizeof(name));
+		in.read(rcastc(&numId), sizeof(numId));
+		in.read(rcastc(&numOfRepresentative), sizeof(numOfRepresentative));
+		in.read(rcastc(&countCitizensInState), sizeof(countCitizensInState));
+		in.read(rcastc(&countVotesInState), sizeof(countVotesInState));
+		in.read(rcastc(&stateStatus) ,sizeof(stateStatus));
+	}
 }

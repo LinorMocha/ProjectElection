@@ -13,6 +13,11 @@ namespace proj
 		date.month = 0;
 		date.year = 0;
 	}
+	ElectionRound::ElectionRound(istream& in)
+	{
+		load(in);
+	}
+
 	ElectionRound::~ElectionRound()
 	{
 		

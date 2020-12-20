@@ -27,6 +27,22 @@ namespace proj
 		stateArray[stateId]->addVote();
 	}
 
+	void StateArray::save(ostream& out) const
+	{
+		for (int i = 1; i <= ElectionRound::countState; i++)
+		{
+			stateArray[i]->save(out);
+		}
+
+		out.write(rcastcc(&phySize), sizeof(phySize));
+
+	}
+
+	void StateArray::load(istream& in)
+	{
+
+	}
+
 	void StateArray::addState(char* name, int _numRep, bool Status)
 	{
 		State* newState = new State(name, _numRep ,Status);

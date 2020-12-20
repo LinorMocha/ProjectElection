@@ -119,6 +119,23 @@ namespace proj {
            counter++;
        }
    }
+   void citizenList::save(ostream& out) const
+   {
+       node* temp = head;
+       while (temp != nullptr)
+       {
+           temp->value->save(out);
+           temp = temp->next;
+       }
+   }
+   void citizenList::load(istream& in)
+   {
+       citizen* temp = new citizen(in);
+       temp->value->load(in);
+     addNodeToTail(temp);
+     
+   }
+
    void citizenList::printList()
    {
        if (head == nullptr)

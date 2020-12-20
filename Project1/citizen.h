@@ -15,11 +15,12 @@ namespace proj
 		int vote;
 
 	public:
-		citizen();
+		//citizen();
 		citizen(char* _name, int id, State & _state,int _birthYear);
 		citizen(const citizen& cit);
 		~citizen();
-	
+		citizen(istream& in);
+
 		void operator=(const citizen& input);
 		friend ostream& operator<<(ostream& os, const citizen& Citizen); 
 
@@ -32,6 +33,9 @@ namespace proj
 
 		///// SETERS//////
 		bool setvote(int _vote);
+
+		void save(ostream& out)const;
+		void load(istream& in);
 
 	};
 }

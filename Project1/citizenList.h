@@ -32,5 +32,8 @@ namespace proj
         void addNodeToHead(citizen* input);
         void printList();
         void printList(int numOfNodeToPrint);
+    
+        void save(ostream& out)const;
+        void load(istream& in);
     };
 }

@@ -35,6 +35,9 @@ namespace proj
 		//// SETERS /////
 	     void addCitizen();
 		 void addVote();
+
+		 void save(ostream& out)const;
+		 void load(istream& in);
 	};
 }
 

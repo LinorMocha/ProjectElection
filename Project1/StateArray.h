@@ -24,5 +24,8 @@ namespace proj
         void printStateArray();
         void addCitizenCountToState(int stateId);
         void addVoteCountToState(int stateId);
+
+        void save(ostream& out)const;
+        void load(istream& in);
     };
 }

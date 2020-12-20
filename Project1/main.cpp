@@ -200,7 +200,7 @@ void loadElectionRound()
 	cout << "please enter name file to load :" << endl;
 	cin >> input;
 	char* name = utils::my_strdup(input);
-	if()
+	
 }
 
 void addState()

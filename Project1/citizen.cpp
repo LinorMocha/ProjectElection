@@ -14,6 +14,10 @@ namespace proj
 		name = utils::my_strdup(_name);
 		vote = -1;
 	}
+	citizen::citizen(istream& in):
+	{
+		load(in);
+	}
 
 	citizen::citizen(const citizen& cit) :state(cit.state), ID(cit.ID), birthYear(cit.birthYear), vote(cit.vote)
 	{
@@ -65,6 +69,23 @@ namespace proj
 	{
 		vote = _vote;
 		return true;
+	}
+
+	void citizen::load(istream& in)
+	{
+		in.read(rcastc(&name), sizeof(name));
+		in.read(rcastc(ID), sizeof(ID));
+		in.read(rcastc(&birthYear), sizeof(name));
+		in.read(rcastc(&vote), sizeof(vote));
+		state.load(in);
+	}
+	void citizen::save(ostream& out)const
+	{
+		out.write(rcastcc(&name), sizeof(name));
+		out.write(rcastcc(ID), sizeof(ID));
+		out.write(rcastcc(&birthYear), sizeof(name));
+		out.write(rcastcc(&vote), sizeof(vote));
+		state.save(out);
 	}
 
 	ostream& operator<<(ostream& os, const citizen& Citizen)
