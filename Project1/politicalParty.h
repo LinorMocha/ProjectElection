@@ -16,7 +16,7 @@ namespace proj {
         int phySize;
         
     public:
-        politicalParty();
+        //politicalParty();
         ~politicalParty();
 
         politicalParty(char* partyName, citizen* _head);

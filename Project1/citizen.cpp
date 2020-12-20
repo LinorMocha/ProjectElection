@@ -8,12 +8,14 @@ namespace proj
 	{
 
 	}*/
+	
 	citizen::citizen(char* _name, int id, State& _state, int _birthYear) : state(_state), ID(id), birthYear(_birthYear)
 	{
 		ElectionRound::countCitizen++;
 		name = utils::my_strdup(_name);
 		vote = -1;
 	}
+
 	citizen::citizen(istream& in):
 	{
 		load(in);

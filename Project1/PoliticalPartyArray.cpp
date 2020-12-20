@@ -75,6 +75,7 @@ namespace proj
 		 }
 		 return nullptr;
 	 }
+
 	bool PoliticalPartyArray::isCitizenIsRepORHead(const citizen& cit)
 	{
 		 for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
