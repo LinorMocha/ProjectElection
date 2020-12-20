@@ -8,11 +8,11 @@ namespace proj
 	class ElectionRound
 	{
 
-		private:
-			citizenList _citizenList;
-			StateArray _stateArray;
-			PoliticalPartyArray _politicalPartyArray;
-			Date date;			
+	protected:
+		citizenList _citizenList;
+		StateArray _stateArray;
+		PoliticalPartyArray _politicalPartyArray;
+		Date date;			
 
 	public:
 		static int countPoliticalParty;
@@ -22,34 +22,34 @@ namespace proj
 		ElectionRound();
 		~ElectionRound();
 		
-		bool setDate( int day,int month,int year);
+		virtual bool setDate( int day,int month,int year);
 		
 		
 		/////////// STATE //////////////////
-		void addState(char* name, int numRep);
-		void printStateArray();
-		const State& getStateById(int numId);
-		int printElectionResultsForState(int stateId);
-
+		bool addState(char* name, int numRep,bool Status); ///
+		virtual void printStateArray();
+		virtual const State& getStateById(int numId);
+		virtual int* printElectionResultsForState(int stateId);
+		
 		/////////// CITIZEN //////////////////
-		bool addCitizen(char* _name, int id, int numD, int _birthYear);
-		const citizen& getCitizenById(int numId);
+		virtual bool addCitizen(char* _name, int id, int numD, int _birthYear);
+		virtual const citizen& getCitizenById(int numId);
 		void printCitizenList();
 
 		////////////  Representative//////////
-		bool addRepresentativetoPoli(int repId, int PoliId, int StateId);
-		bool isRepListComplete();
+		virtual bool addRepresentativetoPoli(int repId, int PoliId, int StateId);
+		virtual bool isRepListComplete();
 		
 		////////////  POLITICALPARTY  //////////
-		bool addPoliticalParty(char* name, int headId);
-		void printPoliticalPartyArray();
-		const politicalParty& getPoliById(int numId);
+		virtual bool addPoliticalParty(char* name, int headId);
+		virtual void printPoliticalPartyArray();
+		virtual const politicalParty& getPoliById(int numId);
 		
 		/////////// Vote //////////////
-		bool addVote(int citizenId, int poliId);
+		virtual bool addVote(int citizenId, int poliId);
 		
 		////// Turn Out ///////
-		int printElectionResults();
+		virtual int printElectionResults();
 	};
 
 }

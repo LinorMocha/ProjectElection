@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ELectionProportiaonal.h" />
     <ClInclude Include="ElectionRound.h" />
     <ClInclude Include="politicalPartyArray.h" />
     <ClInclude Include="State.h" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="citizen.cpp" />
+    <ClCompile Include="ELectionProportiaonal.cpp" />
     <ClCompile Include="ElectionRound.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="politicalParty.cpp" />

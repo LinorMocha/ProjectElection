@@ -27,9 +27,9 @@ namespace proj
 		stateArray[stateId]->addVote();
 	}
 
-	void StateArray::addState(char* name, int _numRep)
+	void StateArray::addState(char* name, int _numRep, bool Status)
 	{
-		State* newState = new State(name, _numRep);
+		State* newState = new State(name, _numRep ,Status);
 		
 
 		if (ElectionRound::countState >= phySize)

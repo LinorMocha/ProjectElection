@@ -48,13 +48,13 @@ namespace proj
 		countVotesInState = input.countVotesInState;
 		return *this;
 	}
-	State::State(char* _name, int _numRep) :State()
+	State::State(char* _name, int _numRep ,bool Status) : State()
 	{
 		ElectionRound::countState++;
 		numId = ElectionRound::countState;
 		numOfRepresentative = _numRep;
 		name = utils::my_strdup(_name);
-
+		stateStatus = Status;
 	}
 	bool State::getStateStatus()const
 	{

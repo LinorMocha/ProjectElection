@@ -56,4 +56,13 @@ namespace proj {
         return maxId;
     }
 
+    void utils::addArrays(int* arr1, int* arr2, int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            if (arr2[i] != 0)
+             arr1[i] = arr1[i] + arr2[i];
+        }
+    }
+
 }
