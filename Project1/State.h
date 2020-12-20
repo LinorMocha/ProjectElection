@@ -18,7 +18,7 @@ namespace proj
 	public:
 
 		State();
-		State(char* _name, int _numRep);
+		State(char* _name, int _numRep,int numRep);
 		State(const State& Sta);
 		~State();
 		const State& operator=(const State& input);
