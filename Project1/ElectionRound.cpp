@@ -275,4 +275,20 @@ namespace proj
 
 		return 2;
 	}
+
+void ElectionRound::save(ostream& out) const
+{
+	_citizenList.save();
+	_stateArray.save();
+	_politicalPartyArray.save();
+	date.save();
 }
+
+void ElectionRound::load(istream& in)
+{
+	_citizenList.load();
+	_stateArray.load();
+	_politicalPartyArray.load();
+	date.load();
+}
+

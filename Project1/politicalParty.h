@@ -40,5 +40,9 @@ namespace proj {
         void addVote(int stateId);
         void PrintWinningRepresentitives(int state, int repCount);
         bool isRep(const citizen& cit);
+
+        void save(ostream& out) const;
+        void load(istream& in);
+
     };
 }

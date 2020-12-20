@@ -131,6 +131,22 @@ namespace proj
         return false;
     }
 
+    void politicalParty::save(ostream& out) const
+    {
+        out.write(rcastcc(&name), sizeof(name));
+        out.write(rcastcc(&numId), sizeof(numId));
+        out.write(rcastcc(&phySize), sizeof(phySize));
+        head.save(out);
+        for (int i = 0; i < ElectionRound::countState; i++)
+        {
+            out.write(rcastcc(&votesByStatesArray[i]), sizeof(int)); 
+        }
+        for (int j = 0; j < ElectionRound::countState; j++)
+        {
+            
+        }
+    }
+
     void politicalParty::addVote(int stateId)
     {
         votesByStatesArray[stateId]++;

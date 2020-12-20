@@ -9,8 +9,7 @@ namespace proj
 
 	public:
 		ElectionProportiaonal(int numRep);
-		ElectionProportiaonal(istream& in);
-
+		void i
 
 	};
 
