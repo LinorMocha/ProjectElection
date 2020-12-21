@@ -44,7 +44,7 @@ namespace proj
 	{
 		_stateArray.printStateArray();
 	}
-	const State& ElectionRound::getStateById(int numId)
+	State& ElectionRound::getStateById(int numId)
 	{
 		return (_stateArray.getStateById(numId));
 	}

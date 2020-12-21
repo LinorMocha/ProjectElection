@@ -16,7 +16,7 @@ namespace proj
 		vote = -1;
 	}
 
-	citizen::citizen(istream& in):
+	citizen::citizen(istream& in): state(citizen::getStateFromFile(in))
 	{
 		load(in);
 	}
@@ -75,19 +75,27 @@ namespace proj
 
 	void citizen::load(istream& in)
 	{
+		in.read(rcastc(state.getNumId()), sizeof(int));
 		in.read(rcastc(&name), sizeof(name));
 		in.read(rcastc(ID), sizeof(ID));
 		in.read(rcastc(&birthYear), sizeof(name));
 		in.read(rcastc(&vote), sizeof(vote));
-		state.load(in);
 	}
+	State& citizen::getStateFromFile(istream& in)
+	{
+		int temp;
+		in.read(rcastc(&temp), sizeof(int));
+		return ElectionRound::getStateById(temp);
+	}
+
 	void citizen::save(ostream& out)const
 	{
+		out.write(rcastc(state.getNumId()), sizeof(int));
 		out.write(rcastcc(&name), sizeof(name));
 		out.write(rcastcc(ID), sizeof(ID));
 		out.write(rcastcc(&birthYear), sizeof(name));
 		out.write(rcastcc(&vote), sizeof(vote));
-		state.save(out);
+		
 	}
 
 	ostream& operator<<(ostream& os, const citizen& Citizen)

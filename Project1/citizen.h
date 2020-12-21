@@ -37,5 +37,6 @@ namespace proj
 		void save(ostream& out)const;
 		void load(istream& in);
 
+		State& getStateFromFile(istream& in);
 	};
 }

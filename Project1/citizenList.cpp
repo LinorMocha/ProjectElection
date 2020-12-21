@@ -132,7 +132,7 @@ namespace proj {
    {
        citizen* temp = new citizen(in);
        temp->value->load(in);
-     addNodeToTail(temp);
+       addNodeToTail(temp);
      
    }
 

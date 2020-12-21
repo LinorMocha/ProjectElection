@@ -29,7 +29,7 @@ namespace proj
 		/////////// STATE //////////////////
 		bool addState(char* name, int numRep,bool Status); ///
 		virtual void printStateArray();
-		virtual const State& getStateById(int numId);
+		static  State& getStateById(int numId);
 		virtual int* printElectionResultsForState(int stateId);
 		
 		/////////// CITIZEN //////////////////
