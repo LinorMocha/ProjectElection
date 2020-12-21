@@ -7,9 +7,10 @@ namespace proj {
 	{
 		char n[] = "backgroundState";
 		_stateArray.addState(n, numRep, false); 
+		countState = defultSTATE;
 	}
 
-	int ElectionProportiaonal::countState = defultSTATE;
+
 	
 	bool ElectionProportiaonal::addCitizen(char* _name, int id, int numD, int _birthYear)
 	{

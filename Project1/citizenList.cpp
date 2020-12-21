@@ -1,16 +1,19 @@
 #pragma once
 #include <iostream>
+#include"utils.h"
 #include "citizenList.h"
 #include "citizen.h"
-#include"ElectionRound.h"
+
+
 using namespace std;
 
 namespace proj {
    
-    citizenList::citizenList():head(nullptr),tail(nullptr) {}
+    citizenList::citizenList():head(nullptr),tail(nullptr), listSize(0) {}
 
     citizenList::citizenList(const citizenList& input) : citizenList()
     {
+        listSize = input.listSize;
         node* index = input.head;
         while (index != nullptr)
         {
@@ -19,10 +22,7 @@ namespace proj {
         }
 
     }
-    citizenList::citizenList(istream& in) : citizenList()
-    {
-        load(in);
-    }
+    
     citizenList::~citizenList()
     {
         node* current = head;
@@ -37,21 +37,9 @@ namespace proj {
 
     }
 
-   int citizenList::getListSize()const
-   {
-       int count = 0;
-       node* current = head;
-
-       while (current != nullptr)
-       {
-           count++;
-           current = current->next;
-       }
-       return count;
-   }
-
-   void citizenList::addNodeToTail(citizen* input)
+    void citizenList::addNodeToTail(citizen* input)
     {
+        listSize++;
         node* tmp = new node;
         tmp->value = input;
         tmp->next = nullptr;
@@ -74,6 +62,7 @@ namespace proj {
 
    void citizenList::addNodeToHead(citizen* input)
    {
+       listSize++;
        node* tmp = new node;
        tmp->value = input;
        tmp->prev = nullptr;
@@ -107,8 +96,14 @@ namespace proj {
    
     node* citizenList::getHead()const {return head;}
 
+    int citizenList::getListSize() const
+    {
+        return listSize;
+    }
+
    void citizenList::operator=(const citizenList& input)
    {
+       listSize = input.listSize;
        head = input.head;
        tail = input.tail;
    }
@@ -126,6 +121,7 @@ namespace proj {
    }
    void citizenList::save(ostream& out) const
    {
+       out.write(rcastcc(&listSize), sizeof(listSize));
        node* temp = head;
        while (temp != nullptr)
        {
@@ -134,16 +130,7 @@ namespace proj {
        }
        
    }
-   void citizenList::load(istream& in)
-   {
-       citizen* temp;
-       for (int i = 0; i < ElectionRound::countCitizen; i++)
-       {
-           temp = new citizen(in);
-           addNodeToTail(temp);
-       }
-
-   }
+   
 
    void citizenList::printList()
    {

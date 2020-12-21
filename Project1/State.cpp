@@ -65,7 +65,7 @@ namespace proj
 	{
 		return stateStatus;
 	}
-	char* State::getName()const
+	const char* State::getName()const
 	{
 		return name;
 	}

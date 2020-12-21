@@ -294,8 +294,11 @@ namespace proj
 		_stateArray.load(in);
 		
 		citizen* cta;
+		
 		int tempStateId;
 		
+		//reading listSize but not saving the size because we now build the list 
+		in.read(rcastc(&tempStateId), sizeof(int));
 		for (int i = 0 ;i < countCitizen; i++)
 		{
 			in.read(rcastc(&tempStateId), sizeof(int));

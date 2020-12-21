@@ -16,11 +16,12 @@ namespace proj
     {
     private:
         node* head,*tail;
+        int listSize;
     public:
         citizenList();
         ~citizenList();
         citizenList(const citizenList& input);
-        citizenList(istream& in);
+      
         void operator=(const citizenList& input);
 
         ///// GETERS ////
@@ -36,6 +37,6 @@ namespace proj
         void printList(int numOfNodeToPrint);
     
         void save(ostream& out)const;
-        void load(istream& in);
+       
     };
 }

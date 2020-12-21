@@ -13,7 +13,7 @@ namespace proj
     public:
         StateArray();
         ~StateArray();
-
+        StateArray(istream& in);
         State& getStateById(int Id) const;
         int getStatenumOfRepresentative(int Id) const;
         int getCitizenCount(int stateId) const;

@@ -18,6 +18,10 @@ namespace proj
 
 
 	}
+	StateArray::StateArray(istream& in)
+	{
+		load(in);
+	}
 	void StateArray::addCitizenCountToState(int stateId)
 	{
 		stateArray[stateId]->addCitizen();

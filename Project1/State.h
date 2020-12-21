@@ -29,7 +29,7 @@ namespace proj
 		bool getStateStatus()const;
 		int getNumOfRepresentative()const;
 		int getNumId()const;
-		char* getName()const;
+		const char* getName()const;
 		int getHowManyCitizens()const;
 		int getCountVotesInState()const;
 
