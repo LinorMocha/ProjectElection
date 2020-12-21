@@ -27,6 +27,7 @@ namespace proj
         citizen* getCitizenById(int _id) const;
         node* getHead()const;
         int getListSize()const;
+
       
 
         void addNodeToTail(citizen* input);

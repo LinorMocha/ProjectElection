@@ -18,7 +18,7 @@ namespace proj
 	public:
 
 		State();
-		State(char* _name, int _numRep,bool Status);
+		State(const char* _name, int _numRep,bool Status);
 		State(const State& Sta);
 		State(istream& in);
 		~State();

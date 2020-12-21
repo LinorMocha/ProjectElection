@@ -5,7 +5,7 @@ using namespace std;
 
 namespace proj {
     int utils::MAXSIZE = 30;
-    int utils::myStrlen(char* input)
+    int utils::myStrlen(const char* input)
     {
         int i = 0;
         int count = 0;
@@ -17,7 +17,7 @@ namespace proj {
         return count;
     }
  
-    char* utils::my_strdup(char* input) 
+    char* utils::my_strdup(const char* input) 
     {
         if (input == nullptr)
             return nullptr;

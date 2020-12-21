@@ -19,7 +19,7 @@ namespace proj {
         //politicalParty();
         ~politicalParty();
 
-        politicalParty(char* partyName, citizen* _head);
+        politicalParty(const char* partyName, citizen* _head);
         politicalParty(const politicalParty& pol);
 
         //// GETERS

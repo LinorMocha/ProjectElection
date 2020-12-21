@@ -9,14 +9,14 @@ namespace proj
 
 	}*/
 	
-	citizen::citizen(char* _name, int id, State& _state, int _birthYear) : state(_state), ID(id), birthYear(_birthYear)
+	citizen::citizen(const char* _name, int id, State& _state, int _birthYear) : state(_state), ID(id), birthYear(_birthYear)
 	{
 		ElectionRound::countCitizen++;
 		name = utils::my_strdup(_name);
 		vote = -1;
 	}
 
-	citizen::citizen(istream& in): state(citizen::getStateFromFile(in))
+	citizen::citizen(istream& in,State& sta): state(sta)
 	{
 		load(in);
 	}
@@ -33,12 +33,14 @@ namespace proj
 		delete[] name;
 	}
 
-	void citizen::operator=(const citizen& input)
+	const citizen& citizen::operator=(const citizen& input)
 	{
 		ID = input.ID;
 		state = input.state;
 		vote = input.vote;
+		delete[] name;
 		name = utils::my_strdup(input.name);
+		return *this;
 	}
 	
 	int citizen::getStateId() const
@@ -60,7 +62,7 @@ namespace proj
 	{
 		return ID;
 	}
-	char* citizen::getName() const
+	const char* citizen::getName() const
 	{
 		return name;
 	}
@@ -81,12 +83,7 @@ namespace proj
 		in.read(rcastc(&birthYear), sizeof(name));
 		in.read(rcastc(&vote), sizeof(vote));
 	}
-	State& citizen::getStateFromFile(istream& in)
-	{
-		int temp;
-		in.read(rcastc(&temp), sizeof(int));
-		return ElectionRound::getStateById(temp);
-	}
+	
 
 	void citizen::save(ostream& out)const
 	{

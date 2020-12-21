@@ -17,8 +17,8 @@ namespace proj
 	class utils
 	{
 	public:
-		static char* my_strdup(char* input);
-		static int myStrlen(char* input);
+		static char* my_strdup(const char* input);
+		static int myStrlen(const char* input);
 		static void initArr(int* arr,int size);
 		static int MAXSIZE;
 		static int returnMaxIndexInArray(float* arr, int size);

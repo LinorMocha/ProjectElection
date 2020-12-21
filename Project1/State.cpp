@@ -53,7 +53,7 @@ namespace proj
 		countVotesInState = input.countVotesInState;
 		return *this;
 	}
-	State::State(char* _name, int _numRep ,bool Status) : State()
+	State::State(const char* _name, int _numRep ,bool Status) : State()
 	{
 		ElectionRound::countState++;
 		numId = ElectionRound::countState;

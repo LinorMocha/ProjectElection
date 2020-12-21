@@ -9,7 +9,7 @@ namespace proj
 	/*politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(nullptr),phySize(1)
 	{
     }*/
-    politicalParty::politicalParty(char* partyName, citizen* _head) : head(*_head)
+    politicalParty::politicalParty(const char* partyName, citizen* _head) : head(*_head)
     {
 
         ElectionRound::countPoliticalParty++;
@@ -136,7 +136,8 @@ namespace proj
         out.write(rcastcc(&name), sizeof(name));
         out.write(rcastcc(&numId), sizeof(numId));
         out.write(rcastcc(&phySize), sizeof(phySize));
-        head.save(out);
+        out.write(rcastcc(head.getId()), sizeof(int));
+
         for (int i = 0; i < ElectionRound::countState; i++)
         {
             out.write(rcastcc(&votesByStatesArray[i]), sizeof(int)); 

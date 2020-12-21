@@ -6,7 +6,7 @@ namespace proj {
 	ElectionProportiaonal::ElectionProportiaonal(int numRep) : ElectionRound()
 	{
 		char n[] = "backgroundState";
-		_stateArray.addState(n, numRep, false); //name ?
+		_stateArray.addState(n, numRep, false); 
 	}
 
 	int ElectionProportiaonal::countState = defultSTATE;

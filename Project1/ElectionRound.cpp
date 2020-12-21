@@ -281,18 +281,30 @@ namespace proj
 
 	void ElectionRound::save(ostream& out) const
 	{
+		//date.save(out);
 		_stateArray.save(out);
 		_citizenList.save(out);
 		//_politicalPartyArray.save(out);
-		//date.save(out);
 	}
 
 	void ElectionRound::load(istream& in)
 	{
-		_stateArray.load(in);
-		_citizenList.load(in);
-		//_politicalPartyArray.load(in);
 		//date.load(in);
+
+		_stateArray.load(in);
+		
+		citizen* cta;
+		int tempStateId;
+		
+		for (int i = 0 ;i < countCitizen; i++)
+		{
+			in.read(rcastc(&tempStateId), sizeof(int));
+			cta=new citizen(in, _stateArray.getStateById(tempStateId));
+			_citizenList.addNodeToTail(cta);
+		}
+
+		
+		
 	}
 
 }
