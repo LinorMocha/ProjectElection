@@ -2,12 +2,13 @@
 #include <iostream>
 #include "citizenList.h"
 #include "citizen.h"
-
+#include"ElectionRound.h"
 using namespace std;
 
 namespace proj {
    
     citizenList::citizenList():head(nullptr),tail(nullptr) {}
+
     citizenList::citizenList(const citizenList& input) : citizenList()
     {
         node* index = input.head;
@@ -17,6 +18,10 @@ namespace proj {
             index = index->next;
         }
 
+    }
+    citizenList::citizenList(istream& in) : citizenList()
+    {
+        load(in);
     }
     citizenList::~citizenList()
     {
@@ -127,13 +132,17 @@ namespace proj {
            temp->value->save(out);
            temp = temp->next;
        }
+       
    }
    void citizenList::load(istream& in)
    {
-       citizen* temp = new citizen(in);
-       temp->value->load(in);
-       addNodeToTail(temp);
-     
+       citizen* temp;
+       for (int i = 0; i < ElectionRound::countCitizen; i++)
+       {
+           temp = new citizen(in);
+           addNodeToTail(temp);
+       }
+
    }
 
    void citizenList::printList()

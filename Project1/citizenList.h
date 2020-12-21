@@ -20,6 +20,7 @@ namespace proj
         citizenList();
         ~citizenList();
         citizenList(const citizenList& input);
+        citizenList(istream& in);
         void operator=(const citizenList& input);
 
         ///// GETERS ////

@@ -21,6 +21,11 @@ namespace proj
 		countVotesInState = sta.countVotesInState;
 	}
 
+	State::State(istream& in)
+	{
+		load(in);
+	}
+
 	ostream& operator << (ostream& os, const State& state)
 	{
 		os << "state number: " << state.getNumId();

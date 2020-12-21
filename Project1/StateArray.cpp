@@ -29,17 +29,27 @@ namespace proj
 
 	void StateArray::save(ostream& out) const
 	{
+		out.write(rcastcc(&phySize), sizeof(phySize));
 		for (int i = 1; i <= ElectionRound::countState; i++)
 		{
 			stateArray[i]->save(out);
 		}
 
-		out.write(rcastcc(&phySize), sizeof(phySize));
 
 	}
 
 	void StateArray::load(istream& in)
 	{
+		in.read(rcastc(&phySize), sizeof(phySize));
+		State** res = new State * [phySize];
+		for (int i = 0; i <= ElectionRound::countState; i++)
+		{
+			if (i == 0)
+				res[i] = nullptr;
+			else
+				res[i] = new State(in);
+		}
+		stateArray = res;
 
 	}
 

@@ -20,6 +20,7 @@ namespace proj
 		State();
 		State(char* _name, int _numRep,bool Status);
 		State(const State& Sta);
+		State(istream& in);
 		~State();
 		const State& operator=(const State& input);
 		friend ostream& operator<<(ostream& os, const State& state);
