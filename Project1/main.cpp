@@ -1,4 +1,4 @@
-#include"citizen.h"
+﻿#include"citizen.h"
 #include "politicalParty.h"
 #include"citizenList.h"
 #include "utils.h"
@@ -40,7 +40,8 @@ void printResult();
 void printMenuPrimary();
 void saveElectionRound();
 void loadElectionRound();
-
+int printElectionRoundResult();
+int* printElectionResultsForState(int stateId);
 ElectionRound* Round;
 
 int main()
@@ -180,7 +181,7 @@ void saveElectionRound()
 {
 	ifstream inFile;
 	char* input = new char[utils::MAXSIZE];
-	cout << "please enter name file to save:" << endl; // ������ ����� ?
+	cout << "please enter name file to save:" << endl; // àðâìéú ú÷éðä ?
 	cin >> input; 
 	char* name = utils::my_strdup(input);
 	inFile.open(name,ios::binary);
@@ -317,10 +318,127 @@ void addVote()
 void printResult()
 {
 
-	int res=Round->printElectionResults();
+	int res = printElectionRoundResult();
 	if (res == 0)
 		cout << "enter first State Citizens and PoliticalParty" << endl;
 	if (res == 1)
 		cout << " the representative isnt full!. you need to enter more representative" << endl;
 }
+int printElectionRoundResult()
+{
+	if (Round->countState == 0 || Round->countPoliticalParty == 0 || Round->countCitizen == 0)
+	{
+		return 0;
+	}
+	if (!Round->isRepListComplete())
+	{
+		return 1;
+	}
+	cout << "__________________________________________________________" << endl;
+	cout << " the Elecation Round in date:" << Round->getDay() << "/" << Round->getMonth() << "/" << Round->getYear() << "   result:" << endl;
 
+
+	int* numOfRepForPoliArray = new int[Round->countPoliticalParty] {0};
+
+	int winingPoli;
+	int* temp;
+	for (int i = 1; i <= Round->countState; i++)
+	{
+		temp = printElectionResultsForState(i);
+		utils::addArrays(numOfRepForPoliArray, temp, Round->countPoliticalParty);
+		delete[]temp;
+	}
+
+	int max = 0;
+	int maxId = 0;
+	for (int j = 0; j < Round->countPoliticalParty; j++)
+	{
+		cout << Round->getPoliById(j + 1) << endl;
+		cout << "political party got " << Round->getPoliById(j + 1).getHowManyVotesOverAll()<< " votes in the elecation" << endl;
+		cout << " number of representative for this party: " << numOfRepForPoliArray[j + 1];
+
+		if (numOfRepForPoliArray[j] > max)
+		{
+			max = numOfRepForPoliArray[j];
+			maxId = j;
+		}
+	}
+
+	cout << " the wining party in the elecation is:" << Round->getPoliById(maxId).getName()<< endl;
+	cout << " the president in the elecation is:" << Round->getPoliById(maxId).getPoliticalPartyHead()<< endl;
+	cout << "__________________________________________________________________" << endl;
+
+	return 2;
+}
+
+int* printElectionResultsForState(int stateId)
+{
+
+	State& sta = Round->getStateById(stateId);
+
+	cout << sta;
+
+	float precent;
+
+	int winningPoli = 1;
+
+	int* howManyRep = new int[Round->countPoliticalParty] {0};
+
+	if (sta.getCountVotesInState() != 0)
+	{
+
+		float* temp = new float[Round->countPoliticalParty];
+		for (int i = 0; i < Round->countPoliticalParty; i++)
+		{
+			temp[i] = (float)Round->getPoliById(i + 1).getHowManyVotesForState(stateId);
+
+		}
+		/// כמות ההצבעות חלקי כמות הנציגים
+		float votesForRep = (float)sta.getCountVotesInState() / sta.getNumOfRepresentative();
+
+		int j = utils::returnMaxIndexInArray(temp, Round->countState);
+
+		winningPoli = j + 1;
+
+		for (int i = 0; i < sta.getNumOfRepresentative(); i++)
+		{
+			temp[j] -= votesForRep;
+			howManyRep[j]++;
+			j = utils::returnMaxIndexInArray(temp, Round->countState);
+
+		}
+		delete[]temp;
+		int votesForPoli;
+		int numOfRep;
+		for (int i = 1; i <= Round->countPoliticalParty; i++)
+		{
+			votesForPoli = Round->getPoliById(i).getHowManyVotesForState(stateId);
+			precent = (float)votesForPoli / sta.getCountVotesInState();
+			cout << "number of votes : " << votesForPoli;
+			cout << "for political party:" << Round->getPoliById(i).getName();
+			cout << "percent of votes:" << precent << '%' << endl;
+			cout << "selected representative list:" << endl;
+			numOfRep = howManyRep[i - 1];
+			Round->getPoliById(i).PrintWinningRepresentitives(stateId, numOfRep);
+			cout << endl;
+		}
+
+	}
+
+	precent = (float)sta.getCountVotesInState() / sta.getHowManyCitizens();
+
+	cout << " the State voter turn out is:" << precent * 100 << '%' << endl;
+	if (sta.getStateStatus())
+	{
+		cout << " the State chose:" << Round->getPoliById(winningPoli).getName() << "  to be president!!!" << endl;
+		for (int j = 0; j < Round->countPoliticalParty; j++)
+		{
+			if (j != winningPoli - 1)
+			{
+				howManyRep[j] = 0;
+			}
+		}
+	}
+
+	return howManyRep;
+}
