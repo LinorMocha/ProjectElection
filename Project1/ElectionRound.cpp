@@ -161,7 +161,6 @@ namespace proj
 		{
 			cit->setvote(poliId);
 			_politicalPartyArray.addVote(poliId, cit->getStateId());
-			cout << "the vote for poli is" << _politicalPartyArray.getOverAllVotesForPoliInState(poliId, cit->getStateId()) << endl;
 			_stateArray.addVoteCountToState(cit->getStateId());
 			return true;
 		}

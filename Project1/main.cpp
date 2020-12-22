@@ -206,7 +206,7 @@ void loadElectionRound()
 
 void addState()
 {
-	if (typeid(Round) == typeid(ElectionProportiaonal))
+	if (typeid(*Round) == typeid(ElectionProportiaonal))
 	{
 		cout << "ERROR" << endl;
 	}
@@ -355,7 +355,7 @@ int printElectionRoundResult()
 	{
 		cout << Round->getPoliById(j + 1) << endl;
 		cout << "political party got " << Round->getPoliById(j + 1).getHowManyVotesOverAll()<< " votes in the elecation" << endl;
-		cout << " number of representative for this party: " << numOfRepForPoliArray[j + 1];
+		cout << " number of representative for this party: " << numOfRepForPoliArray[j];
 
 		if (numOfRepForPoliArray[j] > max)
 		{
@@ -364,8 +364,8 @@ int printElectionRoundResult()
 		}
 	}
 
-	cout << " the wining party in the elecation is:" << Round->getPoliById(maxId).getName()<< endl;
-	cout << " the president in the elecation is:" << Round->getPoliById(maxId).getPoliticalPartyHead()<< endl;
+	cout << " the wining party in the elecation is:" << Round->getPoliById(maxId+1).getName()<< endl;
+	cout << " the president in the elecation is:" << Round->getPoliById(maxId+1).getPoliticalPartyHead()<< endl;
 	cout << "__________________________________________________________________" << endl;
 
 	return 2;
@@ -396,7 +396,7 @@ int* printElectionResultsForState(int stateId)
 		/// כמות ההצבעות חלקי כמות הנציגים
 		float votesForRep = (float)sta.getCountVotesInState() / sta.getNumOfRepresentative();
 
-		int j = utils::returnMaxIndexInArray(temp, Round->countState);
+		int j = utils::returnMaxIndexInArray(temp, Round->countPoliticalParty);
 
 		winningPoli = j + 1;
 
@@ -404,7 +404,7 @@ int* printElectionResultsForState(int stateId)
 		{
 			temp[j] -= votesForRep;
 			howManyRep[j]++;
-			j = utils::returnMaxIndexInArray(temp, Round->countState);
+			j = utils::returnMaxIndexInArray(temp, Round->countPoliticalParty);
 
 		}
 		delete[]temp;
@@ -415,8 +415,8 @@ int* printElectionResultsForState(int stateId)
 			votesForPoli = Round->getPoliById(i).getHowManyVotesForState(stateId);
 			precent = (float)votesForPoli / sta.getCountVotesInState();
 			cout << "number of votes : " << votesForPoli;
-			cout << "for political party:" << Round->getPoliById(i).getName();
-			cout << "percent of votes:" << precent << '%' << endl;
+			cout << " for political party:" << Round->getPoliById(i).getName();
+			cout << "  percent of votes: " << precent * 100 << '%' << endl;
 			cout << "selected representative list:" << endl;
 			numOfRep = howManyRep[i - 1];
 			Round->getPoliById(i).PrintWinningRepresentitives(stateId, numOfRep);
@@ -427,7 +427,7 @@ int* printElectionResultsForState(int stateId)
 
 	precent = (float)sta.getCountVotesInState() / sta.getHowManyCitizens();
 
-	cout << " the State voter turn out is:" << precent * 100 << '%' << endl;
+	cout << " the voter turn out is:" << precent * 100 << '%' << endl;
 	if (sta.getStateStatus())
 	{
 		cout << " the State chose:" << Round->getPoliById(winningPoli).getName() << "  to be president!!!" << endl;
@@ -437,6 +437,8 @@ int* printElectionResultsForState(int stateId)
 			{
 				howManyRep[j] = 0;
 			}
+			else
+				howManyRep[j] = sta.getNumOfRepresentative();
 		}
 	}
 

@@ -14,7 +14,7 @@ namespace proj {
 	
 	bool ElectionProportiaonal::addCitizen(char* _name, int id, int numD, int _birthYear)
 	{
-		if (_citizenList.getCitizenById(id))
+		if (_citizenList.getCitizenById(id)==nullptr)
 		{
 			_stateArray.addCitizenCountToState(defultSTATE);
 			citizen* newC = new citizen(_name, id, _stateArray.getStateById(defultSTATE), _birthYear);

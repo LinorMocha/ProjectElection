@@ -80,7 +80,7 @@ namespace proj
         int res=0;
         for (int i = 0; i < ElectionRound::countState; i++)
         {
-            res += votesByStatesArray[i];
+            res += votesByStatesArray[i+1];
         }
         return res;
     }

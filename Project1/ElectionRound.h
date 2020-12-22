@@ -20,7 +20,7 @@ namespace proj
 		static int countCitizen;
 		
 		ElectionRound();
-		ElectionRound(istream& in);
+		//ElectionRound(istream& in);
 		~ElectionRound();
 		
 		virtual bool setDate( int day,int month,int year);
