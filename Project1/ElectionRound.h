@@ -25,6 +25,14 @@ namespace proj
 		
 		virtual bool setDate( int day,int month,int year);
 		
+		//////////////GETTERS///////////////////
+		int getDay() const { return date.day; };
+		int getMonth() const { return date.month; };
+		int getYear() const { return date.year; };
+		State& getStateById(int id);
+		const politicalParty&	getPolitaclPartyById(int id);
+		int getOverAllVotesForPoli(int polyId);
+
 		
 		/////////// STATE //////////////////
 		bool addState(char* name, int numRep,bool Status); ///

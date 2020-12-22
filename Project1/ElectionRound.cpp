@@ -32,6 +32,22 @@ namespace proj
 		return true;
 	}
 
+	State& ElectionRound::getStateById(int id)
+	{
+		 return _stateArray.getStateById(id);
+	}
+
+	const politicalParty& ElectionRound::getPolitaclPartyById(int id)
+	{
+		return _politicalPartyArray.getPoliticalPartyById(id);
+	}
+
+	int ElectionRound::getOverAllVotesForPoli(int polyId)
+	{
+		return _politicalPartyArray.getOverAllVotesForPoli(polyId);
+	}
+
+
 	///////////// STATE implementation//////////////////
 	bool ElectionRound::addState(char* name, int numRep, bool Status)
 	{

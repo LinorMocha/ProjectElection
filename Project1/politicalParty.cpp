@@ -137,7 +137,6 @@ namespace proj
         out.write(rcastcc(&numId), sizeof(numId));
         out.write(rcastcc(&phySize), sizeof(phySize));
         out.write(rcastcc(head.getId()), sizeof(int));
-
         for (int i = 0; i < ElectionRound::countState; i++)
         {
             out.write(rcastcc(&votesByStatesArray[i]), sizeof(int)); 
@@ -146,6 +145,11 @@ namespace proj
         {
             
         }
+    }
+
+    void politicalParty::load(istream& in)
+    {
+
     }
 
     void politicalParty::addVote(int stateId)
