@@ -92,9 +92,9 @@ int main()
 		int chose;
 		cin >> chose;
 
-		while (chose != 10)
+		while (chose != 12)
 		{
-			if (chose < 1 || chose>10)
+			if (chose < 1 || chose > 11)
 				cout << "worng . enter again chose a nuber between 1-10" << endl;
 			else
 				exe(chose);

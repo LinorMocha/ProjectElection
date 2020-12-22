@@ -38,7 +38,7 @@ namespace proj
 		bool addState(char* name, int numRep,bool Status); ///
 		virtual void printStateArray();
 		virtual State& getStateById(int numId) const ;
-		virtual int* printElectionResultsForState(int stateId);
+		//virtual int* printElectionResultsForState(int stateId);
 		
 		/////////// CITIZEN //////////////////
 		virtual bool addCitizen(char* _name, int id, int numD, int _birthYear);
@@ -58,7 +58,7 @@ namespace proj
 		virtual bool addVote(int citizenId, int poliId);
 		
 		////// Turn Out ///////
-		virtual int printElectionResults();
+		//virtual int printElectionResults();
 
 		/*virtual void save(ostream& out) const;
 		virtual void load(istream& in); */
