@@ -38,11 +38,11 @@ namespace proj {
         void addState();
         void reSizeVotesByStateArray();
         void addVote(int stateId);
-        void PrintWinningRepresentitives(int state, int repCount);
+        void PrintWinningRepresentitives(int state, int repCount) const ;
         bool isRep(const citizen& cit);
 
-        void save(ostream& out) const;
-        void load(istream& in);
+  /*      void save(ostream& out) const;
+        void load(istream& in);*/
 
     };
 }

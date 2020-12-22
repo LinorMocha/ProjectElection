@@ -13,7 +13,7 @@ namespace proj
     public:
         StateArray();
         ~StateArray();
-        StateArray(istream& in);
+    /*    StateArray(istream& in);*/
         State& getStateById(int Id) const;
         int getStatenumOfRepresentative(int Id) const;
         int getCitizenCount(int stateId) const;
@@ -25,7 +25,7 @@ namespace proj
         void addCitizenCountToState(int stateId);
         void addVoteCountToState(int stateId);
 
-        void save(ostream& out)const;
-        void load(istream& in);
+        //void save(ostream& out)const;
+        //void load(istream& in);
     };
 }

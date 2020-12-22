@@ -131,7 +131,7 @@ namespace proj
 
 	
 
-	void PoliticalPartyArray::printSelectedRepList(int PoliId, int StateId, int repCount)
+	void PoliticalPartyArray::printSelectedRepList(int PoliId, int StateId, int repCount) const
 	{
 		politicalPartyArray[PoliId]->PrintWinningRepresentitives(StateId, repCount);
 	}

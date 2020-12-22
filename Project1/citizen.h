@@ -19,7 +19,7 @@ namespace proj
 		citizen(const char* _name, int id, State & _state,int _birthYear);
 		citizen(const citizen& cit);
 		~citizen();
-		citizen(istream& in,State& sta);
+		/*citizen(istream& in,State& sta);*/
 
 		const citizen& operator=(const citizen& input);
 		friend ostream& operator<<(ostream& os, const citizen& Citizen); 
@@ -34,9 +34,8 @@ namespace proj
 		///// SETERS//////
 		bool setvote(int _vote);
 
-		void save(ostream& out)const;
-		void load(istream& in);
+		//void save(ostream& out)const;
+		//void load(istream& in);
 
-		State& getStateFromFile(istream& in);
 	};
 }

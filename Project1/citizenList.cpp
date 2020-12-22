@@ -119,17 +119,17 @@ namespace proj {
            counter++;
        }
    }
-   void citizenList::save(ostream& out) const
-   {
-       out.write(rcastcc(&listSize), sizeof(listSize));
-       node* temp = head;
-       while (temp != nullptr)
-       {
-           temp->value->save(out);
-           temp = temp->next;
-       }
-       
-   }
+   //void citizenList::save(ostream& out) const
+   //{
+   //    out.write(rcastcc(&listSize), sizeof(listSize));
+   //    node* temp = head;
+   //    while (temp != nullptr)
+   //    {
+   //        temp->value->save(out);
+   //        temp = temp->next;
+   //    }
+   //    
+   //}
    
 
    void citizenList::printList()

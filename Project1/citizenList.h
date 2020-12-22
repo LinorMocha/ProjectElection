@@ -36,7 +36,7 @@ namespace proj
         void printList();
         void printList(int numOfNodeToPrint);
     
-        void save(ostream& out)const;
+   /*     void save(ostream& out)const;*/
        
     };
 }

@@ -131,26 +131,26 @@ namespace proj
         return false;
     }
 
-    void politicalParty::save(ostream& out) const
-    {
-        out.write(rcastcc(&name), sizeof(name));
-        out.write(rcastcc(&numId), sizeof(numId));
-        out.write(rcastcc(&phySize), sizeof(phySize));
-        out.write(rcastcc(head.getId()), sizeof(int));
-        for (int i = 0; i < ElectionRound::countState; i++)
-        {
-            out.write(rcastcc(&votesByStatesArray[i]), sizeof(int)); 
-        }
-        for (int j = 0; j < ElectionRound::countState; j++)
-        {
-            
-        }
-    }
+    //void politicalParty::save(ostream& out) const
+    //{
+    //    out.write(rcastcc(&name), sizeof(name));
+    //    out.write(rcastcc(&numId), sizeof(numId));
+    //    out.write(rcastcc(&phySize), sizeof(phySize));
+    //    out.write(rcastcc(head.getId()), sizeof(int));
+    //    for (int i = 0; i < ElectionRound::countState; i++)
+    //    {
+    //        out.write(rcastcc(&votesByStatesArray[i]), sizeof(int)); 
+    //    }
+    //    for (int j = 0; j < ElectionRound::countState; j++)
+    //    {
+    //        
+    //    }
+    //}
 
-    void politicalParty::load(istream& in)
-    {
+    //void politicalParty::load(istream& in)
+    //{
 
-    }
+    //}
 
     void politicalParty::addVote(int stateId)
     {
@@ -191,7 +191,7 @@ namespace proj
        representativeListByStateArray = res;
     }
 
-    void politicalParty::PrintWinningRepresentitives(int state, int repCount)
+    void politicalParty::PrintWinningRepresentitives(int state, int repCount) const
     {
         representativeListByStateArray[state]->printList(repCount);
            

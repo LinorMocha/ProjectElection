@@ -295,35 +295,35 @@ namespace proj
 		return 2;
 	}
 
-	void ElectionRound::save(ostream& out) const
-	{
-		//date.save(out);
-		_stateArray.save(out);
-		_citizenList.save(out);
-		//_politicalPartyArray.save(out);
-	}
+	//void ElectionRound::save(ostream& out) const
+	//{
+	//	//date.save(out);
+	//	_stateArray.save(out);
+	//	_citizenList.save(out);
+	//	//_politicalPartyArray.save(out);
+	//}
 
-	void ElectionRound::load(istream& in)
-	{
-		//date.load(in);
+	//void ElectionRound::load(istream& in)
+	//{
+	//	//date.load(in);
 
-		_stateArray.load(in);
-		
-		citizen* cta;
-		
-		int tempStateId;
-		
-		//reading listSize but not saving the size because we now build the list 
-		in.read(rcastc(&tempStateId), sizeof(int));
-		for (int i = 0 ;i < countCitizen; i++)
-		{
-			in.read(rcastc(&tempStateId), sizeof(int));
-			cta=new citizen(in, _stateArray.getStateById(tempStateId));
-			_citizenList.addNodeToTail(cta);
-		}
+	//	_stateArray.load(in);
+	//	
+	//	citizen* cta;
+	//	
+	//	int tempStateId;
+	//	
+	//	//reading listSize but not saving the size because we now build the list 
+	//	in.read(rcastc(&tempStateId), sizeof(int));
+	//	for (int i = 0 ;i < countCitizen; i++)
+	//	{
+	//		in.read(rcastc(&tempStateId), sizeof(int));
+	//		cta=new citizen(in, _stateArray.getStateById(tempStateId));
+	//		_citizenList.addNodeToTail(cta);
+	//	}
 
-		
-		
-	}
+	//	
+	//	
+	//}
 
 }
