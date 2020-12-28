@@ -170,11 +170,6 @@ namespace proj
 		}
 	}
 
-
-
-
-	
-
 	void ElectionRound::save(ostream& out) const
 	{
 		

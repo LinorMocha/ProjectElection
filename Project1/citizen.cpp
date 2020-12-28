@@ -81,6 +81,8 @@ namespace proj
 		int temp = state.getNumId();
 		out.write(rcastcc(&temp), sizeof(int));
 		out.write(rcastcc(&ID), sizeof(ID));
+		int len = utils::myStrlen(name);
+		out.write(rcastcc(&len), sizeof(len));
 		out.write(rcastcc(&name), sizeof(name));
 		out.write(rcastcc(&birthYear), sizeof(name));
 		out.write(rcastcc(&vote), sizeof(vote));
@@ -94,8 +96,9 @@ namespace proj
 
 	void citizen::load(istream& in)
 	{
-	
-		in.read(rcastc(&name), sizeof(name));
+		int len;
+		in.read(rcastc(&len), sizeof(int));
+		in.read(rcastc(&name), sizeof(len));
 		in.read(rcastc(&ID), sizeof(ID));
 		in.read(rcastc(&birthYear), sizeof(name));
 		in.read(rcastc(&vote), sizeof(vote));

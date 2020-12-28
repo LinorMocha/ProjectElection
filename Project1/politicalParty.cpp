@@ -143,6 +143,8 @@ namespace proj
         int temp = head.getId();
         out.write(rcastcc(&temp), sizeof(int));
         out.write(rcastcc(&numId), sizeof(numId));
+        int len = utils::myStrlen(name);
+        out.write(rcastcc(&len), sizeof(len));
         out.write(rcastcc(&name), sizeof(name));
         out.write(rcastcc(&phySize), sizeof(phySize));
         for (int i = 0; i <= ElectionRound::countState; i++)
@@ -156,11 +158,12 @@ namespace proj
     }
     void politicalParty::load(istream& in, const citizenList& currList)
     {
-        int tempIdHead;
+        int tempIdHead, len;
         in.read(rcastc(&tempIdHead), sizeof(tempIdHead));
         head = *currList.getCitizenById(tempIdHead);
         in.read(rcastc(&numId), sizeof(numId));
-        in.read(rcastc(&name), sizeof(name));
+        in.read(rcastc(&len), sizeof(len));
+        in.read(rcastc(&name), sizeof(len));
         in.read(rcastc(&phySize), sizeof(phySize));
 
         votesByStatesArray = new int[phySize];

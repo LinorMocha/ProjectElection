@@ -98,6 +98,9 @@ namespace proj
 	}
 	void State::save(ostream& out) const
 	{
+		int len;
+		len = utils::myStrlen(name);
+		out.write(rcastc(&len), sizeof(len));
 		out.write(rcastcc(&name), sizeof(name));
 		out.write(rcastcc(&numId), sizeof(numId));
 		out.write(rcastcc(&numOfRepresentative), sizeof(numOfRepresentative));
@@ -107,7 +110,9 @@ namespace proj
 	}
 	void State::load(istream& in)
 	{
-		in.read(rcastc(&name), sizeof(name));
+		int len;
+		in.read(rcastc(&len), sizeof(len));
+		in.read(rcastc(&name), sizeof(len));
 		in.read(rcastc(&numId), sizeof(numId));
 		in.read(rcastc(&numOfRepresentative), sizeof(numOfRepresentative));
 		in.read(rcastc(&countCitizensInState), sizeof(countCitizensInState));
