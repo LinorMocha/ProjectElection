@@ -1,10 +1,5 @@
-﻿#include"citizen.h"
-#include "politicalParty.h"
-#include"citizenList.h"
-#include "utils.h"
-#include <iostream>
+﻿#include <iostream>
 #include"ElectionRound.h"
-#include "StateArray.h"
 #include <typeinfo>
 #include "ELectionProportiaonal.h"
 #include <fstream>
