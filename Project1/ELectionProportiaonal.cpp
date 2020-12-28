@@ -9,7 +9,10 @@ namespace proj {
 		_stateArray.addState(n, numRep, false); 
 		countState = defultSTATE;
 	}
-
+	ElectionProportiaonal::ElectionProportiaonal(istream& in)
+	{
+		load(in);
+	}
 
 	
 	bool ElectionProportiaonal::addCitizen(char* _name, int id, int numD, int _birthYear)

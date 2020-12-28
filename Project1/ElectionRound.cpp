@@ -15,6 +15,7 @@ namespace proj
 	ElectionRound::ElectionRound(istream& in)
 	{
 		load(in);
+			
 	}
 
 	ElectionRound::~ElectionRound()
@@ -176,6 +177,7 @@ namespace proj
 
 	void ElectionRound::save(ostream& out) const
 	{
+		
 		out.write(rcastcc(&date.day), sizeof(int));
 		out.write(rcastcc(&date.month), sizeof(int));
 		out.write(rcastcc(&date.year), sizeof(int));

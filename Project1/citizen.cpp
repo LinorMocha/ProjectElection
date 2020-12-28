@@ -83,6 +83,12 @@ namespace proj
 		out.write(rcastcc(&name), sizeof(name));
 		out.write(rcastcc(&birthYear), sizeof(name));
 		out.write(rcastcc(&vote), sizeof(vote));
+		/*if (out.good())
+		{
+			cout << "EE";
+				exit(0);
+		}*/
+		
 	}
 
 	void citizen::load(istream& in)

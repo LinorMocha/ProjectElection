@@ -8,6 +8,8 @@ namespace proj
 	private:
 
 	public:
+		ElectionProportiaonal(istream& in);
+
 		ElectionProportiaonal(int numRep);
 		virtual bool addCitizen(char* _name, int id, int numD, int _birthYear);
 		static const int defultSTATE = 1;

@@ -74,10 +74,9 @@ int main()
 		Round->setDate(_day, _month, _year);
 
 	}
-	else if (input == 2) //add constractor to file + add operator = 
+	else if (input == 2) 
 	{
-	/*	ElectionRound(file)
-			round = file*/
+		loadElectionRound();
 	}
 	else
 		return 0;
@@ -174,29 +173,49 @@ void exe(int n)
 
 void saveElectionRound()
 {
-	ifstream inFile;
+	ofstream File;
 	char* input = new char[utils::MAXSIZE];
-	cout << "please enter name file to save:" << endl; // àðâìéú ú÷éðä ?
+	cout << "please enter name file to save:" << endl; 
 	cin >> input; 
 	char* name = utils::my_strdup(input);
-	inFile.open(name,ios::binary);
-	if (!inFile)
+	File.open(name, ios::binary);
+	if (!File)
 	{
-		cout << "Error with inFile" << endl;
+		cout << "Error with File" << endl;
 		return;
 	}
-
-
+	///// SAVING STATUS ROUND : proprtional =1 normal=0
+	int status;
+	if (typeid(*Round) == typeid(ElectionProportiaonal))
+		status = 1;
+	else
+		status = 0;
+	File.write(rcastcc(&status), sizeof(int)); 
+	Round->save(File);
 }
 
 void loadElectionRound()
 {
-	 
+	delete Round;
+
 	char* input = new char[utils::MAXSIZE];
-	cout << "please enter name file to load :" << endl;
+	cout << "please enter name file to Load:" << endl;
 	cin >> input;
-	char* name = utils::my_strdup(input);
-	
+	char* Filename = utils::my_strdup(input);
+	int status;
+	ifstream fl(Filename, ios::binary);
+	if (!fl)
+	{
+		cout << " Error with FILE" << endl;
+		exit(-1);
+	}
+	fl.read(rcastc(&status), sizeof(int));
+	if (status)
+		ElectionRound* round = new ElectionProportiaonal(fl);
+	else
+		ElectionRound* round = new ElectionRound(fl);
+
+	fl.close();
 }
 
 void addState()
