@@ -1,6 +1,7 @@
-#include "utils.h"
+
 #include "citizen.h"
-#include"ElectionRound.h"
+#include "ElectionRound.h"
+
 
 namespace proj
 {
@@ -16,10 +17,10 @@ namespace proj
 		vote = -1;
 	}
 
-	//citizen::citizen(istream& in,State& sta): state(sta)
-	//{
-	//	load(in);
-	//}
+	citizen::citizen(istream& in,State& sta): state(sta)
+	{
+		load(in);
+	}
 
 	citizen::citizen(const citizen& cit) :state(cit.state), ID(cit.ID), birthYear(cit.birthYear), vote(cit.vote)
 	{
@@ -75,25 +76,23 @@ namespace proj
 		return true;
 	}
 
-	//void citizen::load(istream& in)
-	//{
-	//	in.read(rcastc(state.getNumId()), sizeof(int));
-	//	in.read(rcastc(&name), sizeof(name));
-	//	in.read(rcastc(ID), sizeof(ID));
-	//	in.read(rcastc(&birthYear), sizeof(name));
-	//	in.read(rcastc(&vote), sizeof(vote));
-	//}
-	//
+	void citizen::save(ostream& out)const
+	{
+		out.write(rcastcc(state.getNumId()), sizeof(int));
+		out.write(rcastcc(ID), sizeof(ID));
+		out.write(rcastcc(&name), sizeof(name));
+		out.write(rcastcc(&birthYear), sizeof(name));
+		out.write(rcastcc(&vote), sizeof(vote));
+	}
 
-	//void citizen::save(ostream& out)const
-	//{
-	//	out.write(rcastc(state.getNumId()), sizeof(int));
-	//	out.write(rcastcc(&name), sizeof(name));
-	//	out.write(rcastcc(ID), sizeof(ID));
-	//	out.write(rcastcc(&birthYear), sizeof(name));
-	//	out.write(rcastcc(&vote), sizeof(vote));
-	//	
-	//}
+	void citizen::load(istream& in)
+	{
+	
+		in.read(rcastc(&name), sizeof(name));
+		in.read(rcastc(&ID), sizeof(ID));
+		in.read(rcastc(&birthYear), sizeof(name));
+		in.read(rcastc(&vote), sizeof(vote));
+	}
 
 	ostream& operator<<(ostream& os, const citizen& Citizen)
 	{

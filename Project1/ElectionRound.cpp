@@ -1,5 +1,4 @@
 ﻿#include "ElectionRound.h"
-#include "utils.h"
 
 namespace proj
 {
@@ -13,10 +12,10 @@ namespace proj
 		date.month = 0;
 		date.year = 0;
 	}
-	/*ElectionRound::ElectionRound(istream& in)
+	ElectionRound::ElectionRound(istream& in)
 	{
 		load(in);
-	}*/
+	}
 
 	ElectionRound::~ElectionRound()
 	{
@@ -175,35 +174,31 @@ namespace proj
 
 	
 
-	//void ElectionRound::save(ostream& out) const
-	//{
-	//	//date.save(out);
-	//	_stateArray.save(out);
-	//	_citizenList.save(out);
-	//	//_politicalPartyArray.save(out);
-	//}
+	void ElectionRound::save(ostream& out) const
+	{
+		out.write(rcastcc(&date.day), sizeof(int));
+		out.write(rcastcc(&date.month), sizeof(int));
+		out.write(rcastcc(&date.year), sizeof(int));
+		out.write(rcastcc(&countCitizen), sizeof(int));
+		out.write(rcastcc(&countState), sizeof(int));
+		out.write(rcastcc(&countPoliticalParty), sizeof(int));
 
-	//void ElectionRound::load(istream& in)
-	//{
-	//	//date.load(in);
+		_stateArray.save(out);
+		_citizenList.save(out);
+		_politicalPartyArray.save(out);
+	}
 
-	//	_stateArray.load(in);
-	//	
-	//	citizen* cta;
-	//	
-	//	int tempStateId;
-	//	
-	//	//reading listSize but not saving the size because we now build the list 
-	//	in.read(rcastc(&tempStateId), sizeof(int));
-	//	for (int i = 0 ;i < countCitizen; i++)
-	//	{
-	//		in.read(rcastc(&tempStateId), sizeof(int));
-	//		cta=new citizen(in, _stateArray.getStateById(tempStateId));
-	//		_citizenList.addNodeToTail(cta);
-	//	}
+	void ElectionRound::load(istream& in)
+	{
+		in.read(rcastc(&date.day), sizeof(int));
+		in.read(rcastc(&date.month), sizeof(int));
+		in.read(rcastc(&date.year), sizeof(int));
+		in.read(rcastc(&countCitizen), sizeof(int));
+		in.read(rcastc(&countState), sizeof(int));
+		in.read(rcastc(&countPoliticalParty), sizeof(int));
 
-	//	
-	//	
-	//}
-
+		_stateArray.load(in);
+		_citizenList.load(in, _stateArray);
+		_politicalPartyArray.load(in, _citizenList);
+	}
 }

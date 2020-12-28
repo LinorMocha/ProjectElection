@@ -119,18 +119,61 @@ namespace proj {
            counter++;
        }
    }
-   //void citizenList::save(ostream& out) const
-   //{
-   //    out.write(rcastcc(&listSize), sizeof(listSize));
-   //    node* temp = head;
-   //    while (temp != nullptr)
-   //    {
-   //        temp->value->save(out);
-   //        temp = temp->next;
-   //    }
-   //    
-   //}
-   
+
+   void citizenList::save(ostream& out) const
+   {
+       out.write(rcastcc(&listSize), sizeof(listSize));
+       node* temp = head;
+       while (temp != nullptr)
+       {
+           temp->value->save(out);
+           temp = temp->next;
+       }
+   }
+
+
+   void citizenList::load(istream& in, const StateArray& currStateArray)
+   {
+       int list_size;
+       in.read(rcastc(&list_size), sizeof(list_size));
+       int tempStateId;
+       for (int i = 0; i < list_size; i++)
+       {
+
+           node* temp = head;
+           while (head != nullptr)
+
+               int tempId;
+           in.read(rcastc(&tempStateId), sizeof(int));
+           citizen* cit = new citizen(in, currStateArray.getStateById(tempStateId));
+           addNodeToTail(cit);
+       }
+
+
+   }
+   void citizenList::saveById(ostream& out) const
+   {
+       out.write(rcastcc(&listSize), sizeof(listSize));
+       node* temp = head;
+       while (temp != nullptr)
+       {
+           out.write(rcastcc(temp->value->getId()), sizeof(temp->value->getId()));
+           temp = temp->next;
+       }
+   }
+
+   void citizenList::loadById(istream& in, const citizenList& currList)
+   {
+       int size_list;
+       in.read(rcastc(&size_list), sizeof(size_list));
+       for (int i = 0; i <= size_list; i++)
+       {
+           int citizenId;
+           in.read(rcastc(&citizenId), sizeof(int));
+           addNodeToTail(currList.getCitizenById(citizenId));
+       }
+   }
+
 
    void citizenList::printList()
    {

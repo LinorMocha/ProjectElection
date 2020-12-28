@@ -9,6 +9,11 @@ namespace proj
 	/*politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(nullptr),phySize(1)
 	{
     }*/
+    politicalParty::politicalParty(istream& in, const citizenList& currRound, citizen* _head) :head(*_head)
+    {
+        load(in, currRound);
+
+    }
     politicalParty::politicalParty(const char* partyName, citizen* _head) : head(*_head)
     {
 
@@ -131,27 +136,56 @@ namespace proj
         return false;
     }
 
-    //void politicalParty::save(ostream& out) const
-    //{
-    //    out.write(rcastcc(&name), sizeof(name));
-    //    out.write(rcastcc(&numId), sizeof(numId));
-    //    out.write(rcastcc(&phySize), sizeof(phySize));
-    //    out.write(rcastcc(head.getId()), sizeof(int));
-    //    for (int i = 0; i < ElectionRound::countState; i++)
-    //    {
-    //        out.write(rcastcc(&votesByStatesArray[i]), sizeof(int)); 
-    //    }
-    //    for (int j = 0; j < ElectionRound::countState; j++)
-    //    {
-    //        
-    //    }
-    //}
+    
 
-    //void politicalParty::load(istream& in)
-    //{
+    void politicalParty::save(ostream& out) const
+    {
+        out.write(rcastcc(head.getId()), sizeof(int));
+        out.write(rcastcc(&numId), sizeof(numId));
+        out.write(rcastcc(&name), sizeof(name));
+        out.write(rcastcc(&phySize), sizeof(phySize));
+        for (int i = 0; i <= ElectionRound::countState; i++)
+        {
+            out.write(rcastcc(&votesByStatesArray[i]), sizeof(int));
+        }
+        for (int j = 1; j <= ElectionRound::countState; j++)
+        {
+            representativeListByStateArray[j]->saveById(out);
+        }
+    }
+    void politicalParty::load(istream& in, const citizenList& currList)
+    {
+        int tempIdHead;
+        in.read(rcastc(&tempIdHead), sizeof(tempIdHead));
+        head = *currList.getCitizenById(tempIdHead);
+        in.read(rcastc(&numId), sizeof(numId));
+        in.read(rcastc(&name), sizeof(name));
+        in.read(rcastc(&phySize), sizeof(phySize));
 
-    //}
+        votesByStatesArray = new int[phySize];
+        for (int i = 0; i < phySize; i++)
+        {
+            if (i <= ElectionRound::countState)
+                in.read(rcastc(&votesByStatesArray[i]), sizeof(int));
+            else
+                votesByStatesArray[i] = 0;
+        }
 
+
+        representativeListByStateArray = new citizenList * [phySize];
+
+        for (int i = 0; i < phySize; i++)
+        {
+            if (i <= ElectionRound::countState && i != 0)
+            {
+                representativeListByStateArray[i] = new citizenList();
+                representativeListByStateArray[i]->loadById(in, currList);
+            }
+            else
+                representativeListByStateArray[i] = new citizenList();
+        }
+
+    }
     void politicalParty::addVote(int stateId)
     {
         votesByStatesArray[stateId]++;

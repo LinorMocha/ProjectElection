@@ -1,7 +1,9 @@
 #pragma once
 
 #include<iostream>
+
 using namespace std;
+
 namespace proj
 {
 	class State
@@ -20,7 +22,7 @@ namespace proj
 		State();
 		State(const char* _name, int _numRep,bool Status);
 		State(const State& Sta);
-		/*State(istream& in);*/
+		State(istream& in);
 		~State();
 		const State& operator=(const State& input);
 		friend ostream& operator<<(ostream& os, const State& state);
@@ -37,8 +39,8 @@ namespace proj
 	     void addCitizen();
 		 void addVote();
 
-		 /*void save(ostream& out)const;
-		 void load(istream& in);*/
+		 void save(ostream& out)const;
+		 void load(istream& in);
 	};
 }
 

@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include "citizen.h"
+#include "StateArray.h"
 
 using namespace std;
 namespace proj
@@ -11,6 +12,7 @@ namespace proj
         node* next;
         node* prev;
     };
+    
 
     class citizenList
     {
@@ -36,7 +38,13 @@ namespace proj
         void printList();
         void printList(int numOfNodeToPrint);
     
-   /*     void save(ostream& out)const;*/
+        void save(ostream& out)const;
+        void load(istream& in, const StateArray& staecur);
+
+
+        //// FOR REPRESENTATIVE LIST ///
+        void loadById(istream& in, const citizenList& currList);
+        void saveById(ostream& out) const;
        
     };
 }

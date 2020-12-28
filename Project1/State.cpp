@@ -1,6 +1,6 @@
 #include "State.h"
 #include "ElectionRound.h"
-#include "utils.h"
+
 
 
 namespace proj
@@ -21,10 +21,10 @@ namespace proj
 		countVotesInState = sta.countVotesInState;
 	}
 
-	/*State::State(istream& in)
+	State::State(istream& in)
 	{
 		load(in);
-	}*/
+	}
 
 	ostream& operator << (ostream& os, const State& state)
 	{
@@ -96,7 +96,7 @@ namespace proj
 	{
 		countVotesInState++;
 	}
-	/*void State::save(ostream& out) const
+	void State::save(ostream& out) const
 	{
 		out.write(rcastcc(&name), sizeof(name));
 		out.write(rcastcc(&numId), sizeof(numId));
@@ -112,6 +112,6 @@ namespace proj
 		in.read(rcastc(&numOfRepresentative), sizeof(numOfRepresentative));
 		in.read(rcastc(&countCitizensInState), sizeof(countCitizensInState));
 		in.read(rcastc(&countVotesInState), sizeof(countVotesInState));
-		in.read(rcastc(&stateStatus) ,sizeof(stateStatus));
-	}*/
+		in.read(rcastc(&stateStatus), sizeof(stateStatus));
+	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include"politicalParty.h"
+
 using namespace std;
 namespace proj
 {
@@ -30,5 +31,10 @@ namespace proj
         void printSelectedRepList(int PoliId, int StateId, int repCount) const;
         void addRepToPoli(int PolId, int StateId, citizen* rep);
         void addVote(int poliId,int stateId);
-     };
+    
+        void save(ostream& out) const;
+        void load(istream& in, const citizenList& currList);
+
+
+    };
 }

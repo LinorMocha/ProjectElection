@@ -3,10 +3,14 @@
 #include "utils.h"
 #include "StateArray.h"
 #include"politicalPartyArray.h"
+
+
 namespace proj
 {
+	
 	class ElectionRound
 	{
+
 
 	protected:
 		citizenList _citizenList;
@@ -15,12 +19,13 @@ namespace proj
 		Date date;			
 
 	public:
+		
 		static int countPoliticalParty;
 		static int countState;
 		static int countCitizen;
 		
 		ElectionRound();
-		//ElectionRound(istream& in);
+		ElectionRound(istream& in);
 		~ElectionRound();
 		
 		virtual bool setDate( int day,int month,int year);
@@ -60,8 +65,8 @@ namespace proj
 		////// Turn Out ///////
 		//virtual int printElectionResults();
 
-		/*virtual void save(ostream& out) const;
-		virtual void load(istream& in); */
+		virtual void save(ostream& out) const;
+		virtual void load(istream& in); 
 	};
 
 }

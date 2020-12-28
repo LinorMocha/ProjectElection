@@ -135,5 +135,30 @@ namespace proj
 	{
 		politicalPartyArray[PoliId]->PrintWinningRepresentitives(StateId, repCount);
 	}
-	
+	void PoliticalPartyArray::save(ostream& out) const
+	{
+		out.write(rcastcc(&phySize), sizeof(phySize));
+		for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
+		{
+			politicalPartyArray[i]->save(out);
+		}
+	}
+
+	void PoliticalPartyArray::load(istream& in, const citizenList& currList)
+	{
+		in.read(rcastc(&phySize), sizeof(phySize));
+		politicalPartyArray = new politicalParty * [phySize];
+
+		politicalPartyArray[0] = nullptr;
+
+		for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
+		{
+			{
+				int headId;
+				in.read(rcastc(&headId), sizeof(int));
+				politicalPartyArray[i] = new politicalParty(in, currList, currList.getCitizenById(headId));
+			}
+
+		}
+	}
 }
