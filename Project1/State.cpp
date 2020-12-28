@@ -100,10 +100,10 @@ namespace proj
 	{
 		int len;
 		len = utils::myStrlen(name);
-		out.write(rcastc(&len), sizeof(len));
-		out.write(rcastcc(&name), sizeof(name));
-		out.write(rcastcc(&numId), sizeof(numId));
-		out.write(rcastcc(&numOfRepresentative), sizeof(numOfRepresentative));
+		out.write(rcastcc(&len), sizeof(int));
+		out.write(name, len);
+		out.write(rcastcc(&numId), sizeof(int));
+		out.write(rcastcc(&numOfRepresentative), sizeof(int));
 		out.write(rcastcc(&countCitizensInState), sizeof(countCitizensInState));
 		out.write(rcastcc(&countVotesInState), sizeof(countVotesInState));
 		out.write(rcastcc(&stateStatus), sizeof(stateStatus));
@@ -112,9 +112,12 @@ namespace proj
 	{
 		int len;
 		in.read(rcastc(&len), sizeof(len));
-		in.read(rcastc(&name), sizeof(len));
-		in.read(rcastc(&numId), sizeof(numId));
-		in.read(rcastc(&numOfRepresentative), sizeof(numOfRepresentative));
+		len++;
+		name = new char[len];
+		in.read(name, len);
+		name[len-1] = '\0';
+		in.read(rcastc(&numId), sizeof(int));
+		in.read(rcastc(&numOfRepresentative), sizeof(int));
 		in.read(rcastc(&countCitizensInState), sizeof(countCitizensInState));
 		in.read(rcastc(&countVotesInState), sizeof(countVotesInState));
 		in.read(rcastc(&stateStatus), sizeof(stateStatus));
