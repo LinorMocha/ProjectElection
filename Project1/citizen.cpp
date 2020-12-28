@@ -78,8 +78,9 @@ namespace proj
 
 	void citizen::save(ostream& out)const
 	{
-		out.write(rcastcc(state.getNumId()), sizeof(int));
-		out.write(rcastcc(ID), sizeof(ID));
+		int temp = state.getNumId();
+		out.write(rcastcc(&temp), sizeof(int));
+		out.write(rcastcc(&ID), sizeof(ID));
 		out.write(rcastcc(&name), sizeof(name));
 		out.write(rcastcc(&birthYear), sizeof(name));
 		out.write(rcastcc(&vote), sizeof(vote));

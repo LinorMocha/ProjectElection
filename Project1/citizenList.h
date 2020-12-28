@@ -35,8 +35,8 @@ namespace proj
 
         void addNodeToTail(citizen* input);
         void addNodeToHead(citizen* input);
-        void printList();
-        void printList(int numOfNodeToPrint);
+        void printList()const ;
+        void printList(int numOfNodeToPrint)const;
     
         void save(ostream& out)const;
         void load(istream& in, const StateArray& staecur);

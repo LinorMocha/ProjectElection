@@ -156,6 +156,8 @@ namespace proj
 			{
 				int headId;
 				in.read(rcastc(&headId), sizeof(int));
+				node * a=currList.getHead();
+				currList.printList();
 				politicalPartyArray[i] = new politicalParty(in, currList, currList.getCitizenById(headId));
 			}
 

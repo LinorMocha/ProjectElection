@@ -108,7 +108,7 @@ namespace proj {
        tail = input.tail;
    }
 
-   void citizenList::printList(int numOfNodeToPrint)
+   void citizenList::printList(int numOfNodeToPrint) const 
    {
        node* temp = head;
        int counter = 1;
@@ -139,11 +139,6 @@ namespace proj {
        int tempStateId;
        for (int i = 0; i < list_size; i++)
        {
-
-           node* temp = head;
-           while (head != nullptr)
-
-               int tempId;
            in.read(rcastc(&tempStateId), sizeof(int));
            citizen* cit = new citizen(in, currStateArray.getStateById(tempStateId));
            addNodeToTail(cit);
@@ -155,9 +150,11 @@ namespace proj {
    {
        out.write(rcastcc(&listSize), sizeof(listSize));
        node* temp = head;
+       int tempCitizenId;
        while (temp != nullptr)
        {
-           out.write(rcastcc(temp->value->getId()), sizeof(temp->value->getId()));
+           tempCitizenId = temp->value->getId();
+           out.write(rcastcc(&tempCitizenId), sizeof(int));
            temp = temp->next;
        }
    }
@@ -175,7 +172,7 @@ namespace proj {
    }
 
 
-   void citizenList::printList()
+   void citizenList::printList()const 
    {
        if (head == nullptr)
            return;

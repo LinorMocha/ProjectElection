@@ -140,7 +140,8 @@ namespace proj
 
     void politicalParty::save(ostream& out) const
     {
-        out.write(rcastcc(head.getId()), sizeof(int));
+        int temp = head.getId();
+        out.write(rcastcc(&temp), sizeof(int));
         out.write(rcastcc(&numId), sizeof(numId));
         out.write(rcastcc(&name), sizeof(name));
         out.write(rcastcc(&phySize), sizeof(phySize));
