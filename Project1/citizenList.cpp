@@ -120,8 +120,12 @@ namespace proj {
        }
    }
 
-   void citizenList::save(ostream& out) const
+   bool citizenList::save(ostream& out) const
    {
+       if (!out)
+       {
+           return false;
+       }
        out.write(rcastcc(&listSize), sizeof(listSize));
        node* temp = head;
        while (temp != nullptr)
@@ -129,11 +133,16 @@ namespace proj {
            temp->value->save(out);
            temp = temp->next;
        }
+       return(out.good());
    }
 
 
-   void citizenList::load(istream& in, const StateArray& currStateArray)
+   bool citizenList::load(istream& in, const StateArray& currStateArray)
    {
+       if (!in)
+       {
+           return false; 
+       }
        int list_size;
        in.read(rcastc(&list_size), sizeof(list_size));
        int tempStateId;
@@ -143,7 +152,7 @@ namespace proj {
            citizen* cit = new citizen(in, currStateArray.getStateById(tempStateId));
            addNodeToTail(cit);
        }
-
+       return(in.good());
 
    }
    void citizenList::saveById(ostream& out) const

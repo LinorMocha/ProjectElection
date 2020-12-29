@@ -76,32 +76,41 @@ namespace proj
 		return true;
 	}
 
-	void citizen::save(ostream& out)const
+	bool citizen::save(ostream& out)const
 	{
+		if (!out)
+		{
+			return false; 
+		}
 		int temp = state.getNumId();
 		out.write(rcastcc(&temp), sizeof(int));
 		out.write(rcastcc(&ID), sizeof(ID));
-		int len = utils::myStrlen(name);
-		out.write(rcastcc(&len), sizeof(len));
-		out.write(rcastcc(&name), sizeof(name));
 		out.write(rcastcc(&birthYear), sizeof(name));
 		out.write(rcastcc(&vote), sizeof(vote));
-		/*if (out.good())
-		{
-			cout << "EE";
-				exit(0);
-		}*/
-		
+		int len = utils::myStrlen(name);
+		out.write(rcastcc(&len), sizeof(len));
+		out.write(name,len);
+		return(out.good());
 	}
 
-	void citizen::load(istream& in)
+	bool citizen::load(istream& in)
 	{
-		int len;
-		in.read(rcastc(&len), sizeof(int));
-		in.read(rcastc(&name), sizeof(len));
+		if (!in)
+		{
+			return false;
+		}
 		in.read(rcastc(&ID), sizeof(ID));
 		in.read(rcastc(&birthYear), sizeof(name));
 		in.read(rcastc(&vote), sizeof(vote));
+		int len;
+		in.read(rcastc(&len), sizeof(len));
+		len++;
+		name = new char[len];
+		in.read(name, len);
+		name[len - 1] = '\0';
+
+		return true;
+		
 	}
 
 	ostream& operator<<(ostream& os, const citizen& Citizen)

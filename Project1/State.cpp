@@ -96,30 +96,42 @@ namespace proj
 	{
 		countVotesInState++;
 	}
-	void State::save(ostream& out) const
+	bool State::save(ostream& out) const
 	{
-		int len;
-		len = utils::myStrlen(name);
-		out.write(rcastcc(&len), sizeof(int));
-		out.write(name, len);
+		if (!out)
+		{
+			return false;
+		}
+
 		out.write(rcastcc(&numId), sizeof(int));
 		out.write(rcastcc(&numOfRepresentative), sizeof(int));
 		out.write(rcastcc(&countCitizensInState), sizeof(countCitizensInState));
 		out.write(rcastcc(&countVotesInState), sizeof(countVotesInState));
 		out.write(rcastcc(&stateStatus), sizeof(stateStatus));
+		int len;
+		len = utils::myStrlen(name);
+		out.write(rcastcc(&len), sizeof(int));
+		out.write(name, len);
+		return (out.good());
 	}
-	void State::load(istream& in)
+
+	bool State::load(istream& in)
 	{
+		if (!in)
+		{
+			return false;
+		}
+		in.read(rcastc(&numId), sizeof(int));
+		in.read(rcastc(&numOfRepresentative), sizeof(int));
+		in.read(rcastc(&countCitizensInState), sizeof(countCitizensInState));
+		in.read(rcastc(&countVotesInState), sizeof(countVotesInState));
+		in.read(rcastc(&stateStatus), sizeof(stateStatus));
 		int len;
 		in.read(rcastc(&len), sizeof(len));
 		len++;
 		name = new char[len];
 		in.read(name, len);
 		name[len-1] = '\0';
-		in.read(rcastc(&numId), sizeof(int));
-		in.read(rcastc(&numOfRepresentative), sizeof(int));
-		in.read(rcastc(&countCitizensInState), sizeof(countCitizensInState));
-		in.read(rcastc(&countVotesInState), sizeof(countVotesInState));
-		in.read(rcastc(&stateStatus), sizeof(stateStatus));
+		return true;
 	}
 }

@@ -32,8 +32,8 @@ namespace proj
         void addRepToPoli(int PolId, int StateId, citizen* rep);
         void addVote(int poliId,int stateId);
     
-        void save(ostream& out) const;
-        void load(istream& in, const citizenList& currList);
+        bool save(ostream& out) const;
+        bool load(istream& in, const citizenList& currList);
 
 
     };

@@ -39,8 +39,8 @@ namespace proj
 	     void addCitizen();
 		 void addVote();
 
-		 void save(ostream& out)const;
-		 void load(istream& in);
+		 bool save(ostream& out)const;
+		 bool load(istream& in);
 	};
 }
 

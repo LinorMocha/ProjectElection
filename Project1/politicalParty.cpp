@@ -136,16 +136,11 @@ namespace proj
         return false;
     }
 
-    
-
     void politicalParty::save(ostream& out) const
     {
         int temp = head.getId();
         out.write(rcastcc(&temp), sizeof(int));
         out.write(rcastcc(&numId), sizeof(numId));
-        int len = utils::myStrlen(name);
-        out.write(rcastcc(&len), sizeof(len));
-        out.write(rcastcc(&name), sizeof(name));
         out.write(rcastcc(&phySize), sizeof(phySize));
         for (int i = 0; i <= ElectionRound::countState; i++)
         {
@@ -155,6 +150,10 @@ namespace proj
         {
             representativeListByStateArray[j]->saveById(out);
         }
+        int len = utils::myStrlen(name);
+        out.write(rcastcc(&len), sizeof(int));
+        out.write(name, len);
+       
     }
     void politicalParty::load(istream& in, const citizenList& currList)
     {
@@ -162,10 +161,7 @@ namespace proj
         in.read(rcastc(&tempIdHead), sizeof(tempIdHead));
         head = *currList.getCitizenById(tempIdHead);
         in.read(rcastc(&numId), sizeof(numId));
-        in.read(rcastc(&len), sizeof(len));
-        in.read(rcastc(&name), sizeof(len));
         in.read(rcastc(&phySize), sizeof(phySize));
-
         votesByStatesArray = new int[phySize];
         for (int i = 0; i < phySize; i++)
         {
@@ -174,10 +170,7 @@ namespace proj
             else
                 votesByStatesArray[i] = 0;
         }
-
-
         representativeListByStateArray = new citizenList * [phySize];
-
         for (int i = 0; i < phySize; i++)
         {
             if (i <= ElectionRound::countState && i != 0)
@@ -188,8 +181,13 @@ namespace proj
             else
                 representativeListByStateArray[i] = new citizenList();
         }
-
+        in.read(rcastc(&len), sizeof(len));
+        len++;
+        name = new char[len];
+        in.read(name,len);
+        name[len - 1] = '\0';
     }
+
     void politicalParty::addVote(int stateId)
     {
         votesByStatesArray[stateId]++;
@@ -242,8 +240,4 @@ namespace proj
         }
 
     }
-
-  
-
- 
 }

@@ -38,8 +38,8 @@ namespace proj
         void printList()const ;
         void printList(int numOfNodeToPrint)const;
     
-        void save(ostream& out)const;
-        void load(istream& in, const StateArray& staecur);
+        bool save(ostream& out)const;
+        bool load(istream& in, const StateArray& staecur);
 
 
         //// FOR REPRESENTATIVE LIST ///
