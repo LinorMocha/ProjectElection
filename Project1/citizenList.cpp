@@ -159,6 +159,7 @@ namespace proj {
        return(in.good());
 
    }
+
    bool citizenList::saveById(ostream& out) const
    {
        if (!out)
