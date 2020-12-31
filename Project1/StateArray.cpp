@@ -31,20 +31,36 @@ namespace proj
 		stateArray[stateId]->addVote();
 	}
 
-	void StateArray::save(ostream& out) const
+	bool StateArray::save(ostream& out) const
 	{
+		if (!out)
+		{
+			return false;
+		}
 		out.write(rcastcc(&phySize), sizeof(phySize));
 		for (int i = 1; i <= ElectionRound::countState; i++)
 		{
 			stateArray[i]->save(out);
+			if (!out.good())
+			{
+				return false;
+			}
 		}
 
-
+		return(out.good());
 	}
 
-	void StateArray::load(istream& in)
+	bool StateArray::load(istream& in)
 	{
+		if (!in)
+		{
+			return false;
+		}
 		in.read(rcastc(&phySize), sizeof(phySize));
+		if (!in.good())
+		{
+			return false;
+		}
 		State** res = new State * [phySize];
 		for (int i = 0; i <= ElectionRound::countState; i++)
 		{
@@ -54,7 +70,7 @@ namespace proj
 				res[i] = new State(in);
 		}
 		stateArray = res;
-
+		return(in.good());
 	}
 	void StateArray::addState(char* name, int _numRep, bool Status)
 	{

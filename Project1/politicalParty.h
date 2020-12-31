@@ -41,8 +41,8 @@ namespace proj {
         void PrintWinningRepresentitives(int state, int repCount) const ;
         bool isRep(const citizen& cit);
 
-       void save(ostream& out) const;
-        void load(istream& in,const citizenList& currList);
+       bool save(ostream& out) const;
+       bool load(istream& in,const citizenList& currList);
 
     };
 }

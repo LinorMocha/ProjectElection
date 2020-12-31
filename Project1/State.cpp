@@ -128,10 +128,18 @@ namespace proj
 		in.read(rcastc(&stateStatus), sizeof(stateStatus));
 		int len;
 		in.read(rcastc(&len), sizeof(len));
+		if (!in.good())
+		{
+			return false;
+		}
 		len++;
 		name = new char[len];
 		in.read(name, len);
+		if (!in.good())
+		{
+			return false;
+		}
 		name[len-1] = '\0';
-		return true;
+		return (in.good());
 	}
 }

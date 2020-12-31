@@ -145,6 +145,10 @@ namespace proj {
        }
        int list_size;
        in.read(rcastc(&list_size), sizeof(list_size));
+       if (!in.good())
+       {
+           return false;
+       }
        int tempStateId;
        for (int i = 0; i < list_size; i++)
        {
@@ -155,8 +159,12 @@ namespace proj {
        return(in.good());
 
    }
-   void citizenList::saveById(ostream& out) const
+   bool citizenList::saveById(ostream& out) const
    {
+       if (!out)
+       {
+           return false;
+       }
        out.write(rcastcc(&listSize), sizeof(listSize));
        node* temp = head;
        int tempCitizenId;
@@ -166,18 +174,32 @@ namespace proj {
            out.write(rcastcc(&tempCitizenId), sizeof(int));
            temp = temp->next;
        }
+       return(out.good());
    }
 
-   void citizenList::loadById(istream& in, const citizenList& currList)
+   bool citizenList::loadById(istream& in, const citizenList& currList)
    {
+       if (!in)
+       {
+           return false;
+       }
        int size_list;
        in.read(rcastc(&size_list), sizeof(size_list));
+       if (!in.good())
+       {
+           return false;
+       }
        for (int i = 0; i <= size_list; i++)
        {
            int citizenId;
            in.read(rcastc(&citizenId), sizeof(int));
+           if (!in.good())
+           {
+               return false;
+           }
            addNodeToTail(currList.getCitizenById(citizenId));
        }
+       return (in.good());
    }
 
 

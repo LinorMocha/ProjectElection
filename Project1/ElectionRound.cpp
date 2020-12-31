@@ -170,9 +170,12 @@ namespace proj
 		}
 	}
 
-	void ElectionRound::save(ostream& out) const
+	bool ElectionRound::save(ostream& out) const
 	{
-		
+		if (!out)
+		{
+			return false;
+		}
 		out.write(rcastcc(&date.day), sizeof(int));
 		out.write(rcastcc(&date.month), sizeof(int));
 		out.write(rcastcc(&date.year), sizeof(int));
@@ -181,12 +184,29 @@ namespace proj
 		out.write(rcastcc(&countPoliticalParty), sizeof(int));
 
 		_stateArray.save(out);
+		if (!out.good())
+		{
+			return false;
+		}
 		_citizenList.save(out);
+		if (!out.good())
+		{
+			return false;
+		}
 		_politicalPartyArray.save(out);
+		if (!out.good())
+		{
+			return false;
+		}
+		return(out.good());
 	}
 
-	void ElectionRound::load(istream& in)
+	bool ElectionRound::load(istream& in)
 	{
+		if (!in)
+		{
+			return false;
+		}
 		in.read(rcastc(&date.day), sizeof(int));
 		in.read(rcastc(&date.month), sizeof(int));
 		in.read(rcastc(&date.year), sizeof(int));
@@ -195,7 +215,16 @@ namespace proj
 		in.read(rcastc(&countPoliticalParty), sizeof(int));
 
 		_stateArray.load(in);
+		if (!in.good())
+		{
+			return false;
+		}
 		_citizenList.load(in, _stateArray);
+		if (!in.good())
+		{
+			return false;
+		}
 		_politicalPartyArray.load(in, _citizenList);
+		return(in.good());
 	}
 }

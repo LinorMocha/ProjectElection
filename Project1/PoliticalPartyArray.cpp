@@ -145,6 +145,10 @@ namespace proj
 		for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
 		{
 			politicalPartyArray[i]->save(out);
+			if (!out.good())
+			{
+				return false;
+			}
 		}
 		return(out.good());
 	}
@@ -156,6 +160,10 @@ namespace proj
 			return false;
 		}
 		in.read(rcastc(&phySize), sizeof(phySize));
+		if (!in.good())
+		{
+			return false;
+		}
 		politicalPartyArray = new politicalParty * [phySize];
 
 		politicalPartyArray[0] = nullptr;
@@ -166,11 +174,15 @@ namespace proj
 				int headId;
 				in.read(rcastc(&headId), sizeof(int));
 				node * a=currList.getHead();
+				if (!in.good())
+				{
+					return false;
+				}
 				currList.printList();
 				politicalPartyArray[i] = new politicalParty(in, currList, currList.getCitizenById(headId));
 			}
 
 		}
-		return true;
+		return (in.good());
 	}
 }

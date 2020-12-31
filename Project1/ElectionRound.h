@@ -65,8 +65,8 @@ namespace proj
 		////// Turn Out ///////
 		//virtual int printElectionResults();
 
-		virtual void save(ostream& out) const;
-		virtual void load(istream& in); 
+		virtual bool save(ostream& out) const;
+		virtual bool load(istream& in); 
 	};
 
 }

@@ -14,7 +14,6 @@ namespace proj {
 		load(in);
 	}
 
-	
 	bool ElectionProportiaonal::addCitizen(char* _name, int id, int numD, int _birthYear)
 	{
 		if (_citizenList.getCitizenById(id)==nullptr)

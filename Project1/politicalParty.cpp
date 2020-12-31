@@ -136,8 +136,12 @@ namespace proj
         return false;
     }
 
-    void politicalParty::save(ostream& out) const
+    bool politicalParty::save(ostream& out) const
     {
+        if (!out)
+        {
+            return false;
+        }
         int temp = head.getId();
         out.write(rcastcc(&temp), sizeof(int));
         out.write(rcastcc(&numId), sizeof(numId));
@@ -149,19 +153,36 @@ namespace proj
         for (int j = 1; j <= ElectionRound::countState; j++)
         {
             representativeListByStateArray[j]->saveById(out);
+            if (!out.good());
+            {
+                return false;
+            }
         }
         int len = utils::myStrlen(name);
         out.write(rcastcc(&len), sizeof(int));
         out.write(name, len);
+        return(out.good());
        
     }
-    void politicalParty::load(istream& in, const citizenList& currList)
+    bool politicalParty::load(istream& in, const citizenList& currList)
     {
+        if (!in)
+        {
+            return false;
+        }
         int tempIdHead, len;
         in.read(rcastc(&tempIdHead), sizeof(tempIdHead));
+        if (!in.good())
+        {
+            return false;
+        }
         head = *currList.getCitizenById(tempIdHead);
         in.read(rcastc(&numId), sizeof(numId));
         in.read(rcastc(&phySize), sizeof(phySize));
+        if (!in.good())
+        {
+            return false;
+        }
         votesByStatesArray = new int[phySize];
         for (int i = 0; i < phySize; i++)
         {
@@ -177,15 +198,28 @@ namespace proj
             {
                 representativeListByStateArray[i] = new citizenList();
                 representativeListByStateArray[i]->loadById(in, currList);
+                if (!in.good())
+                {
+                    return false;
+                }
             }
             else
                 representativeListByStateArray[i] = new citizenList();
         }
         in.read(rcastc(&len), sizeof(len));
+        if (!in.good())
+        {
+            return false;
+        }
         len++;
         name = new char[len];
         in.read(name,len);
+        if (!in.good())
+        {
+            return false;
+        }
         name[len - 1] = '\0';
+        return (in.good());
     }
 
     void politicalParty::addVote(int stateId)

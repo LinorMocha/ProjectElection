@@ -43,8 +43,8 @@ namespace proj
 
 
         //// FOR REPRESENTATIVE LIST ///
-        void loadById(istream& in, const citizenList& currList);
-        void saveById(ostream& out) const;
+        bool loadById(istream& in, const citizenList& currList);
+        bool saveById(ostream& out) const;
        
     };
 }
