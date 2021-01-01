@@ -100,6 +100,7 @@ int main()
 
 		cout << "Good bye";
 
+		delete Round;
 		return 0;
 
 }

@@ -68,6 +68,10 @@ namespace proj
 				res[i] = nullptr;
 			else
 				res[i] = new State(in);
+			if (!in.good())
+			{
+				return false;
+			}
 		}
 		stateArray = res;
 		return(in.good());

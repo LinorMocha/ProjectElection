@@ -28,7 +28,7 @@ namespace proj
 		ElectionRound(istream& in);
 		~ElectionRound();
 		
-		virtual bool setDate( int day,int month,int year);
+		bool setDate( int day,int month,int year);
 		
 		//////////////GETTERS///////////////////
 		int getDay() const { return date.day; };
@@ -41,32 +41,31 @@ namespace proj
 		
 		/////////// STATE //////////////////
 		bool addState(char* name, int numRep,bool Status); ///
-		virtual void printStateArray();
-		virtual State& getStateById(int numId) const ;
-		//virtual int* printElectionResultsForState(int stateId);
+		void printStateArray();
+		State& getStateById(int numId) const ;
+		
 		
 		/////////// CITIZEN //////////////////
 		virtual bool addCitizen(char* _name, int id, int numD, int _birthYear);
-		virtual const citizen& getCitizenById(int numId);
+		const citizen& getCitizenById(int numId);
 		void printCitizenList();
 
 		////////////  Representative//////////
 		virtual bool addRepresentativetoPoli(int repId, int PoliId, int StateId);
-		virtual bool isRepListComplete();
+		bool isRepListComplete();
 		
 		////////////  POLITICALPARTY  //////////
-		virtual bool addPoliticalParty(char* name, int headId);
-		virtual void printPoliticalPartyArray();
-		virtual const politicalParty& getPoliById(int numId);
+		bool addPoliticalParty(char* name, int headId);
+		void printPoliticalPartyArray();
+		const politicalParty& getPoliById(int numId);
 		
 		/////////// Vote //////////////
-		virtual bool addVote(int citizenId, int poliId);
+		bool addVote(int citizenId, int poliId);
 		
 		////// Turn Out ///////
-		//virtual int printElectionResults();
-
-		virtual bool save(ostream& out) const;
-		virtual bool load(istream& in); 
+		
+		bool save(ostream& out) const;
+		bool load(istream& in); 
 	};
 
 }

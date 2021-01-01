@@ -180,6 +180,11 @@ namespace proj
 					return false;
 				}
 				politicalPartyArray[i] = new politicalParty(in, currList, currList.getCitizenById(headId));
+				
+				if (!in.good())
+				{
+					return false;
+				}
 			}
 
 		}
