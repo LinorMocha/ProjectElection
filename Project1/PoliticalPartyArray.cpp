@@ -13,7 +13,6 @@ namespace proj
 		{
 			delete politicalPartyArray[i];
 		}
-
 	}
 	void PoliticalPartyArray::addState()
 	{

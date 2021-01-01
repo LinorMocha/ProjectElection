@@ -9,7 +9,7 @@ namespace proj
 	{
 
 	}*/
-	
+
 	citizen::citizen(const char* _name, int id, State& _state, int _birthYear) : state(_state), ID(id), birthYear(_birthYear)
 	{
 		ElectionRound::countCitizen++;
@@ -75,7 +75,7 @@ namespace proj
 		vote = _vote;
 		return true;
 	}
-
+	
 	bool citizen::save(ostream& out)const
 	{
 		if (!out)

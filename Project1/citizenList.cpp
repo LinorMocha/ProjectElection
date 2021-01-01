@@ -34,7 +34,6 @@ namespace proj {
 
             current = next;
         }
-
     }
 
     void citizenList::addNodeToTail(citizen* input)
