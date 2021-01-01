@@ -130,7 +130,8 @@ namespace proj {
        node* temp = head;
        while (temp != nullptr)
        {
-           temp->value->save(out);
+           if (!temp->value->save(out))
+               return false;
            temp = temp->next;
        }
        return(out.good());
@@ -190,7 +191,7 @@ namespace proj {
        {
            return false;
        }
-       for (int i = 0; i <= size_list; i++)
+       for (int i = 0; i < size_list; i++)
        {
            int citizenId;
            in.read(rcastc(&citizenId), sizeof(int));

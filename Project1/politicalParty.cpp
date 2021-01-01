@@ -152,11 +152,8 @@ namespace proj
         }
         for (int j = 1; j <= ElectionRound::countState; j++)
         {
-            representativeListByStateArray[j]->saveById(out);
-            if (!out.good());
-            {
+            if (!representativeListByStateArray[j]->saveById(out))
                 return false;
-            }
         }
         int len = utils::myStrlen(name);
         out.write(rcastcc(&len), sizeof(int));
@@ -170,13 +167,8 @@ namespace proj
         {
             return false;
         }
-        int tempIdHead, len;
-        in.read(rcastc(&tempIdHead), sizeof(tempIdHead));
-        if (!in.good())
-        {
-            return false;
-        }
-        head = *currList.getCitizenById(tempIdHead);
+        int len;
+       
         in.read(rcastc(&numId), sizeof(numId));
         in.read(rcastc(&phySize), sizeof(phySize));
         if (!in.good())
@@ -197,15 +189,13 @@ namespace proj
             if (i <= ElectionRound::countState && i != 0)
             {
                 representativeListByStateArray[i] = new citizenList();
-                representativeListByStateArray[i]->loadById(in, currList);
-                if (!in.good())
-                {
-                    return false;
-                }
+                if(!representativeListByStateArray[i]->loadById(in, currList))
+                     return false;
             }
             else
                 representativeListByStateArray[i] = new citizenList();
         }
+
         in.read(rcastc(&len), sizeof(len));
         if (!in.good())
         {
@@ -213,11 +203,7 @@ namespace proj
         }
         len++;
         name = new char[len];
-        in.read(name,len);
-        if (!in.good())
-        {
-            return false;
-        }
+        in.read(name,len-1);
         name[len - 1] = '\0';
         return (in.good());
     }

@@ -110,7 +110,7 @@ namespace proj
 		}
 		len++;
 		name = new char[len];
-		in.read(name, len);
+		in.read(name, len-1);
 		if (!in.good())
 		{
 			return false;

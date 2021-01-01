@@ -183,22 +183,16 @@ namespace proj
 		out.write(rcastcc(&countState), sizeof(int));
 		out.write(rcastcc(&countPoliticalParty), sizeof(int));
 
-		_stateArray.save(out);
-		if (!out.good())
-		{
+		if (!_stateArray.save(out))
 			return false;
-		}
-		_citizenList.save(out);
-		if (!out.good())
-		{
+
+		if (!_citizenList.save(out))
 			return false;
-		}
-		_politicalPartyArray.save(out);
-		if (!out.good())
-		{
+		
+		if (!_politicalPartyArray.save(out))
 			return false;
-		}
-		return(out.good());
+		
+		return true;
 	}
 
 	bool ElectionRound::load(istream& in)
@@ -214,17 +208,15 @@ namespace proj
 		in.read(rcastc(&countState), sizeof(int));
 		in.read(rcastc(&countPoliticalParty), sizeof(int));
 
-		_stateArray.load(in);
-		if (!in.good())
-		{
+		if(!_stateArray.load(in))
 			return false;
-		}
-		_citizenList.load(in, _stateArray);
-		if (!in.good())
-		{
+
+		if(!_citizenList.load(in, _stateArray))
 			return false;
-		}
-		_politicalPartyArray.load(in, _citizenList);
+
+		if (!_politicalPartyArray.load(in, _citizenList))
+			return false;
+		
 		return(in.good());
 	}
 }

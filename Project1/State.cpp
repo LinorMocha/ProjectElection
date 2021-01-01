@@ -30,11 +30,11 @@ namespace proj
 	{
 		os << "state number: " << state.getNumId();
 		os << "  ||  state name: " << state.getName();
-		os << "  ||  state number of rep: " << state.getNumOfRepresentative() << endl;
+		os << "  ||  state number of rep: " << state.getNumOfRepresentative();
 		if (state.getStateStatus())
-			os << "  ||  state brand: union ";
+			os << "  ||  state brand: union "<<endl;
 		else
-			os << "  ||  state brand: sperated ";
+			os << "  ||  state brand: sperated "<< endl;
 
 		return os;
 	}
@@ -111,7 +111,8 @@ namespace proj
 		int len;
 		len = utils::myStrlen(name);
 		out.write(rcastcc(&len), sizeof(int));
-		out.write(name, len);
+		out.write(rcastcc(name), len);
+		
 		return (out.good());
 	}
 
@@ -126,6 +127,7 @@ namespace proj
 		in.read(rcastc(&countCitizensInState), sizeof(countCitizensInState));
 		in.read(rcastc(&countVotesInState), sizeof(countVotesInState));
 		in.read(rcastc(&stateStatus), sizeof(stateStatus));
+		
 		int len;
 		in.read(rcastc(&len), sizeof(len));
 		if (!in.good())
@@ -133,13 +135,13 @@ namespace proj
 			return false;
 		}
 		len++;
+		
 		name = new char[len];
-		in.read(name, len);
-		if (!in.good())
-		{
-			return false;
-		}
-		name[len-1] = '\0';
+
+		in.read(name, len-1);
+
+		name[len - 1] = '\0';
+	
 		return (in.good());
 	}
 }
