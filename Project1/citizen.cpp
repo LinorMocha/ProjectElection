@@ -9,14 +9,14 @@ namespace proj
 	{
 
 	}*/
-
+	
 	citizen::citizen(const char* _name, int id, State& _state, int _birthYear) : state(_state), ID(id), birthYear(_birthYear)
 	{
 		ElectionRound::countCitizen++;
 		name = utils::my_strdup(_name);
 		vote = -1;
 	}
-
+	//serialize constractor of citizen
 	citizen::citizen(istream& in,State& sta): state(sta)
 	{
 		load(in);
@@ -33,7 +33,7 @@ namespace proj
 	{
 		delete[] name;
 	}
-
+	
 	const citizen& citizen::operator=(const citizen& input)
 	{
 		ID = input.ID;
@@ -43,42 +43,43 @@ namespace proj
 		name = utils::my_strdup(input.name);
 		return *this;
 	}
-	
+	//This function returns the state's ID number
 	int citizen::getStateId() const
 	{
 		return state.getNumId();
 	}
-
+	//This function returns the citizen's voting status
 	int citizen::getVote() const
 	{
 		return vote;
 	}
-
+	//This function returns the birth year of the citizen
 	int citizen::getBirthYear() const
 	{
 		return birthYear;
 	}
-
+	//This function returns the citizen's ID number
 	int citizen::getId() const
 	{
 		return ID;
 	}
+	//This function returns the name of the citizen
 	const char* citizen::getName() const
 	{
 		return name;
 	}
 
 
-
+	//This function sets the citizen's vote
 	bool citizen::setvote(int _vote)
 	{
 		vote = _vote;
 		return true;
 	}
-	
+	//This function writes the citizen data to binary file
 	bool citizen::save(ostream& out)const
 	{
-		if (!out)
+		if (!out) //checks if the file works properly
 		{
 			return false; 
 		}
@@ -90,12 +91,12 @@ namespace proj
 		int len = utils::myStrlen(name);
 		out.write(rcastcc(&len), sizeof(len));
 		out.write(name,len);
-		return(out.good());
+		return(out.good()); //Checks if the writes operations to file performed properly
 	}
-
+	//This function reads the citizen data from binary file
 	bool citizen::load(istream& in)
 	{
-		if (!in)
+		if (!in)//checks if the file works properly
 		{
 			return false;
 		}
@@ -104,14 +105,14 @@ namespace proj
 		in.read(rcastc(&vote), sizeof(vote));
 		int len;
 		in.read(rcastc(&len), sizeof(len));
-		if(!in.good())
+		if(!in.good())//check len reading from file
 		{
 			return false;
 		}
 		len++;
 		name = new char[len];
 		in.read(name, len-1);
-		if (!in.good())
+		if (!in.good()) //check name reading from file
 		{
 			return false;
 		}
@@ -119,7 +120,7 @@ namespace proj
 		return true;
 		
 	}
-
+	// This function prints the information of the curr citizen 
 	ostream& operator<<(ostream& os, const citizen& Citizen)
 	{
 		os << "citizen name: " << Citizen.getName();

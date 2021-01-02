@@ -2,27 +2,29 @@
 
 namespace proj
 {
+	//------------------static values------------------//
 	int ElectionRound::countPoliticalParty = 0;
 	int ElectionRound::countState = 0;
 	int ElectionRound::countCitizen = 0;
-
+	//ctor
 	ElectionRound::ElectionRound() : _stateArray(), _citizenList(), _politicalPartyArray()
 	{
 		date.day = 0;
 		date.month = 0;
 		date.year = 0;
 	}
+	////serialize constractor for ElectionRound
 	ElectionRound::ElectionRound(istream& in)
 	{
 		load(in);
 			
 	}
-
+	//distractor
 	ElectionRound::~ElectionRound()
 	{
 
 	}
-
+	//set the date of the election round
 	bool ElectionRound::setDate(int day, int month, int year)
 	{
 
@@ -31,17 +33,17 @@ namespace proj
 		date.year = year;
 		return true;
 	}
-
+	//this function get ref to state according to ID
 	State& ElectionRound::getStateById(int id)
 	{
 		 return _stateArray.getStateById(id);
 	}
-
+	//this function get ref to political Party according to ID
 	const politicalParty& ElectionRound::getPolitaclPartyById(int id)
 	{
 		return _politicalPartyArray.getPoliticalPartyById(id);
 	}
-
+	//This function returns the total number of votes for party
 	int ElectionRound::getOverAllVotesForPoli(int polyId)
 	{
 		return _politicalPartyArray.getOverAllVotesForPoli(polyId);
@@ -169,10 +171,10 @@ namespace proj
 			return false;
 		}
 	}
-
+	//This function writes the curr round data to binary file
 	bool ElectionRound::save(ostream& out) const
 	{
-		if (!out)
+		if (!out)//checks if the file works properly
 		{
 			return false;
 		}
@@ -183,21 +185,21 @@ namespace proj
 		out.write(rcastcc(&countState), sizeof(int));
 		out.write(rcastcc(&countPoliticalParty), sizeof(int));
 
-		if (!_stateArray.save(out))
+		if (!_stateArray.save(out)) //saves the state array to file
 			return false;
 
-		if (!_citizenList.save(out))
+		if (!_citizenList.save(out)) //saves the citizen list to file
 			return false;
 		
-		if (!_politicalPartyArray.save(out))
+		if (!_politicalPartyArray.save(out)) //saves the politcal party array to file
 			return false;
 		
 		return true;
 	}
-
+	//This function reads the curr round data from binary file
 	bool ElectionRound::load(istream& in)
 	{
-		if (!in)
+		if (!in)//checks if the file works properly
 		{
 			return false;
 		}
@@ -208,13 +210,13 @@ namespace proj
 		in.read(rcastc(&countState), sizeof(int));
 		in.read(rcastc(&countPoliticalParty), sizeof(int));
 
-		if(!_stateArray.load(in))
+		if(!_stateArray.load(in))//load the state array from file
 			return false;
 
-		if(!_citizenList.load(in, _stateArray))
+		if(!_citizenList.load(in, _stateArray))//load the citizen list from file
 			return false;
 
-		if (!_politicalPartyArray.load(in, _citizenList))
+		if (!_politicalPartyArray.load(in, _citizenList))//load the politcal party array from file
 			return false;
 		
 		return(in.good());

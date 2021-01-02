@@ -8,9 +8,11 @@
 using namespace std;
 
 namespace proj {
-   
+  
     citizenList::citizenList():head(nullptr),tail(nullptr), listSize(0) {}
 
+
+    //constractor - create citizens list
     citizenList::citizenList(const citizenList& input) : citizenList()
     {
         listSize = input.listSize;
@@ -22,12 +24,12 @@ namespace proj {
         }
 
     }
-    
+    //distractor - Deletes the list
     citizenList::~citizenList()
     {
         node* current = head;
         node* next;
-        while (current != nullptr)
+        while (current != nullptr) //until it reaches to the end of the list
         {
             next = current->next;
             delete current->value;
@@ -35,7 +37,7 @@ namespace proj {
             current = next;
         }
     }
-
+    //this function add node to the end of the list
     void citizenList::addNodeToTail(citizen* input)
     {
         listSize++;
@@ -58,7 +60,7 @@ namespace proj {
 
         }
    }
-
+    //this function add node to the head of the list
    void citizenList::addNodeToHead(citizen* input)
    {
        listSize++;
@@ -79,7 +81,7 @@ namespace proj {
        }
    }
   
-
+   //this func returns pointer to citizen according to given ID number
     citizen* citizenList::getCitizenById(int _id)const
    {
        node* current = head;
@@ -92,21 +94,21 @@ namespace proj {
        }
        return nullptr;
    }
-   
+   //this function returns the haed of the list
     node* citizenList::getHead()const {return head;}
-
+    //this function returns the size of list
     int citizenList::getListSize() const
     {
         return listSize;
     }
-
+    //operator = copy the size of the list,  the head and the tail
    void citizenList::operator=(const citizenList& input)
    {
        listSize = input.listSize;
        head = input.head;
        tail = input.tail;
    }
-
+   //this function prints the list using operator<<
    void citizenList::printList(int numOfNodeToPrint) const 
    {
        node* temp = head;
@@ -118,10 +120,10 @@ namespace proj {
            counter++;
        }
    }
-
+   //this funcion save the data list to file
    bool citizenList::save(ostream& out) const
    {
-       if (!out)
+       if (!out)//checks if the file works properly
        {
            return false;
        }
@@ -129,17 +131,17 @@ namespace proj {
        node* temp = head;
        while (temp != nullptr)
        {
-           if (!temp->value->save(out))
+           if (!temp->value->save(out)) //saves the list of citizens according to the citizens id
                return false;
            temp = temp->next;
        }
        return(out.good());
    }
 
-
+   //this funcion load the data list from file
    bool citizenList::load(istream& in, const StateArray& currStateArray)
    {
-       if (!in)
+       if (!in)//checks if the file works properly
        {
            return false; 
        }
@@ -150,16 +152,16 @@ namespace proj {
            return false;
        }
        int tempStateId;
-       for (int i = 0; i < list_size; i++)
+       for (int i = 0; i < list_size; i++)//Creates a list of citizens by reading citizens' ID numbers
        {
            in.read(rcastc(&tempStateId), sizeof(int));
-           citizen* cit = new citizen(in, currStateArray.getStateById(tempStateId));
+           citizen* cit = new citizen(in, currStateArray.getStateById(tempStateId)); //create curr citizen using ctor
            addNodeToTail(cit);
        }
        return(in.good());
 
    }
-
+   //this function saves the citizens' ID numbers
    bool citizenList::saveById(ostream& out) const
    {
        if (!out)
@@ -171,13 +173,13 @@ namespace proj {
        int tempCitizenId;
        while (temp != nullptr)
        {
-           tempCitizenId = temp->value->getId();
+           tempCitizenId = temp->value->getId(); //get the id number of the curr citizen in the list
            out.write(rcastcc(&tempCitizenId), sizeof(int));
            temp = temp->next;
        }
        return(out.good());
    }
-
+   //this function loads the citizen list according to the citizens' ID
    bool citizenList::loadById(istream& in, const citizenList& currList)
    {
        if (!in)
@@ -203,7 +205,7 @@ namespace proj {
        return (in.good());
    }
 
-
+   //this function prints the citizen list
    void citizenList::printList()const 
    {
        if (head == nullptr)
