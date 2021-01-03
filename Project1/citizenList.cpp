@@ -29,7 +29,7 @@ namespace proj {
     {
         node* current = head;
         node* next;
-        while (current != nullptr) //until it reaches to the end of the list
+        while (current != nullptr) 
         {
             next = current->next;
             delete current->value;
@@ -131,7 +131,7 @@ namespace proj {
        node* temp = head;
        while (temp != nullptr)
        {
-           if (!temp->value->save(out)) //saves the list of citizens according to the citizens id
+           if (!temp->value->save(out)) 
                return false;
            temp = temp->next;
        }

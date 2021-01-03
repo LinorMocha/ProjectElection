@@ -5,10 +5,6 @@
 
 namespace proj
 {
-	/*citizen::citizen() : name(nullptr), ID(0), birthYear(0), vote(-1), state
-	{
-
-	}*/
 	//ctor
 	citizen::citizen(const char* _name, int id, State& _state, int _birthYear) : state(_state), ID(id), birthYear(_birthYear)
 	{

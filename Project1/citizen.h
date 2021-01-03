@@ -16,7 +16,7 @@ namespace proj
 		int vote;
 
 	public:
-		//citizen();
+		
 		citizen(const char* _name, int id, State & _state,int _birthYear);
 		citizen(const citizen& cit);
 		~citizen();
