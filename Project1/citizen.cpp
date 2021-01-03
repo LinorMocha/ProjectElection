@@ -9,7 +9,7 @@ namespace proj
 	{
 
 	}*/
-	
+	//ctor
 	citizen::citizen(const char* _name, int id, State& _state, int _birthYear) : state(_state), ID(id), birthYear(_birthYear)
 	{
 		ElectionRound::countCitizen++;
@@ -21,14 +21,14 @@ namespace proj
 	{
 		load(in);
 	}
-
+	//ctor
 	citizen::citizen(const citizen& cit) :state(cit.state), ID(cit.ID), birthYear(cit.birthYear), vote(cit.vote)
 	{
 
 		name = utils::my_strdup(cit.name);
 
 	}
-
+	//dctor
 	citizen::~citizen()
 	{
 		delete[] name;

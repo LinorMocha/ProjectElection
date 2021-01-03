@@ -7,7 +7,7 @@
 using namespace std;
 using namespace proj;
 
-/// const ///
+/// const values ///
 const int ADD_STATE = 1;
 const int ADD_CITIZEN = 2;
 const int ADD_POLITICAL_PARTY = 3;
@@ -20,7 +20,7 @@ const int PRINT_RESULT = 9;
 const int SAVE_ROUND = 10; 
 const int LOAD_ROUND = 11;
 
-
+//------------------------declartions-------------------------//
 void exe(int n);
 void PrintMenuSecondary();
 void addState();
@@ -39,6 +39,7 @@ int printElectionRoundResult();
 int* printElectionResultsForState(int stateId);
 int printElectionRoundResultForProprotinal();
 ElectionRound* Round;
+
 
 int main()
 {
@@ -104,7 +105,7 @@ int main()
 		return 0;
 
 }
-
+//This function prints the primary menu
 void printMenuPrimary()
 {
 	cout << "________________________________" << endl;
@@ -113,7 +114,7 @@ void printMenuPrimary()
 	cout << " 3- exit" << endl;
 	cout << "________________________________" << endl;
 }
-
+//This function prints the secondary menu
 void PrintMenuSecondary()
 {
 	cout << "________________________________" << endl;
@@ -132,7 +133,7 @@ void PrintMenuSecondary()
 	cout << "________________________________" << endl;
 
 }
-
+//This function is responsible for all operations
 void exe(int n)
 {
 	switch (n)
@@ -173,7 +174,7 @@ void exe(int n)
 
 	}
 }
-
+//this function saves the current round election
 void saveElectionRound()
 {
 	ofstream File;
@@ -204,7 +205,7 @@ void saveElectionRound()
 	delete[]input;
 	delete[]name;
 }
-
+//this function loads the current round election
 void loadElectionRound()
 {
 	delete Round;
@@ -234,7 +235,7 @@ void loadElectionRound()
 		cout << "Load successfully" << endl;
 	fl.close();
 }
-
+//this function adds new state to the curr election round
 void addState()
 {
 	if (typeid(*Round) == typeid(ElectionProportiaonal))
@@ -261,7 +262,7 @@ void addState()
 	
 
 }
-
+//this function adds new citizen to the curr election round
 void addCitizen()
 {
 	cout << "please enter citizen name" << endl;  
@@ -283,6 +284,7 @@ void addCitizen()
 	delete[]name;
 
 }
+//this function adds new party to the curr election round
 void addPoliticalParties()
 {
 	cout << "please enter political party name" << endl; 
@@ -300,7 +302,7 @@ void addPoliticalParties()
 	delete[]input;
 	delete[]name;
 }
-
+//this function adds new representative to the curr election round
 void addRepresentative()
 {
 	cout << "please enter representative ID" << endl;
@@ -320,6 +322,7 @@ void addRepresentative()
 		cout << "EROR! please enter an exsited state, citizen and political party, Representative can represent only one political party! " << endl;
 	
 }
+//this function prints the states exsict in the curr election round 
 void printStates()
 {
 	if (typeid(*Round) == typeid(ElectionProportiaonal))
@@ -332,18 +335,21 @@ void printStates()
 	}
 	
 }
+//this function prints the citizens exsict in the curr election round
 void printCitizens()
 {
 	cout << "the citizens in the country are:" << endl;
 	
 	Round->printCitizenList();
 }
+//this function prints the politcal parties exsict in the curr election round
 void printPoliticalParties()
 {
 	cout << "the political parties in the country are:" << endl;
 	Round->printPoliticalPartyArray();
 	
 }
+//add new vote to current election round
 void addVote()
 {
 	cout << "please enter citizen ID " << endl;
@@ -357,7 +363,7 @@ void addVote()
 	if(!Round->addVote(input, input1))
 		cout<<"Id dont exsict or you aleardy voted"<<endl;
 }
-
+//prints the result of the current elction
 void printResult()
 {
 	int res;
@@ -372,6 +378,7 @@ void printResult()
 	if (res == 1)
 		cout << " the representative isnt full!. you need to enter more representative" << endl;
 }
+//This function prints the results of the election round propprotinal
 int printElectionRoundResultForProprotinal()
 {
 	if (Round->countPoliticalParty == 0 || Round->countCitizen == 0)
@@ -437,6 +444,7 @@ int printElectionRoundResultForProprotinal()
 	cout << " the president in the elecation is:" << Round->getPoliById(winningPoli).getPoliticalPartyHead() << endl;
 	cout << "__________________________________________________________________" << endl;
 }
+
 int printElectionRoundResult()
 {
 	if (Round->countState == 0 || Round->countPoliticalParty == 0 || Round->countCitizen == 0)
