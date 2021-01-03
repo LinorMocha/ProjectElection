@@ -51,6 +51,8 @@ namespace proj
 
 
 	///////////// STATE implementation//////////////////
+
+	//this function adds the state to the state arr snd to the party arr
 	bool ElectionRound::addState(char* name, int numRep, bool Status)
 	{
 		_stateArray.addState(name, numRep, Status);
@@ -58,11 +60,13 @@ namespace proj
 		_politicalPartyArray.addState();
 		return true;
 	}
+	//this function prints the State Array
 	void ElectionRound::printStateArray()
 	{
 		_stateArray.printStateArray();
 
 	}
+	//This function returns ref to the desired state according to the given ID 
 	State& ElectionRound::getStateById(int numId) const
 	{
 		return _stateArray.getStateById(numId);
@@ -71,6 +75,7 @@ namespace proj
 
 
 	///////////// CITIZEN implementation//////////////////
+	//This function creates new citizen if he doesn't exist and adds him to the end of the citizen Array
 	bool ElectionRound::addCitizen(char* _name, int id, int numD, int _birthYear)
 	{
 		if (_citizenList.getCitizenById(id) == nullptr && numD <= countState)
@@ -83,10 +88,12 @@ namespace proj
 
 		return false;
 	}
+	//This function returns ref to the desired citizen according to the given ID 
 	const citizen& ElectionRound::getCitizenById(int numId)
 	{
 		return *_citizenList.getCitizenById(numId);
 	}
+	//this function prints the citizen list
 	void ElectionRound::printCitizenList()
 	{
 		if (_citizenList.getHead() == nullptr)
@@ -97,7 +104,7 @@ namespace proj
 
 
 	////////////  POLITICALPARTY implementation  //////////
-
+	//This function creates new party if he doesn't exist and adds him to the end of the politcal party array
 	bool ElectionRound::addPoliticalParty(char* name, int headId)
 	{
 		citizen* headPoly = _citizenList.getCitizenById(headId);
@@ -110,24 +117,25 @@ namespace proj
 		else
 			return false;
 	}
+	//this function prints the Political party array
 	void ElectionRound::printPoliticalPartyArray()
 	{
 		_politicalPartyArray.printPoliticalPartyArray();
 	}
-
+	//This function returns ref to the desired party according to the given ID 
 	const politicalParty& ElectionRound::getPoliById(int numId)
 	{
 		return _politicalPartyArray.getPoliticalPartyById(numId);
 	}
 
 	/////// REPRESENTATIVE ////////
-
+	//This function adds a representative to party 
 	bool ElectionRound::addRepresentativetoPoli(int repId, int PoliId, int StateId)
 	{
-		if (PoliId <= countPoliticalParty && StateId <= countState)
+		if (PoliId <= countPoliticalParty && StateId <= countState)//chek if poli excist
 		{
 			citizen* rep = _citizenList.getCitizenById(repId);
-			if (rep != nullptr && !_politicalPartyArray.isCitizenIsRepORHead(*rep))
+			if (rep != nullptr && !_politicalPartyArray.isCitizenIsRepORHead(*rep))//check if the rep exsict
 			{
 				_politicalPartyArray.addRepToPoli(PoliId, StateId, rep);
 
@@ -138,7 +146,7 @@ namespace proj
 		return false;
 	}
 
-
+	//
 	bool ElectionRound::isRepListComplete()
 	{
 		int numOfExsitesRep;
@@ -156,6 +164,7 @@ namespace proj
 
 	///////////// Vote implementation///////////////
 
+	//This function adds votes of citizens who haven't voted yet
 	bool ElectionRound::addVote(int citizenId, int poliId)
 	{
 		citizen* cit = _citizenList.getCitizenById(citizenId);

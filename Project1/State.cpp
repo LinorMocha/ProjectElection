@@ -4,13 +4,13 @@
 
 
 namespace proj
-{
+{	//ctor
 	State::State():name(new char()), numOfRepresentative(0),numId(0), countCitizensInState(0),countVotesInState(0),stateStatus(true)
 	{
 		name = nullptr;
 		
 	}
-	
+	//ctor
 	State::State(const State& sta)
 	{
 		numId = sta.numId;
@@ -20,12 +20,12 @@ namespace proj
 		stateStatus = sta.stateStatus;
 		countVotesInState = sta.countVotesInState;
 	}
-
+	//serialize constractor of state
 	State::State(istream& in)
 	{
 		load(in);
 	}
-
+	// This function prints the information of the curr state using << operator 
 	ostream& operator << (ostream& os, const State& state)
 	{
 		os << "state number: " << state.getNumId();
@@ -38,12 +38,12 @@ namespace proj
 
 		return os;
 	}
-
+	//dctor
 	State::~State()
 	{
 		delete[] name;
 	}
-
+	//operator = copy current state to a new atate
 	const State& State::operator=(const State& input)
 	{
 		numId = input.numId;
@@ -53,6 +53,7 @@ namespace proj
 		countVotesInState = input.countVotesInState;
 		return *this;
 	}
+	//ctor
 	State::State(const char* _name, int _numRep ,bool Status) : State()
 	{
 		ElectionRound::countState++;
@@ -61,44 +62,50 @@ namespace proj
 		name = utils::my_strdup(_name);
 		stateStatus = Status;
 	}
+	//This function returns the status of the state
 	bool State::getStateStatus()const
 	{
 		return stateStatus;
 	}
+	//This function returns the name of the state
 	const char* State::getName()const
 	{
 		return name;
 	}
+	//This function returns the ID number of the state
 	int State::getNumId()const
 	{
 		return numId;
 	}
+	//This function returns the number of the Representative in the curr state
 	int State::getNumOfRepresentative()const
 	{
 		return numOfRepresentative;
 	}
+	//This function returns how many citizens there is in the curr state
 	int State::getHowManyCitizens()const
 	{
 		return countCitizensInState;
 	}
-
+	//This function returns the amount of votes in the current state
 	int State::getCountVotesInState()const
 	{
 		return countVotesInState;
 	}
-
+	//This function increases the counter of citizens in the current state
 	void State::addCitizen()
 	{
 	 countCitizensInState++; 
 	}
-
+	//This function increases the counter of votes in the current state
 	void State::addVote()
 	{
 		countVotesInState++;
 	}
+	//This function writes the state data to binary file
 	bool State::save(ostream& out) const
 	{
-		if (!out)
+		if (!out)//checks if the file works properly
 		{
 			return false;
 		}
@@ -113,12 +120,12 @@ namespace proj
 		out.write(rcastcc(&len), sizeof(int));
 		out.write(rcastcc(name), len);
 		
-		return (out.good());
+		return (out.good());//Checks if the writes operations to file performed properly
 	}
-
+	//This function reads the state data from binary file
 	bool State::load(istream& in)
 	{
-		if (!in)
+		if (!in)//checks if the file works properly
 		{
 			return false;
 		}
@@ -130,7 +137,7 @@ namespace proj
 		
 		int len;
 		in.read(rcastc(&len), sizeof(len));
-		if (!in.good())
+		if (!in.good())//check len reading from file
 		{
 			return false;
 		}
@@ -142,6 +149,6 @@ namespace proj
 
 		name[len - 1] = '\0';
 	
-		return (in.good());
+		return (in.good());//Checks if the writes operations to file performed properly
 	}
 }
