@@ -201,6 +201,8 @@ void saveElectionRound()
 		cout << "Saved successfully" << endl;
 	}
 	File.close();
+	delete[]input;
+	delete[]name;
 }
 
 void loadElectionRound()
@@ -212,12 +214,14 @@ void loadElectionRound()
 	cin >> input;
 	char* Filename = utils::my_strdup(input);
 	int status;
-
+	delete[]input;
 	fl.open(Filename, ios::binary);
+	delete[] Filename;
 	if (!fl)
 	{
 		cout << " Error with FILE" << endl;
-		exit(-1);
+		return;
+		
 	}
 	fl.read(rcastc(&status), sizeof(int));
 	if (status)
@@ -250,7 +254,8 @@ void addState()
 		cout << "please enter Status state , for union state press 1 , for sepraeted state press 2" << endl;
 		cin >> Status;
 		Round->addState(name, input2,Status==1);
-
+		delete[]input;
+		delete[]name;
 
 	}
 	
@@ -274,6 +279,9 @@ void addCitizen()
 	cin >> stateNum;
 	if (!Round->addCitizen(name, id, stateNum, birthYear))
 		cout << "EROR! please enter an exsited state and a new ID"<<endl;
+	delete[]input;
+	delete[]name;
+
 }
 void addPoliticalParties()
 {
@@ -289,7 +297,8 @@ void addPoliticalParties()
 	{
 		cout << "EROR! please enter an exsited state and citizen" << endl;
     }
-	
+	delete[]input;
+	delete[]name;
 }
 
 void addRepresentative()
@@ -313,8 +322,15 @@ void addRepresentative()
 }
 void printStates()
 {
-	cout << "the States in the country are:" << endl;
-	Round->printStateArray();
+	if (typeid(*Round) == typeid(ElectionProportiaonal))
+	{
+		cout << "ERROR" << endl;
+	}
+	else {
+		cout << "the States in the country are:" << endl;
+		Round->printStateArray();
+	}
+	
 }
 void printCitizens()
 {
