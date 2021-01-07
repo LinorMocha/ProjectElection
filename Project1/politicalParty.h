@@ -2,18 +2,21 @@
 
 #include "citizen.h"
 #include "citizenList.h"
+#include <vector>
 #include <iostream>
+#include "DynamicArr.h"
+
 using namespace std;
 
 namespace proj {
     class politicalParty {
     private:
-        citizenList** representativeListByStateArray;
+        DynamicArray<citizenList*> representativeListByStateArray;
         char *name;
         int numId;
         citizen& head;
-        int* votesByStatesArray;
-        int phySize;
+        vector<int> votesByStatesArray;
+        
         
     public:
         //politicalParty();
@@ -31,12 +34,9 @@ namespace proj {
         int getNumOfRepInList(int stateId)const;
         
         /// OTHER FUNCATIONS
-        void reSizeRepresentativeList();
         void addRepresentitive(citizen* citizen, int state);
         void PrintRepListForAllState();
         friend ostream& operator<<(ostream& os,const politicalParty& p_party);
-        void addState();
-        void reSizeVotesByStateArray();
         void addVote(int stateId);
         void PrintWinningRepresentitives(int state, int repCount) const ;
         bool isRep(const citizen& cit);

@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DynamicArr.h" />
     <ClInclude Include="ELectionProportiaonal.h" />
     <ClInclude Include="ElectionRound.h" />
     <ClInclude Include="politicalPartyArray.h" />
@@ -151,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="citizen.cpp" />
+    <ClCompile Include="DynamicArr.cpp" />
     <ClCompile Include="ELectionProportiaonal.cpp" />
     <ClCompile Include="ElectionRound.cpp" />
     <ClCompile Include="main.cpp" />

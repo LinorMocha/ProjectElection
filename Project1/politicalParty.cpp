@@ -3,7 +3,6 @@
 #include "utils.h"
 #include "ElectionRound.h"
 #include "citizenList.h"
-
 namespace proj
 {
 	/*politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(nullptr),phySize(1)
@@ -21,14 +20,14 @@ namespace proj
 
         ElectionRound::countPoliticalParty++;
         numId = ElectionRound::countPoliticalParty;
-        phySize = ElectionRound::countState + 1;
-        representativeListByStateArray = new citizenList * [phySize];
-        votesByStatesArray = new int[phySize];
-
-        for (int i = 0; i < phySize; i++)
+       
+       
+         
+        for (int i = 0; i < ElectionRound::countState; i++)
         {
-            representativeListByStateArray[i] = new citizenList();
-            votesByStatesArray[i] = 0;
+            //representativeListByStateArray[i] = 
+             citizenList *lst=new citizenList();
+             representativeListByStateArray.push_back(lst);
         }
 
         name = utils::my_strdup(partyName);
@@ -39,7 +38,7 @@ namespace proj
     {
         numId = pol.numId;
       
-        votesByStatesArray = new int[pol.phySize];
+       
         representativeListByStateArray = new citizenList * [pol.phySize];
         for (int i = 0; i < pol.phySize; i++)
         {
@@ -50,14 +49,14 @@ namespace proj
         
         
         name=   utils::my_strdup(pol.name);
-        phySize = pol.phySize;
+       
     }
     //dctor
     politicalParty::~politicalParty()
     {
         delete[] representativeListByStateArray;
         delete[] name;
-        delete[] votesByStatesArray;
+       
      }
 
     // This function prints the information of the curr politcal party 
@@ -84,14 +83,15 @@ namespace proj
     }
     //Returns the total number of votes in politcal party
    int politicalParty::getHowManyVotesOverAll()const
-    {
+   {
         int res=0;
-        for (int i = 0; i < ElectionRound::countState; i++)
+        for (auto i : votesByStatesArray)
         {
-            res += votesByStatesArray[i+1];
+            res += i;
         }
         return res;
-    }
+   }
+
    //Returns the number of votes within a state
     int politicalParty::getHowManyVotesForState(int stateId)const
     {
@@ -119,15 +119,7 @@ namespace proj
     {
             representativeListByStateArray[state]->addNodeToTail(citizen);
     }
-    //Add state
-    void politicalParty::addState()
-    {
-        if (phySize <= ElectionRound::countState)
-        {
-            reSizeRepresentativeList();
-            reSizeVotesByStateArray();
-        }
-    }
+  
     //This function checks whether a specific citizen is a representative
     bool politicalParty::isRep(const citizen& cit)
     {
@@ -151,11 +143,14 @@ namespace proj
         int temp = head.getId();
         out.write(rcastcc(&temp), sizeof(int));
         out.write(rcastcc(&numId), sizeof(numId));
-        out.write(rcastcc(&phySize), sizeof(phySize));
-        for (int i = 0; i <= ElectionRound::countState; i++)
+        
+
+        for (int i : votesByStatesArray)
         {
-            out.write(rcastcc(&votesByStatesArray[i]), sizeof(int));
-        }
+            if (i <= ElectionRound::countState)
+            out.write(rcastcc(&i), sizeof(int));
+       }
+
         for (int j = 1; j <= ElectionRound::countState; j++)
         {
             if (!representativeListByStateArray[j]->saveById(out))
@@ -177,19 +172,19 @@ namespace proj
         int len;
        
         in.read(rcastc(&numId), sizeof(numId));
-        in.read(rcastc(&phySize), sizeof(phySize));
+       
         if (!in.good())
         {
             return false;
         }
-        votesByStatesArray = new int[phySize];
-        for (int i = 0; i < phySize; i++)
+              
+        for (int itr : votesByStatesArray)
         {
-            if (i <= ElectionRound::countState)
-                in.read(rcastc(&votesByStatesArray[i]), sizeof(int));
-            else
-                votesByStatesArray[i] = 0;
+            if (itr <= ElectionRound::countState)
+                in.read(rcastc(&itr), sizeof(int));
+            
         }
+
         representativeListByStateArray = new citizenList * [phySize];
         for (int i = 0; i < phySize; i++)
         {
@@ -217,43 +212,13 @@ namespace proj
     //this function adds vote to the total number of votes
     void politicalParty::addVote(int stateId)
     {
-        votesByStatesArray[stateId]++;
-    }
-    //This function increases the votes by state array
-    void politicalParty::reSizeVotesByStateArray()
-    {
-        int* res = new int[phySize];
-        for (int i = 0; i < phySize; i++)
-        {
-            if (ElectionRound::countState > i && i!=0)
-                res[i] = votesByStatesArray[i];
-            else
-                res[i] = 0;
-        }
-
-        delete[]votesByStatesArray;
-        votesByStatesArray = res;
-    }
-    //This function increases the Representative arr
-    void politicalParty::reSizeRepresentativeList()
-    {
-        phySize *= 2;
-        citizenList** res = new citizenList*[phySize];
-        for (int i = 0; i < phySize; i++)
-        {
-            if(i < ElectionRound::countState && i!=0)
-                res[i] = representativeListByStateArray[i];
-            else
-            {
-                res[i] = new citizenList();
-                
-            }
-        }
         
-		delete[] representativeListByStateArray;
-        
-       representativeListByStateArray = res;
+        if (votesByStatesArray.capacity() <= stateId-1)
+            votesByStatesArray.push_back(0);
+     
+        votesByStatesArray[stateId-1]++;
     }
+    
 
     void politicalParty::PrintWinningRepresentitives(int state, int repCount) const
     {

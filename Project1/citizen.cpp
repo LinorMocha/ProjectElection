@@ -12,6 +12,7 @@ namespace proj
 		name = utils::my_strdup(_name);
 		vote = -1;
 	}
+
 	//serialize constractor of citizen
 	citizen::citizen(istream& in,State& sta): state(sta)
 	{

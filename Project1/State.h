@@ -1,7 +1,7 @@
 #pragma once
 
 #include<iostream>
-
+#include <string.h>
 using namespace std;
 
 namespace proj
@@ -9,7 +9,7 @@ namespace proj
 	class State
 	{
 	private:
-		char* name;
+		string name;
 		int numId;
 		int numOfRepresentative;
 		int countCitizensInState;
@@ -20,7 +20,7 @@ namespace proj
 	public:
 
 		State();
-		State(const char* _name, int _numRep,bool Status);
+		State(const string _name, int _numRep,bool Status);
 		State(const State& Sta);
 		State(istream& in);
 		~State();
@@ -31,7 +31,7 @@ namespace proj
 		bool getStateStatus()const;
 		int getNumOfRepresentative()const;
 		int getNumId()const;
-		const char* getName()const;
+		string getName()const;
 		int getHowManyCitizens()const;
 		int getCountVotesInState()const;
 

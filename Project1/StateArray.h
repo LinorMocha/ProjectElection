@@ -19,7 +19,7 @@ namespace proj
         int getCitizenCount(int stateId) const;
         int getPhySize() const;
 
-        void addState(char* name, int _numRep , bool Status);
+        void addState(const string name, int _numRep , bool Status);
         void reSizeStateArray();
         void printStateArray();
         void addCitizenCountToState(int stateId);

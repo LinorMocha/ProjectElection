@@ -245,18 +245,18 @@ void addState()
 	else
 	{
 		cout << "please enter state name" << endl;
-		char* input = new char[utils::MAXSIZE];
+		string input;
 		cin >> input;
-		char* name = utils::my_strdup(input);
+		
 		cout << "please enter state number of representative" << endl;
 		int input2;
 		cin >> input2;
 		int Status;
 		cout << "please enter Status state , for union state press 1 , for sepraeted state press 2" << endl;
 		cin >> Status;
-		Round->addState(name, input2,Status==1);
-		delete[]input;
-		delete[]name;
+		Round->addState(input, input2,Status==1);
+		
+		
 
 	}
 	

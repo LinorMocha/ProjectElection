@@ -3,7 +3,7 @@
 #include "utils.h"
 #include "StateArray.h"
 #include"politicalPartyArray.h"
-
+#include"DynamicArr.h"
 
 namespace proj
 {
@@ -13,9 +13,12 @@ namespace proj
 
 
 	protected:
+		DynamicArray<State*>  _stateArray;
+		DynamicArray<politicalParty*> _politicalPartyArray;
+
 		citizenList _citizenList;
-		StateArray _stateArray;
-		PoliticalPartyArray _politicalPartyArray;
+		//StateArray _stateArray;
+		//PoliticalPartyArray _politicalPartyArray;
 		Date date;			
 
 	public:
@@ -40,7 +43,7 @@ namespace proj
 
 		
 		/////////// STATE //////////////////
-		bool addState(char* name, int numRep,bool Status); ///
+		bool addState(const string name, int numRep,bool Status); ///
 		void printStateArray();
 		State& getStateById(int numId) const ;
 		

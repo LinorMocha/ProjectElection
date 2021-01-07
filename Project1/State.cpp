@@ -5,9 +5,9 @@
 
 namespace proj
 {	//ctor
-	State::State():name(new char()), numOfRepresentative(0),numId(0), countCitizensInState(0),countVotesInState(0),stateStatus(true)
+	State::State():numOfRepresentative(0),numId(0), countCitizensInState(0),countVotesInState(0),stateStatus(true)
 	{
-		name = nullptr;
+		
 		
 	}
 	//ctor
@@ -15,7 +15,7 @@ namespace proj
 	{
 		numId = sta.numId;
 		numOfRepresentative = sta.numOfRepresentative;
-		name = utils::my_strdup(sta.name);
+		name = sta.getName();
 		countCitizensInState = sta.countCitizensInState;
 		stateStatus = sta.stateStatus;
 		countVotesInState = sta.countVotesInState;
@@ -41,7 +41,7 @@ namespace proj
 	//dctor
 	State::~State()
 	{
-		delete[] name;
+		
 	}
 	//operator = copy current state to a new atate
 	const State& State::operator=(const State& input)
@@ -54,12 +54,12 @@ namespace proj
 		return *this;
 	}
 	//ctor
-	State::State(const char* _name, int _numRep ,bool Status) : State()
+	State::State(const string _name, int _numRep ,bool Status) : State() 
 	{
 		ElectionRound::countState++;
 		numId = ElectionRound::countState;
 		numOfRepresentative = _numRep;
-		name = utils::my_strdup(_name);
+		name = _name;
 		stateStatus = Status;
 	}
 	//This function returns the status of the state
@@ -68,7 +68,7 @@ namespace proj
 		return stateStatus;
 	}
 	//This function returns the name of the state
-	const char* State::getName()const
+	string State::getName()const
 	{
 		return name;
 	}
@@ -115,11 +115,11 @@ namespace proj
 		out.write(rcastcc(&countCitizensInState), sizeof(countCitizensInState));
 		out.write(rcastcc(&countVotesInState), sizeof(countVotesInState));
 		out.write(rcastcc(&stateStatus), sizeof(stateStatus));
-		int len;
-		len = utils::myStrlen(name);
+		int len=name.length();
 		out.write(rcastcc(&len), sizeof(int));
-		out.write(rcastcc(name), len);
+		out.write(rcastcc(name.c_str()), len);
 		
+
 		return (out.good());//Checks if the writes operations to file performed properly
 	}
 	//This function reads the state data from binary file
@@ -141,13 +141,8 @@ namespace proj
 		{
 			return false;
 		}
-		len++;
-		
-		name = new char[len];
-
-		in.read(name, len-1);
-
-		name[len - 1] = '\0';
+		name.resize(len);
+		in.read((char*)&name[0], len);
 	
 		return (in.good());//Checks if the writes operations to file performed properly
 	}

@@ -53,11 +53,11 @@ namespace proj
 	///////////// STATE implementation//////////////////
 
 	//this function adds the state to the state arr snd to the party arr
-	bool ElectionRound::addState(char* name, int numRep, bool Status)
+	bool ElectionRound::addState(const string name, int numRep, bool Status)
 	{
-		_stateArray.addState(name, numRep, Status);
-
-		_politicalPartyArray.addState();
+		State* sta = new State(name, numRep, Status);
+		_stateArray.push_back(sta);
+		//_politicalPartyArray.addState();
 		return true;
 	}
 	//this function prints the State Array

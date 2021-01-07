@@ -81,7 +81,7 @@ namespace proj
 		return(in.good());
 	}
 	//this function add new state to the arr
-	void StateArray::addState(char* name, int _numRep, bool Status)
+	void StateArray::addState(const string name, int _numRep, bool Status)
 	{
 		State* newState = new State(name, _numRep ,Status);
 		
