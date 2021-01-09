@@ -6,10 +6,10 @@
 namespace proj
 {
 	//ctor
-	citizen::citizen(const char* _name, int id, State& _state, int _birthYear) : state(_state), ID(id), birthYear(_birthYear)
+	citizen::citizen(const string _name, int id, State& _state, int _birthYear) :name(_name), state(_state), ID(id), birthYear(_birthYear)
 	{
 		ElectionRound::countCitizen++;
-		name = utils::my_strdup(_name);
+		
 		vote = -1;
 	}
 
@@ -19,16 +19,13 @@ namespace proj
 		load(in);
 	}
 	//ctor
-	citizen::citizen(const citizen& cit) :state(cit.state), ID(cit.ID), birthYear(cit.birthYear), vote(cit.vote)
+	citizen::citizen(const citizen& cit) :name(cit.name),state(cit.state), ID(cit.ID), birthYear(cit.birthYear), vote(cit.vote)
 	{
-
-		name = utils::my_strdup(cit.name);
 
 	}
 	//dctor
 	citizen::~citizen()
 	{
-		delete[] name;
 	}
 	
 	const citizen& citizen::operator=(const citizen& input)
@@ -36,8 +33,7 @@ namespace proj
 		ID = input.ID;
 		state = input.state;
 		vote = input.vote;
-		delete[] name;
-		name = utils::my_strdup(input.name);
+		name = input.name;
 		return *this;
 	}
 	//This function returns the state's ID number
@@ -61,7 +57,7 @@ namespace proj
 		return ID;
 	}
 	//This function returns the name of the citizen
-	const char* citizen::getName() const
+	const string citizen::getName() const
 	{
 		return name;
 	}
@@ -85,9 +81,10 @@ namespace proj
 		out.write(rcastcc(&ID), sizeof(ID));
 		out.write(rcastcc(&birthYear), sizeof(name));
 		out.write(rcastcc(&vote), sizeof(vote));
-		int len = utils::myStrlen(name);
-		out.write(rcastcc(&len), sizeof(len));
-		out.write(name,len);
+		int len = name.length();
+		out.write(rcastcc(&len), sizeof(int));
+		out.write(rcastcc(name.c_str()), len);
+		
 		return(out.good()); //Checks if the writes operations to file performed properly
 	}
 	//This function reads the citizen data from binary file
@@ -102,18 +99,12 @@ namespace proj
 		in.read(rcastc(&vote), sizeof(vote));
 		int len;
 		in.read(rcastc(&len), sizeof(len));
-		if(!in.good())//check len reading from file
+		if (!in.good())//check len reading from file
 		{
 			return false;
 		}
-		len++;
-		name = new char[len];
-		in.read(name, len-1);
-		if (!in.good()) //check name reading from file
-		{
-			return false;
-		}
-		name[len - 1] = '\0';
+		name.resize(len);
+		in.read((char*)&name[0], len);
 		return true;
 		
 	}

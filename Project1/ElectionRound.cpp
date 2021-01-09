@@ -1,4 +1,5 @@
 ﻿#include "ElectionRound.h"
+#include <exception>
 
 namespace proj
 {
@@ -63,59 +64,85 @@ namespace proj
 	//this function prints the State Array
 	void ElectionRound::printStateArray()
 	{
-		_stateArray.printStateArray();
+		_stateArray[]
 
 	}
 	//This function returns ref to the desired state according to the given ID 
 	State& ElectionRound::getStateById(int numId) const
 	{
-		return _stateArray.getStateById(numId);
+		return *_stateArray[numId];
 	}
 
 
 
 	///////////// CITIZEN implementation//////////////////
 	//This function creates new citizen if he doesn't exist and adds him to the end of the citizen Array
-	bool ElectionRound::addCitizen(char* _name, int id, int numD, int _birthYear)
+	void ElectionRound::addCitizen(const string _name, int id, int numD, int _birthYear)
 	{
-		if (_citizenList.getCitizenById(id) == nullptr && numD <= countState)
-		{
-			_stateArray.addCitizenCountToState(numD);
-			citizen* newC = new citizen(_name, id, _stateArray.getStateById(numD), _birthYear);
-			_citizenList.addNodeToTail(newC);
-			return true;
-		}
+		if (numD < countState)
+			throw invalid_argument("state dont exsit");
+		if( id<100000000 || id>999999999)
+			throw invalid_argument("id not valid ");
 
-		return false;
+		list <citizen*>::iterator it;
+		citizen* newC = new citizen(_name, id, *_stateArray[numD], _birthYear);
+
+		auto it = find(_citizenList.begin(), _citizenList.end(), newC);
+
+		if (it == _citizenList.end())
+		{
+			_citizenList.push_back(newC);
+			countCitizen++;
+			_stateArray[numD]->addCitizen();
+		}
+		else {
+			throw invalid_argument("this id already exsit");
+		}
 	}
 	//This function returns ref to the desired citizen according to the given ID 
 	const citizen& ElectionRound::getCitizenById(int numId)
 	{
-		return *_citizenList.getCitizenById(numId);
+		list <citizen*>::iterator it;
+		auto it =_citizenList.begin();
+		
+		while (it!=_citizenList.end())
+		{
+			if ((*it)->getId() == numId)
+				return (**it);
+			it++;
+		}
 	}
+
 	//this function prints the citizen list
 	void ElectionRound::printCitizenList()
 	{
-		if (_citizenList.getHead() == nullptr)
-			cout << "There is not citizens " << endl;
+		if (_citizenList.empty())
+			throw  invalid_argument
 		else
-			_citizenList.printList();
+		{
+			auto it = _citizenList.begin();
+			for (auto it : _citizenList)
+			{
+				cout << (it) << endl;
+			}
+		}
 	}
 
 
 	////////////  POLITICALPARTY implementation  //////////
 	//This function creates new party if he doesn't exist and adds him to the end of the politcal party array
-	bool ElectionRound::addPoliticalParty(char* name, int headId)
+	void ElectionRound::addPoliticalParty(const string name, int headId)
 	{
-		citizen* headPoly = _citizenList.getCitizenById(headId);
+
+		citizen headPoly = getCitizenById(headId);
+			
 		if (headPoly != nullptr && !_politicalPartyArray.isCitizenIsRepORHead(*headPoly))
 		{
 			_politicalPartyArray.addPoliticalParty(name, headPoly);
 
-			return true;
+		
 		}
-		else
-			return false;
+		
 	}
 	//this function prints the Political party array
 	void ElectionRound::printPoliticalPartyArray()

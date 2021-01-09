@@ -4,10 +4,11 @@
 #include "StateArray.h"
 #include"politicalPartyArray.h"
 #include"DynamicArr.h"
-
+#include <iostream>
+#include <list>
+using namespace std;
 namespace proj
 {
-	
 	class ElectionRound
 	{
 
@@ -15,10 +16,7 @@ namespace proj
 	protected:
 		DynamicArray<State*>  _stateArray;
 		DynamicArray<politicalParty*> _politicalPartyArray;
-
-		citizenList _citizenList;
-		//StateArray _stateArray;
-		//PoliticalPartyArray _politicalPartyArray;
+		list<citizen*>_citizenList;
 		Date date;			
 
 	public:
@@ -49,7 +47,7 @@ namespace proj
 		
 		
 		/////////// CITIZEN //////////////////
-		virtual bool addCitizen(char* _name, int id, int numD, int _birthYear);
+		virtual void addCitizen(const string _name, int id, int numD, int _birthYear);
 		const citizen& getCitizenById(int numId);
 		void printCitizenList();
 
@@ -58,7 +56,7 @@ namespace proj
 		bool isRepListComplete();
 		
 		////////////  POLITICALPARTY  //////////
-		bool addPoliticalParty(char* name, int headId);
+		void addPoliticalParty(const string name, int headId);
 		void printPoliticalPartyArray();
 		const politicalParty& getPoliById(int numId);
 		

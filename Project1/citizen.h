@@ -9,7 +9,7 @@ namespace proj
 	class citizen
 	{
 	private:
-		char* name;
+		string name;
 		int ID;
 		State& state;
 		int birthYear;
@@ -17,7 +17,7 @@ namespace proj
 
 	public:
 		
-		citizen(const char* _name, int id, State & _state,int _birthYear);
+		citizen(const string _name, int id, State & _state,int _birthYear);
 		citizen(const citizen& cit);
 		~citizen();
 		citizen(istream& in,State& sta);
@@ -30,7 +30,7 @@ namespace proj
 		int getStateId() const;
 		int getVote() const;
 		int getBirthYear() const;
-		const char* getName() const;
+		const string getName() const;
 
 		///// SETERS//////
 		bool setvote(int _vote);

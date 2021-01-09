@@ -265,10 +265,11 @@ void addState()
 //this function adds new citizen to the curr election round
 void addCitizen()
 {
+
 	cout << "please enter citizen name" << endl;  
-	char* input = new char[utils::MAXSIZE];
-	cin >> input;
-	char* name = utils::my_strdup(input);
+	string name;
+	cin >> name;
+	
 	cout << "please enter ID number " << endl;
 	int id;
 	cin >> id;
@@ -278,29 +279,34 @@ void addCitizen()
 	cout << "please enter state number" << endl;
 	int stateNum;
 	cin >> stateNum;
-	if (!Round->addCitizen(name, id, stateNum, birthYear))
-		cout << "EROR! please enter an exsited state and a new ID"<<endl;
-	delete[]input;
-	delete[]name;
+	try {
 
+		Round->addCitizen(name, id, stateNum, birthYear);
+	}
+	catch (std::exception& ex) {
+		cout << "Error: " << ex.what() << endl;
+	}
+	
 }
 //this function adds new party to the curr election round
 void addPoliticalParties()
 {
 	cout << "please enter political party name" << endl; 
-	char* input = new char[utils::MAXSIZE];
-	cin >> input;
-	char* name = utils::my_strdup(input);
+	string name;
+	cin >> name;
+	
 	cout << "please enter political party head Id" << endl;
 	int input2;
 	cin >> input2;
 
-	if (!Round->addPoliticalParty(name, input2))
-	{
-		cout << "EROR! please enter an exsited state and citizen" << endl;
-    }
-	delete[]input;
-	delete[]name;
+	
+		try {
+
+			Round->addPoliticalParty(name, input2):
+		}
+		catch (std::exception& ex) {
+			cout << "Error: " << ex.what() << endl;
+		}
 }
 //this function adds new representative to the curr election round
 void addRepresentative()
