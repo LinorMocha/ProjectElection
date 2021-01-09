@@ -1,7 +1,5 @@
 ﻿#pragma once
-#include <string>
 #include "citizen.h"
-#include "citizenList.h"
 #include <vector>
 #include <iostream>
 #include "DynamicArr.h"

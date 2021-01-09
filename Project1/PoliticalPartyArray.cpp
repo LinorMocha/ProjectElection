@@ -40,7 +40,7 @@ namespace proj
 		return politicalPartyArray[poliId]->getHowManyVotesOverAll();
 	}
 	//This function returns the name of the current party
-	char* PoliticalPartyArray::getName(int poliId)
+	string PoliticalPartyArray::getName(int poliId)
 	{
 		return politicalPartyArray[poliId]->getName();
 	}
@@ -50,7 +50,7 @@ namespace proj
 		politicalPartyArray[poliId]->addVote(stateId);
 	}
 	//This function creates new party and insert him into an array
-	void PoliticalPartyArray::addPoliticalParty(char* name, citizen* head)
+	void PoliticalPartyArray::addPoliticalParty(string name, citizen* head)
 	{
 		politicalParty* newParty = new politicalParty(name, head);
 

@@ -2,7 +2,6 @@
 #include "politicalParty.h"
 #include "utils.h"
 #include "ElectionRound.h"
-#include "citizenList.h"
 namespace proj
 {
 	/*politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(nullptr),phySize(1)
