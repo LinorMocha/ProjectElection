@@ -15,7 +15,7 @@ namespace proj
 
     }
     //ctor
-    politicalParty::politicalParty(const char* partyName, citizen* _head) : head(*_head)
+    politicalParty::politicalParty(const string partyName, citizen* _head) : head(*_head)
     {
 
         ElectionRound::countPoliticalParty++;
@@ -30,7 +30,7 @@ namespace proj
              representativeListByStateArray.push_back(lst);
         }
 
-        name = utils::my_strdup(partyName);
+        name = partyName;
        
     }
     //ctor
@@ -46,17 +46,14 @@ namespace proj
             representativeListByStateArray[i] = new citizenList(*pol.representativeListByStateArray[i]);
             votesByStatesArray[i] = pol.votesByStatesArray[i];
         }
-        
-        
-        name=   utils::my_strdup(pol.name);
+
+        name = pol.name;
        
     }
     //dctor
     politicalParty::~politicalParty()
     {
         delete[] representativeListByStateArray;
-        delete[] name;
-       
      }
 
     // This function prints the information of the curr politcal party 
@@ -98,7 +95,7 @@ namespace proj
         return votesByStatesArray[stateId];
     }
     //Returns the name of the party
-    char *politicalParty::getName() const 
+    string politicalParty::getName() const 
     {
         return name;
     }
@@ -156,9 +153,9 @@ namespace proj
             if (!representativeListByStateArray[j]->saveById(out))
                 return false;
         }
-        int len = utils::myStrlen(name);
+        int len = name.length();
         out.write(rcastcc(&len), sizeof(int));
-        out.write(name, len);
+        out.write(rcastcc(name.c_str()), len);
         return(out.good());//Checks if the writes operations to file performed properly
        
     }
@@ -203,10 +200,9 @@ namespace proj
         {
             return false;
         }
-        len++;
-        name = new char[len];
-        in.read(name,len-1);
-        name[len - 1] = '\0';
+       
+        name.resize(len); 
+        in.read((char*)&name[0], len);
         return (in.good());
     }
     //this function adds vote to the total number of votes

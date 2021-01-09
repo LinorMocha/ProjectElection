@@ -7,8 +7,7 @@ namespace proj
 {	//ctor
 	State::State():numOfRepresentative(0),numId(0), countCitizensInState(0),countVotesInState(0),stateStatus(true)
 	{
-		
-		
+	
 	}
 	//ctor
 	State::State(const State& sta)

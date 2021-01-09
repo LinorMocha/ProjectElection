@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include <string>
 #include "citizen.h"
 #include "citizenList.h"
 #include <vector>
@@ -12,7 +12,7 @@ namespace proj {
     class politicalParty {
     private:
         DynamicArray<citizenList*> representativeListByStateArray;
-        char *name;
+        string name;
         int numId;
         citizen& head;
         vector<int> votesByStatesArray;
@@ -22,12 +22,12 @@ namespace proj {
         //politicalParty();
         ~politicalParty();
         politicalParty(istream& in, const citizenList& currRound, citizen* _head);
-        politicalParty(const char* partyName, citizen* _head);
+        politicalParty(const string partyName, citizen* _head);
         politicalParty(const politicalParty& pol);
 
         //// GETERS
         int getNumId()const;
-        char* getName()const;
+        string getName()const;
         const citizen& getPoliticalPartyHead() const;
         int getHowManyVotesOverAll()const;
         int getHowManyVotesForState(int stateId)const;
