@@ -20,14 +20,16 @@ namespace proj
 
         ElectionRound::countPoliticalParty++;
         numId = ElectionRound::countPoliticalParty;
+               
        
-       
-         
+      representativeListByStateArray =new <list<citizen*>> [ElectionRound::countState];
+        
+               
         for (int i = 0; i < ElectionRound::countState; i++)
         {
-            //representativeListByStateArray[i] = 
-             citizenList *lst=new citizenList();
-             representativeListByStateArray.push_back(lst);
+            representativeListByStateArray[i]
+                = new <list<citizen*>>();
+            
         }
 
         name = partyName;
@@ -53,7 +55,7 @@ namespace proj
     //dctor
     politicalParty::~politicalParty()
     {
-        delete[] representativeListByStateArray;
+        delete[] representativeListByStateArray;//no need?
      }
 
     // This function prints the information of the curr politcal party 

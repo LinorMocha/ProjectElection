@@ -58,8 +58,7 @@ namespace proj
 	{
 		State* sta = new State(name, numRep, Status);
 		_stateArray.push_back(sta);
-		//_politicalPartyArray.addState();
-		return true;
+		
 	}
 	//this function prints the State Array
 	void ElectionRound::printStateArray()

@@ -11,7 +11,9 @@ using namespace std;
 namespace proj {
     class politicalParty {
     private:
-        DynamicArray<citizenList*> representativeListByStateArray;
+        
+        DynamicArray<list<citizen*>*>representativeListByStateArray;
+        
         string name;
         int numId;
         citizen& head;
@@ -21,7 +23,7 @@ namespace proj {
     public:
         //politicalParty();
         ~politicalParty();
-        politicalParty(istream& in, const citizenList& currRound, citizen* _head);
+        politicalParty(istream& in, list<citizen*>& currRound, citizen* _head);
         politicalParty(const string partyName, citizen* _head);
         politicalParty(const politicalParty& pol);
 
