@@ -81,22 +81,21 @@ namespace proj
 	{
 		if (numD < countState)
 			throw invalid_argument("state dont exsit");
-		if( id<100000000 || id>999999999)
+		if (id < 100000000 || id>999999999)
 			throw invalid_argument("id not valid ");
-
-		list <citizen*>::iterator it;
-		citizen* newC = new citizen(_name, id, *_stateArray[numD], _birthYear);
-
-		auto it = find(_citizenList.begin(), _citizenList.end(), newC);
-
-		if (it == _citizenList.end())
-		{
+		try {
+			getCitizenById(id);
+		}
+		catch (std::exception& ex) {
+			citizen* newC = new citizen(_name, id, *_stateArray[numD], _birthYear);
 			_citizenList.push_back(newC);
 			countCitizen++;
 			_stateArray[numD]->addCitizen();
+			return;
 		}
-		else {
-			throw invalid_argument("this id already exsit");
+
+		throw invalid_argument("this id already exsit");
+	
 		}
 	}
 	//This function returns ref to the desired citizen according to the given ID 
@@ -111,13 +110,15 @@ namespace proj
 				return (**it);
 			it++;
 		}
+		
+		throw invalid_argument("citizen is not exsit");
 	}
 
 	//this function prints the citizen list
 	void ElectionRound::printCitizenList()
 	{
 		if (_citizenList.empty())
-			throw  invalid_argument
+			throw  invalid_argument("there is no citizen");
 		else
 		{
 			auto it = _citizenList.begin();
@@ -135,7 +136,10 @@ namespace proj
 	{
 
 		citizen headPoly = getCitizenById(headId);
-			
+		
+			throw invalid_argument("אין תז");
+		
+		
 		if (headPoly != nullptr && !_politicalPartyArray.isCitizenIsRepORHead(*headPoly))
 		{
 			_politicalPartyArray.addPoliticalParty(name, headPoly);
