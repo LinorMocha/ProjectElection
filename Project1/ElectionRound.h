@@ -50,6 +50,7 @@ namespace proj
 		virtual void addCitizen(const string _name, int id, int numD, int _birthYear);
 		const citizen& getCitizenById(int numId);
 		void printCitizenList();
+		
 
 		////////////  Representative//////////
 		virtual bool addRepresentativetoPoli(int repId, int PoliId, int StateId);

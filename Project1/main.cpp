@@ -178,11 +178,10 @@ void exe(int n)
 void saveElectionRound()
 {
 	ofstream File;
-	char* input = new char[utils::MAXSIZE];
-	cout << "please enter name file to save:" << endl; 
-	cin >> input; 
-	char* name = utils::my_strdup(input);
-	File.open(name, ios::binary);
+	string Filename;
+	cout << "please enter name file to Load:" << endl;
+	cin >> Filename;
+	File.open(Filename, ios::binary);
 	if (!File)
 	{
 		cout << "Error with File" << endl;
@@ -194,30 +193,28 @@ void saveElectionRound()
 		status = 1;
 	else
 		status = 0;
-	File.write(rcastcc(&status), sizeof(int)); 
-	if(!Round->save(File))
+	File.write(rcastcc(&status), sizeof(int));
+	if (!Round->save(File))
 		cout << "Error with File" << endl;
 	else
 	{
 		cout << "Saved successfully" << endl;
 	}
 	File.close();
-	delete[]input;
-	delete[]name;
 }
 //this function loads the current round election
 void loadElectionRound()
 {
 	delete Round;
 	ifstream fl;
-	char* input = new char[utils::MAXSIZE];
+	string Filename;
 	cout << "please enter name file to Load:" << endl;
-	cin >> input;
-	char* Filename = utils::my_strdup(input);
+	cin >> Filename;
+	
 	int status;
-	delete[]input;
+
 	fl.open(Filename, ios::binary);
-	delete[] Filename;
+
 	if (!fl)
 	{
 		cout << " Error with FILE" << endl;

@@ -82,16 +82,9 @@ namespace proj
 		 return nullptr;
 	 }
 	 //Checks whether a citizen is a head of party or a representative
-	bool PoliticalPartyArray::isCitizenIsRepORHead(const citizen& cit)
+	void PoliticalPartyArray::isCitizenIsRepORHead(const citizen& cit)
 	{
-		 for (int i = 1; i <= ElectionRound::countPoliticalParty; i++)
-		 {
-			if( politicalPartyArray[i]->getPoliticalPartyHead().getId()== cit.getId())
-				 return true;
-			 if (politicalPartyArray[i]->isRep(cit))
-				 return true;
-		 }
-		 return false;
+		 
 	}
 
 	//Printing an array of Political parties
