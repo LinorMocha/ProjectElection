@@ -2,12 +2,12 @@
 #include "politicalParty.h"
 #include "utils.h"
 #include "ElectionRound.h"
-#include "citizenList.h"
 namespace proj
 {
 	/*politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(nullptr),phySize(1)
 	{
     }*/
+
     //serialize constractor of political Party
     politicalParty::politicalParty(istream& in, const citizenList& currRound, citizen* _head) :head(*_head)
     {
@@ -20,8 +20,10 @@ namespace proj
         ElectionRound::countPoliticalParty++;
         numId = ElectionRound::countPoliticalParty;
                
-        RepListByStateArray.
-     
+       
+      representativeListByStateArray =new <list<citizen*>> [ElectionRound::countState];
+        
+               
         for (int i = 0; i < ElectionRound::countState; i++)
         {
           list<citizen*>* lst=new list<citizen*>();

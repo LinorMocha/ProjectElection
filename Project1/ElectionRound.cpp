@@ -26,9 +26,14 @@ namespace proj
 
 	}
 	//set the date of the election round
-	bool ElectionRound::setDate(int day, int month, int year)
+	bool ElectionRound::setDate(int day, int month, int year)//turn into void?
 	{
-
+		if (year <= 0)
+			throw invalid_argument("Invalid year");
+		if (month < 1 || month > 12)
+			throw invalid_argument("Invalid month");
+		if(day<1 || day > maxDayPerMonthArr[month])
+			throw invalid_argument("Invalid day");
 		date.day = day;
 		date.month = month;
 		date.year = year;
@@ -58,7 +63,8 @@ namespace proj
 	{
 		State* sta = new State(name, numRep, Status);
 		_stateArray.push_back(sta);
-		
+		//_politicalPartyArray.addState();
+		return true;
 	}
 	//this function prints the State Array
 	void ElectionRound::printStateArray()
@@ -82,6 +88,8 @@ namespace proj
 			throw invalid_argument("state dont exsit");
 		if (id < 100000000 || id>999999999)
 			throw invalid_argument("id not valid ");
+		if ((date.year-_birthYear) < 18) 
+			throw  invalid_argument("The citizen is too young to vote");
 		try {
 			getCitizenById(id);
 		}
@@ -92,9 +100,7 @@ namespace proj
 			_stateArray[numD]->addCitizen();
 			return;
 		}
-
 		throw invalid_argument("this id already exsit");
-	
 		}
 	}
 	//This function returns ref to the desired citizen according to the given ID 
@@ -133,7 +139,6 @@ namespace proj
 	//This function creates new party if he doesn't exist and adds him to the end of the politcal party array
 	void ElectionRound::addPoliticalParty(const string name, int headId)
 	{
-
 		citizen headPoly = getCitizenById(headId);
 		
 			throw invalid_argument("אין תז");

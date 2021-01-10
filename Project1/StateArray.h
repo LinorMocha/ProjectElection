@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include "State.h"
+#include "DynamicArr.h"
 
 using namespace std;
 namespace proj
@@ -8,7 +9,7 @@ namespace proj
     class StateArray
     {
     private:
-        State** stateArray;
+        DynamicArray<State**> stateArray;
         int phySize;
     public:
         StateArray();

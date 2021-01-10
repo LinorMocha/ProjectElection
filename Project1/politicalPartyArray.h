@@ -17,13 +17,13 @@ namespace proj
         ///// GETERS ////
         int getOverAllVotesForPoli(int poliId);
         int getOverAllVotesForPoliInState(int poliId, int stateId);
-        char* getName(int poliId);
+        string getName(int poliId);
         int getRepListLengthForStateInPoli(int poliId, int stateId);
         bool isCitizenIsRepORHead(const citizen& cit);
 
         void addState();
         const politicalParty& getPoliticalPartyById(int Id);
-        void addPoliticalParty(char* name, citizen * head);
+        void addPoliticalParty(string name, citizen * head);
         void reSizePoliticalPartyArray();
         void printPoliticalPartyArray();
         const citizen& getPoliticalPartyHead(int numID);

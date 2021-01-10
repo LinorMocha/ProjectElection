@@ -9,7 +9,6 @@ namespace proj
 	citizen::citizen(const string _name, int id, State& _state, int _birthYear) :name(_name), state(_state), ID(id), birthYear(_birthYear)
 	{
 		ElectionRound::countCitizen++;
-		
 		vote = -1;
 	}
 

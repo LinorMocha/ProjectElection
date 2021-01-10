@@ -1,7 +1,5 @@
 ﻿#pragma once
-#include <string>
 #include "citizen.h"
-#include "citizenList.h"
 #include <vector>
 #include <iostream>
 #include "DynamicArr.h"
@@ -22,7 +20,7 @@ namespace proj {
     public:
         //politicalParty();
         ~politicalParty();
-        politicalParty(istream& in, list<citizen*>& currRound, citizen* _head);
+        politicalParty(istream& in, const citizenList& currRound, citizen* _head);
         politicalParty(const string partyName, citizen* _head);
         politicalParty(const politicalParty& pol);
 

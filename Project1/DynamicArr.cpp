@@ -127,10 +127,8 @@ public:
 		++_logicalSize;
 	}
 
-	//const iterator& erase(const iterator& first, const iterator& last);
-	const iterator& cbegin() {
-		return iterator(*this, 0);
-	}
+	const iterator& erase(const iterator& first, const iterator& last);
+
 	iterator begin() {
 		return iterator(*this, 0);
 	}

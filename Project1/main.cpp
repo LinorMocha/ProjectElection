@@ -73,7 +73,13 @@ int main()
 		cout << "enter year" << endl;
 		int _year;
 		cin >> _year;
-		Round->setDate(_day, _month, _year);
+		try {
+			Round->setDate(_day, _month, _year);
+		}
+		catch (std::exception& ex) {
+			cout << "Error: " << ex.what() << endl;
+		}
+		
 
 	}
 	else if (input == 2) 
@@ -92,7 +98,7 @@ int main()
 		while (chose != 12)
 		{
 			if (chose < 1 || chose > 11)
-				cout << "worng . enter again chose a nuber between 1-10" << endl;
+				throw invalid_argument("worng input, chose a nuber between 1-10");
 			else
 				exe(chose);
 			PrintMenuSecondary();
@@ -251,9 +257,12 @@ void addState()
 		int Status;
 		cout << "please enter Status state , for union state press 1 , for sepraeted state press 2" << endl;
 		cin >> Status;
-		Round->addState(input, input2,Status==1);
-		
-		
+		try {
+			Round->addState(input, input2, Status == 1);
+		}
+		catch (std::exception& ex) {
+			cout << "Error: " << ex.what() << endl;
+		}
 
 	}
 	
@@ -296,10 +305,8 @@ void addPoliticalParties()
 	int input2;
 	cin >> input2;
 
-	
 		try {
-
-			Round->addPoliticalParty(name, input2):
+			Round->addPoliticalParty(name, input2);
 		}
 		catch (std::exception& ex) {
 			cout << "Error: " << ex.what() << endl;
@@ -362,9 +369,13 @@ void addVote()
 	cout << "please choose political party" << endl;
 	int input1;
 	cin >> input1;
-
-	if(!Round->addVote(input, input1))
-		cout<<"Id dont exsict or you aleardy voted"<<endl;
+	try {
+		Round->addVote(input, input1);
+	}
+	catch (std::exception& ex) {
+		cout << "Error: " << ex.what() << endl;
+	}
+	
 }
 //prints the result of the current elction
 void printResult()
