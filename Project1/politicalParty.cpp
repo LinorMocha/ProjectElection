@@ -7,6 +7,7 @@ namespace proj
 	/*politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(nullptr),phySize(1)
 	{
     }*/
+
     //serialize constractor of political Party
     politicalParty::politicalParty(istream& in, const citizenList& currRound, citizen* _head) :head(*_head)
     {
@@ -52,7 +53,7 @@ namespace proj
     //dctor
     politicalParty::~politicalParty()
     {
-        delete[] representativeListByStateArray;
+       /* delete[] representativeListByStateArray;*/
      }
 
     // This function prints the information of the curr politcal party 
