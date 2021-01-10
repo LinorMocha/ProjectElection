@@ -17,19 +17,15 @@ namespace proj
     //ctor
     politicalParty::politicalParty(const string partyName, citizen* _head) : head(*_head)
     {
-
         ElectionRound::countPoliticalParty++;
         numId = ElectionRound::countPoliticalParty;
                
-       
-      representativeListByStateArray =new <list<citizen*>> [ElectionRound::countState];
-        
-               
+        RepListByStateArray.
+     
         for (int i = 0; i < ElectionRound::countState; i++)
         {
-            representativeListByStateArray[i]
-                = new <list<citizen*>>();
-            
+          list<citizen*>* lst=new list<citizen*>();
+          RepListByStateArray.push_back(lst);
         }
 
         name = partyName;
@@ -40,23 +36,15 @@ namespace proj
     {
         numId = pol.numId;
       
-       
-        representativeListByStateArray = new citizenList * [pol.phySize];
-        for (int i = 0; i < pol.phySize; i++)
-        {
-            pol.representativeListByStateArray[i]->printList();
-            representativeListByStateArray[i] = new citizenList(*pol.representativeListByStateArray[i]);
-            votesByStatesArray[i] = pol.votesByStatesArray[i];
-        }
-
+        RepListByStateArray = pol.RepListByStateArray;
+        votesByStatesArray = pol.votesByStatesArray;
         name = pol.name;
-       
     }
     //dctor
     politicalParty::~politicalParty()
     {
-        delete[] representativeListByStateArray;//no need?
-     }
+        RepListByStateArray;
+    }
 
     // This function prints the information of the curr politcal party 
     ostream& operator<<(ostream& os, const politicalParty& p_party)
@@ -69,7 +57,7 @@ namespace proj
         for (int i = 1; i <= ElectionRound::countState; i++)
         {
             os << "Representative List for State number " << i << "is:" << endl;
-            p_party.representativeListByStateArray[i]->printList();
+            p_party.RepListByStateArray[i]->printList();
         }
         return os;
     }
@@ -78,15 +66,15 @@ namespace proj
     //Returns the number of representatives within a state of a politcal party
     int politicalParty::getNumOfRepInList(int stateId)const
     {
-        return representativeListByStateArray[stateId]->getListSize();
+        return RepListByStateArray[stateId]->getListSize();
     }
     //Returns the total number of votes in politcal party
    int politicalParty::getHowManyVotesOverAll()const
    {
         int res=0;
-        for (auto i : votesByStatesArray)
+        for (int it : votesByStatesArray)
         {
-            res += i;
+            res += it;
         }
         return res;
    }
@@ -116,7 +104,7 @@ namespace proj
     //Add new representative in curr state
     void politicalParty::addRepresentitive(citizen* citizen, int state) 
     {
-            representativeListByStateArray[state]->addNodeToTail(citizen);
+            RepListByStateArray[state]->addNodeToTail(citizen);
     }
   
     //This function checks whether a specific citizen is a representative
@@ -124,9 +112,9 @@ namespace proj
     {
         for (int i = 1; i <= ElectionRound::countState; i++)
         {
-            if (representativeListByStateArray[i] != nullptr)
+            if (RepListByStateArray[i] != nullptr)
             {
-                if (representativeListByStateArray[i]->getCitizenById(cit.getId()) != nullptr)
+                if (RepListByStateArray[i]->getCitizenById(cit.getId()) != nullptr)
                     return true;
             }
         }

@@ -12,12 +12,11 @@ namespace proj {
     class politicalParty {
     private:
         
-        DynamicArray<list<citizen*>*>representativeListByStateArray;
-        
+        DynamicArray<list<citizen*>*> RepListByStateArray;
         string name;
         int numId;
         citizen& head;
-        vector<int> votesByStatesArray;
+        DynamicArray<int> votesByStatesArray;
         
         
     public:
