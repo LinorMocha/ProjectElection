@@ -10,7 +10,7 @@ namespace proj {
     class politicalParty {
     private:
         
-        DynamicArray<list<citizen*>*> RepListByStateArray;
+        DynamicArray<list<citizen*>> RepListByStateArray;
         string name;
         int numId;
         citizen& head;
@@ -20,7 +20,7 @@ namespace proj {
     public:
         //politicalParty();
         ~politicalParty();
-        politicalParty(istream& in, const citizenList& currRound, citizen* _head);
+        politicalParty(istream& in, const list<citizen*>& currRound, citizen* _head);
         politicalParty(const string partyName, citizen* _head);
         politicalParty(const politicalParty& pol);
 
@@ -33,12 +33,12 @@ namespace proj {
         int getNumOfRepInList(int stateId)const;
         
         /// OTHER FUNCATIONS
-        void addRepresentitive(citizen* citizen, int state);
+        void addRepresentitive(citizen* _citizen, int state);
         void PrintRepListForAllState();
         friend ostream& operator<<(ostream& os,const politicalParty& p_party);
         void addVote(int stateId);
         void PrintWinningRepresentitives(int state, int repCount) const ;
-        bool isRep(const citizen& cit);
+        void isRep(const citizen& cit);
 
        bool save(ostream& out) const;
        bool load(istream& in,const citizenList& currList);

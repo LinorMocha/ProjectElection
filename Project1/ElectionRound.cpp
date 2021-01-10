@@ -167,16 +167,23 @@ namespace proj
 	//This function adds a representative to party 
 	bool ElectionRound::addRepresentativetoPoli(int repId, int PoliId, int StateId)
 	{
-		if (PoliId <= countPoliticalParty && StateId <= countState)//chek if poli excist
+		try
 		{
-			citizen* rep = _citizenList.getCitizenById(repId);
-			if (rep != nullptr && !_politicalPartyArray.isCitizenIsRepORHead(*rep))//check if the rep exsict
-			{
-				_politicalPartyArray.addRepToPoli(PoliId, StateId, rep);
 
-				return true;
-			}
+
 		}
+		
+		
+		//if (PoliId <= countPoliticalParty && StateId <= countState)//chek if poli excist
+		//{
+		//	citizen* rep = _citizenList.getCitizenById(repId);
+		//	if (rep != nullptr && !_politicalPartyArray.isCitizenIsRepORHead(*rep))//check if the rep exsict
+		//	{
+		//		_politicalPartyArray.addRepToPoli(PoliId, StateId, rep);
+
+		//		return true;
+		//	}
+		//}
 
 		return false;
 	}

@@ -9,7 +9,7 @@ namespace proj
     }*/
 
     //serialize constractor of political Party
-    politicalParty::politicalParty(istream& in, const citizenList& currRound, citizen* _head) :head(*_head)
+    politicalParty::politicalParty(istream& in, const list<citizen*>& currRound, citizen* _head): head(*_head)
     {
         load(in, currRound);
 
@@ -21,10 +21,7 @@ namespace proj
         numId = ElectionRound::countPoliticalParty;
                
        
-      representativeListByStateArray =new <list<citizen*>> [ElectionRound::countState];
-        
-               
-        for (int i = 0; i < ElectionRound::countState; i++)
+      for (int i = 0; i < ElectionRound::countState; i++)
         {
           list<citizen*>* lst=new list<citizen*>();
           RepListByStateArray.push_back(lst);
@@ -33,11 +30,10 @@ namespace proj
         name = partyName;
        
     }
-    //ctor
+    //copy ctor
     politicalParty::politicalParty(const politicalParty& pol): head(pol.head)
     {
         numId = pol.numId;
-      
         RepListByStateArray = pol.RepListByStateArray;
         votesByStatesArray = pol.votesByStatesArray;
         name = pol.name;
@@ -56,11 +52,7 @@ namespace proj
         os << "  ||  ID: " << p_party.numId;
         os << "  ||  the head of political party is: ";
         os << p_party.head << endl;
-        for (int i = 1; i <= ElectionRound::countState; i++)
-        {
-            os << "Representative List for State number " << i << "is:" << endl;
-            p_party.RepListByStateArray[i]->printList();
-        }
+        p_party.RepListByStateArray.print();
         return os;
     }
 
@@ -68,8 +60,10 @@ namespace proj
     //Returns the number of representatives within a state of a politcal party
     int politicalParty::getNumOfRepInList(int stateId)const
     {
-        return RepListByStateArray[stateId]->getListSize();
+       list<citizen*> tempList= RepListByStateArray[stateId];
+       return tempList.size();
     }
+
     //Returns the total number of votes in politcal party
    int politicalParty::getHowManyVotesOverAll()const
    {
@@ -96,6 +90,7 @@ namespace proj
     {
         return head;
     }
+
     //Returns the serial number of a party
     int politicalParty::getNumId()const
     {
@@ -104,23 +99,28 @@ namespace proj
 
     //////////////////////////////////////
     //Add new representative in curr state
-    void politicalParty::addRepresentitive(citizen* citizen, int state) 
+    void politicalParty::addRepresentitive(citizen* _citizen, int state) 
     {
-            RepListByStateArray[state]->addNodeToTail(citizen);
+        list<citizen*> listToInsert = RepListByStateArray[state];
+
+        listToInsert.push_back(_citizen);
+
     }
   
     //This function checks whether a specific citizen is a representative
-    bool politicalParty::isRep(const citizen& cit)
+    void politicalParty::isRep(const citizen& cit)
     {
-        for (int i = 1; i <= ElectionRound::countState; i++)
+        if (cit.getId() == head.getId())
+            throw invalid_argument("citizen is alaredy headPoliticalParty");
+        list<citizen*> listTemp;
+        for (int i = 0; i < ElectionRound::countState; i++)
         {
-            if (RepListByStateArray[i] != nullptr)
-            {
-                if (RepListByStateArray[i]->getCitizenById(cit.getId()) != nullptr)
-                    return true;
-            }
+            listTemp = RepListByStateArray[i];
+            auto it = std::find(listTemp.begin(), listTemp.end(), &cit);
+            if (it != listTemp.end())
+                throw invalid_argument("citizen is alardy rep");
         }
-        return false;
+        
     }
     //This function writes the politcal party data to binary file
     bool politicalParty::save(ostream& out) const
