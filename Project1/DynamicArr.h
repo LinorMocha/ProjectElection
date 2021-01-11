@@ -42,7 +42,7 @@ namespace proj {
 		void     clear() { _logicalSize = 0; }
 
 		// standard STL iterator implementation:
-		// (no duplication for const)
+		
 		template <bool is_const>
 		class base_iterator
 		{
@@ -111,7 +111,8 @@ namespace proj {
 		using iterator = base_iterator<false>;
 		using const_iterator = base_iterator<true>;
 
-		void insert(const iterator& pos, const T& val) {
+		void insert(const iterator& pos, const T& val) 
+		{
 			if (_logicalSize == _physicalSize)
 				resize();
 
@@ -136,16 +137,13 @@ namespace proj {
 		iterator end() {
 			return iterator(*this, _logicalSize);
 		}
-		/*const_iterator begin() const {
+		const_iterator begin() const {
 			return const_iterator(*this, 0);
 		}
 		const_iterator end() const {
 			return const_iterator(*this, _logicalSize);
-		}*/
-		/*
-			cbegin()/cend()		- for const iterator
-			rbegin()/rend()		- for reverse iterator (end to start)
-		*/
+		}
+	
 
 		void print() const {
 			for (int i = 0; i < _logicalSize; i++)
@@ -153,6 +151,18 @@ namespace proj {
 			cout << endl;
 		}
 
+		
+		void resize(int new_size) {
+			if (new_size = < _physicalSize)
+				return;
+			_physicalSize = new_size;
+			T* temp = new T[new_size];
+			for (int i = 0; i < _logicalSize; i++)
+				temp[i] = _arr[i];
+
+			delete[] _arr;
+			_arr = temp;
+		}
 	private:
 		void resize() {
 			_physicalSize *= 2;

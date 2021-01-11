@@ -4,57 +4,38 @@
 #include "ElectionRound.h"
 namespace proj
 {
-	/*politicalParty::politicalParty() :representativeListByStateArray(nullptr), name(nullptr), numId(0),head(nullptr),votesByStatesArray(nullptr),phySize(1)
-	{
-    }*/
-
-    //serialize constractor of political Party
-    politicalParty::politicalParty(istream& in, const citizenList& currRound, citizen* _head) :head(*_head)
+  //serialize constractor of political Party
+  politicalParty::politicalParty(istream& in, const list<citizen*>& currRound, citizen* _head): head(*_head)
     {
         load(in, currRound);
 
     }
+    
     //ctor
     politicalParty::politicalParty(const string partyName, citizen* _head) : head(*_head)
     {
-
         ElectionRound::countPoliticalParty++;
         numId = ElectionRound::countPoliticalParty;
-       
-       
-         
-        for (int i = 0; i < ElectionRound::countState; i++)
-        {
-            //representativeListByStateArray[i] = 
-             citizenList *lst=new citizenList();
-             representativeListByStateArray.push_back(lst);
-        }
-
         name = partyName;
-       
+        RepListByStateArray.resize(ElectionRound::countState);
+
+     /*for (int i = 0; i < ElectionRound::countState; i++){
+          RepresentativeList* lst=new RepresentativeList();
+          RepListByStateArray.push_back(lst);
+     }*/
     }
-    //ctor
+    
+    //copy ctor
     politicalParty::politicalParty(const politicalParty& pol): head(pol.head)
     {
         numId = pol.numId;
-      
-       
-        representativeListByStateArray = new citizenList * [pol.phySize];
-        for (int i = 0; i < pol.phySize; i++)
-        {
-            pol.representativeListByStateArray[i]->printList();
-            representativeListByStateArray[i] = new citizenList(*pol.representativeListByStateArray[i]);
-            votesByStatesArray[i] = pol.votesByStatesArray[i];
-        }
-
+        RepListByStateArray = pol.RepListByStateArray;
+        votesByStatesArray = pol.votesByStatesArray;
         name = pol.name;
-       
     }
+    
     //dctor
-    politicalParty::~politicalParty()
-    {
-       /* delete[] representativeListByStateArray;*/
-     }
+    politicalParty::~politicalParty() { }
 
     // This function prints the information of the curr politcal party 
     ostream& operator<<(ostream& os, const politicalParty& p_party)
@@ -64,11 +45,7 @@ namespace proj
         os << "  ||  ID: " << p_party.numId;
         os << "  ||  the head of political party is: ";
         os << p_party.head << endl;
-        for (int i = 1; i <= ElectionRound::countState; i++)
-        {
-            os << "Representative List for State number " << i << "is:" << endl;
-            p_party.representativeListByStateArray[i]->printList();
-        }
+        p_party.RepListByStateArray.print();
         return os;
     }
 
@@ -76,15 +53,16 @@ namespace proj
     //Returns the number of representatives within a state of a politcal party
     int politicalParty::getNumOfRepInList(int stateId)const
     {
-        return representativeListByStateArray[stateId]->getListSize();
+        return RepListByStateArray[stateId].getListSize();
     }
+
     //Returns the total number of votes in politcal party
    int politicalParty::getHowManyVotesOverAll()const
    {
         int res=0;
-        for (auto i : votesByStatesArray)
+        for (int it : votesByStatesArray)
         {
-            res += i;
+            res += it;
         }
         return res;
    }
@@ -104,6 +82,7 @@ namespace proj
     {
         return head;
     }
+
     //Returns the serial number of a party
     int politicalParty::getNumId()const
     {
@@ -112,99 +91,86 @@ namespace proj
 
     //////////////////////////////////////
     //Add new representative in curr state
-    void politicalParty::addRepresentitive(citizen* citizen, int state) 
+    void politicalParty::addRepresentitive(citizen* _citizen, int state)
     {
-            representativeListByStateArray[state]->addNodeToTail(citizen);
+        RepListByStateArray[state].addCitizenToListTail(_citizen);
     }
   
     //This function checks whether a specific citizen is a representative
-    bool politicalParty::isRep(const citizen& cit)
+    void politicalParty::isRep(const citizen& cit)
     {
-        for (int i = 1; i <= ElectionRound::countState; i++)
+        if (cit.getId() == head.getId())
+            throw invalid_argument("citizen is already headPoliticalParty");
+        
+        for (int i = 0; i < ElectionRound::countState; i++)
         {
-            if (representativeListByStateArray[i] != nullptr)
-            {
-                if (representativeListByStateArray[i]->getCitizenById(cit.getId()) != nullptr)
-                    return true;
+            try {
+                RepListByStateArray[i].isCitizenInList(cit);
             }
+
+            catch (std::exception& ex) {
+                throw invalid_argument("citizen is already rep");
+           }
         }
-        return false;
+        
     }
+    
     //This function writes the politcal party data to binary file
-    bool politicalParty::save(ostream& out) const
+    void politicalParty::save(ostream& out) const
     {
-        if (!out)//checks if the file works properly
-        {
-            return false;
-        }
         int temp = head.getId();
         out.write(rcastcc(&temp), sizeof(int));
         out.write(rcastcc(&numId), sizeof(numId));
         
-
-        for (int i : votesByStatesArray)
-        {
+        for (int i : votesByStatesArray){
             if (i <= ElectionRound::countState)
-            out.write(rcastcc(&i), sizeof(int));
-       }
-
-        for (int j = 1; j <= ElectionRound::countState; j++)
-        {
-            if (!representativeListByStateArray[j]->saveById(out))
-                return false;
+            {
+                temp = i;
+                out.write(rcastcc(&temp), sizeof(int));
+            }
         }
+        // Saving each List in the array
+        for (RepresentativeList it : RepListByStateArray) {
+           
+            it.save(out);
+        }
+
         int len = name.length();
         out.write(rcastcc(&len), sizeof(int));
         out.write(rcastcc(name.c_str()), len);
-        return(out.good());//Checks if the writes operations to file performed properly
+
+        //Checks if the writes operations to file performed properly
+        if (!out){
+            throw invalid_argument("error with file");
+        }
        
     }
     //This function reads the politcal party data from binary file
-    bool politicalParty::load(istream& in, const citizenList& currList)
+
+    void politicalParty::load(istream& in, const list<citizen*>& currList)
     {
-        if (!in)//checks if the file works properly
+        in.read(rcastc(&numId), sizeof(numId));
+        
+        votesByStatesArray.resize(ElectionRound::countState);
+        for(int i=0; i< ElectionRound::countState;i++){
+            in.read(rcastc(&votesByStatesArray[i]), sizeof(int));
+        }
+
+        RepListByStateArray.resize(ElectionRound::countState);
+              
+        // Reading for each citizen only his ID in the file!
+        for (RepresentativeList it : RepListByStateArray)
         {
-            return false;
+            it.load(in, currList);
         }
         int len;
-       
-        in.read(rcastc(&numId), sizeof(numId));
-       
-        if (!in.good())
-        {
-            return false;
-        }
-              
-        for (int itr : votesByStatesArray)
-        {
-            if (itr <= ElectionRound::countState)
-                in.read(rcastc(&itr), sizeof(int));
-            
-        }
-
-        representativeListByStateArray = new citizenList * [phySize];
-        for (int i = 0; i < phySize; i++)
-        {
-            if (i <= ElectionRound::countState && i != 0)
-            {
-                representativeListByStateArray[i] = new citizenList();
-                if(!representativeListByStateArray[i]->loadById(in, currList))
-                     return false;
-            }
-            else
-                representativeListByStateArray[i] = new citizenList();
-        }
-
         in.read(rcastc(&len), sizeof(len));
-        if (!in.good())
-        {
-            return false;
-        }
-       
         name.resize(len); 
         in.read((char*)&name[0], len);
-        return (in.good());
+        if (!in.good())
+            throw invalid_argument("error with file");
     }
+    
     //this function adds vote to the total number of votes
     void politicalParty::addVote(int stateId)
     {
@@ -215,19 +181,15 @@ namespace proj
         votesByStatesArray[stateId-1]++;
     }
     
-
-    void politicalParty::PrintWinningRepresentitives(int state, int repCount) const
+    //this function prints the wining list 
+    void politicalParty::printWinningRepListForState(int state, int repCount) const
     {
-        representativeListByStateArray[state]->printList(repCount);
-           
-	}
+        RepListByStateArray[state].printWininigList(repCount);
+    }
+
     //Prints all arrays of representatives in all states
     void politicalParty::PrintRepListForAllState()
     {
-        for (int i = 1; i <= ElectionRound::countState; i++)
-        {
-            representativeListByStateArray[i]->printList();
-        }
-
+        RepListByStateArray.print();
     }
 }

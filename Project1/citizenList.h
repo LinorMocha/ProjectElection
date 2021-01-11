@@ -1,42 +1,31 @@
-﻿#pragma once
+#pragma once
 #include <iostream>
 #include "citizen.h"
-#include "StateArray.h"
-
+#include<list>
 using namespace std;
 namespace proj
 {
-    class citizenList
+    class CitizenList
     {
     private:
-        node* head,*tail;
-        int listSize;
+        list<citizen*> List;
     public:
-        citizenList();
-        ~citizenList();
-        citizenList(const citizenList& input);
-      
-        void operator=(const citizenList& input);
+        CitizenList() { };
+        ~CitizenList() { };
+        CitizenList(const CitizenList& input);
+
+        void operator=(const CitizenList& input);
+        friend ostream& operator<<(ostream& os, const CitizenList& List);
 
         ///// GETERS ////
-        citizen* getCitizenById(int _id) const;
-        node* getHead()const;
-        int getListSize()const;
-
-      
-
-        void addNodeToTail(citizen* input);
-        void addNodeToHead(citizen* input);
-        void printList()const ;
-        void printList(int numOfNodeToPrint)const;
-    
-        bool save(ostream& out)const;
-        bool load(istream& in, const StateArray& staecur);
+       citizen* getCitizenById(int _id) const;
+       int getListSize()const;
 
 
-        //// FOR REPRESENTATIVE LIST ///
-        bool loadById(istream& in, const citizenList& currList);
-        bool saveById(ostream& out) const;
-       
+       void addCitizenToListTail(citizen* input);
+       void addCitizenAfter(const citizen* to_insert, citizen* input);
+       void load(istream& in);
+       void save(ostream& out) const;
+       void isCitizenInList(const citizen& cit);
     };
 }
