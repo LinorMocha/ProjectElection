@@ -20,7 +20,7 @@ namespace proj {
     public:
         
         ~politicalParty();
-        politicalParty(istream& in, const list<citizen*>& currRound, citizen* _head);
+        politicalParty(istream& in, const CitizenList& currRound, citizen* _head);
         politicalParty(const string partyName, citizen* _head);
         politicalParty(const politicalParty& pol);
 
@@ -31,7 +31,7 @@ namespace proj {
         int getHowManyVotesOverAll()const;
         int getHowManyVotesForState(int stateId)const;
         int getNumOfRepInList(int stateId)const;
-        
+       
         /// OTHER FUNCATIONS
         void addRepresentitive(citizen* _citizen, int state);
         void PrintRepListForAllState();
@@ -42,7 +42,7 @@ namespace proj {
 
 
        void save(ostream& out) const;
-       void load(istream& in,const list<citizen*>& currList);
+       void load(istream& in,const CitizenList& currList);
 
     };
 }

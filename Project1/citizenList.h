@@ -11,7 +11,7 @@ namespace proj
         list<citizen*> List;
     public:
         CitizenList() { };
-        ~CitizenList() { };
+        ~CitizenList();
         CitizenList(const CitizenList& input);
 
         void operator=(const CitizenList& input);

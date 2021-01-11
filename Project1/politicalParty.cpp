@@ -5,7 +5,7 @@
 namespace proj
 {
   //serialize constractor of political Party
-  politicalParty::politicalParty(istream& in, const list<citizen*>& currRound, citizen* _head): head(*_head)
+  politicalParty::politicalParty(istream& in, const CitizenList& currRound, citizen* _head): head(*_head)
     {
         load(in, currRound);
 
@@ -147,7 +147,7 @@ namespace proj
     }
     //This function reads the politcal party data from binary file
 
-    void politicalParty::load(istream& in, const list<citizen*>& currList)
+    void politicalParty::load(istream& in, const CitizenList& currList)
     {
         in.read(rcastc(&numId), sizeof(numId));
         

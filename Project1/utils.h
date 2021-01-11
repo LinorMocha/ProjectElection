@@ -1,12 +1,12 @@
 #pragma once
-#include <vector>
+
 
 namespace proj
 {
 
 #define rcastcc reinterpret_cast<const char*> 
 #define rcastc reinterpret_cast<char*> 
-	const vector<int> maxDayPerMonthArr{ -1,31,28,31,30,31,30,31,31,30,31,30,31 };
+	static const int maxDayPerMonthArr[13]={ -1,31,28,31,30,31,30,31,31,30,31,30,31 };
 	struct Date
 	{
 		int day;

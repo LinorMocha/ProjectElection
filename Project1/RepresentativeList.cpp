@@ -17,9 +17,6 @@ namespace proj {
     {
     }
    
-  
-
-   
    //this function returns the haed of the list
     citizen* RepresentativeList::getHead()const {return *RepList.begin();}
     
@@ -67,8 +64,7 @@ namespace proj {
        {
            //reading citizen id
            in.read(rcastc(&temp), sizeof(temp));
-           // need to think how to get the citizen from the currList
- 
+           RepList.push_back(currList.getCitizenById(temp));
        }
    }
 

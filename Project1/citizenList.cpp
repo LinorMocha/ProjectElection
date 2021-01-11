@@ -45,9 +45,6 @@ namespace proj
         throw (_id);
     }
 
-    //this function returns the haed of the list
-    citizen* CitizenList::getHead()const { return *List.begin(); }
-
     //this function returns the size of list
     int  CitizenList::getListSize() const { return List.size(); }
 

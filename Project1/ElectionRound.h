@@ -1,9 +1,7 @@
 ﻿#pragma once
-#include "citizenList.h"
 #include "utils.h"
-#include "StateArray.h"
-#include"politicalPartyArray.h"
 #include"DynamicArr.h"
+#include"politicalParty.h"
 #include <iostream>
 #include <list>
 using namespace std;
@@ -52,8 +50,9 @@ namespace proj
 		
 
 		////////////  Representative//////////
-		virtual bool addRepresentativetoPoli(int repId, int PoliId, int StateId);
-		bool isRepListComplete();
+		virtual void addRepresentativetoPoli(int repId, int PoliId, int StateId);
+		void isRepListComplete();
+		bool isCitizenRepOrHeadOfPoly(const citizen& cit);
 		
 		////////////  POLITICALPARTY  //////////
 		void addPoliticalParty(const string name, int headId);
@@ -64,12 +63,9 @@ namespace proj
 
 
 		/////////// Vote //////////////
-		bool addVote(int citizenId, int poliId);
-		
-		////// Turn Out ///////
-		
-		bool save(ostream& out) const;
-		bool load(istream& in); 
+		void addVote(int citizenId, int poliId);
+		void save(ostream& out) const;
+		void load(istream& in); 
 	};
 
 }

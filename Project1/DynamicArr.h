@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+using namespace std;
 
 namespace proj {
 	template <class T>
@@ -153,7 +155,7 @@ namespace proj {
 
 		
 		void resize(int new_size) {
-			if (new_size = < _physicalSize)
+			if (new_size <= _physicalSize)
 				return;
 			_physicalSize = new_size;
 			T* temp = new T[new_size];

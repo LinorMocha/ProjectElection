@@ -30,12 +30,6 @@
     <ClInclude Include="State.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StateArray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="politicalPartyArray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ELectionProportiaonal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -66,12 +60,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StateArray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PoliticalPartyArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ELectionProportiaonal.cpp">

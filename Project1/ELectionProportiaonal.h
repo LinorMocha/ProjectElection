@@ -11,10 +11,10 @@ namespace proj
 		ElectionProportiaonal(istream& in);
 
 		ElectionProportiaonal(int numRep);
-		virtual bool addCitizen(char* _name, int id, int numD, int _birthYear);
+		virtual void addCitizen(char* _name, int id, int numD, int _birthYear);
 		static const int defultSTATE = 1;
 
-		virtual bool addRepresentativetoPoli(int repId, int PoliId, int StateId);
+		virtual void addRepresentativetoPoli(int repId, int PoliId, int StateId);
 
 
 	};

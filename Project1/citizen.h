@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-
 #include "State.h"
 using namespace std;
 

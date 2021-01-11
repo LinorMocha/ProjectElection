@@ -38,6 +38,7 @@ void loadElectionRound();
 int printElectionRoundResult();
 int* printElectionResultsForState(int stateId);
 int printElectionRoundResultForProprotinal();
+
 ElectionRound* Round;
 
 
@@ -64,20 +65,27 @@ int main()
 			Round = new ElectionProportiaonal(numRep);
 		}
 		cout << "please enter date first:" << endl;
-		cout << "enter day" << endl;
-		int _day;
-		cin >> _day;
-		cout << "enter month" << endl;
-		int _month;
-		cin >> _month;
-		cout << "enter year" << endl;
-		int _year;
-		cin >> _year;
-		try {
-			Round->setDate(_day, _month, _year);
-		}
-		catch (std::exception& ex) {
-			cout << "Error: " << ex.what() << endl;
+		int flag = 0;
+		while (!flag)
+		{
+			cout << "enter day" << endl;
+			int _day;
+			cin >> _day;
+			cout << "enter month" << endl;
+			int _month;
+			cin >> _month;
+			cout << "enter year" << endl;
+			int _year;
+			cin >> _year;
+			flag = 1;
+			try {
+				Round->setDate(_day, _month, _year);
+			}
+			catch (std::exception& ex) {
+				cout << "Error: " << ex.what() << endl;
+				cout << "try again:__________________" << endl;
+				flag = 0;
+			}
 		}
 		
 
@@ -199,15 +207,22 @@ void saveElectionRound()
 		status = 1;
 	else
 		status = 0;
+	
 	File.write(rcastcc(&status), sizeof(int));
-	if (!Round->save(File))
-		cout << "Error with File" << endl;
-	else
-	{
-		cout << "Saved successfully" << endl;
+	
+	try {
+		Round->save(File);
 	}
+	catch (std::exception& ex) {
+		cout << "Error: " << ex.what() << endl;
+		File.close();
+		return;
+	}
+
+	cout << "Saved successfully" << endl;
 	File.close();
 }
+
 //this function loads the current round election
 void loadElectionRound()
 {
@@ -238,6 +253,7 @@ void loadElectionRound()
 		cout << "Load successfully" << endl;
 	fl.close();
 }
+
 //this function adds new state to the curr election round
 void addState()
 {
@@ -257,17 +273,12 @@ void addState()
 		int Status;
 		cout << "please enter Status state , for union state press 1 , for sepraeted state press 2" << endl;
 		cin >> Status;
-		try {
-			Round->addState(input, input2, Status == 1);
-		}
-		catch (std::exception& ex) {
-			cout << "Error: " << ex.what() << endl;
-		}
-
-	}
+		
+		Round->addState(input, input2, Status == 1);
 	
-
+	}
 }
+
 //this function adds new citizen to the curr election round
 void addCitizen()
 {
@@ -294,6 +305,7 @@ void addCitizen()
 	}
 	
 }
+
 //this function adds new party to the curr election round
 void addPoliticalParties()
 {
@@ -312,6 +324,7 @@ void addPoliticalParties()
 			cout << "Error: " << ex.what() << endl;
 		}
 }
+
 //this function adds new representative to the curr election round
 void addRepresentative()
 {
@@ -328,9 +341,12 @@ void addRepresentative()
 	cin >> input3;
 	
 
-	if (!Round->addRepresentativetoPoli(input, input2, input3))
-		cout << "EROR! please enter an exsited state, citizen and political party, Representative can represent only one political party! " << endl;
-	
+	try {
+		Round->addRepresentativetoPoli(input, input2, input3);
+	}
+	catch (std::exception& ex) {
+		cout << "Error: " << ex.what() << endl;
+	}
 }
 //this function prints the states exsict in the curr election round 
 void printStates()
@@ -341,7 +357,12 @@ void printStates()
 	}
 	else {
 		cout << "the States in the country are:" << endl;
-		Round->printStateArray();
+		try {
+			Round->printStateArray();
+	     }
+		catch (std::exception& ex) {
+		cout << "Error: " << ex.what() << endl;
+     	}
 	}
 	
 }
@@ -349,16 +370,28 @@ void printStates()
 void printCitizens()
 {
 	cout << "the citizens in the country are:" << endl;
-	
-	Round->printCitizenList();
+	try {
+		Round->printCitizenList();
+	}
+	catch (std::exception& ex) {
+		cout << "Error: " << ex.what() << endl;
+	}
+
 }
 //this function prints the politcal parties exsict in the curr election round
 void printPoliticalParties()
 {
 	cout << "the political parties in the country are:" << endl;
-	Round->printPoliticalPartyArray();
+	
+	try {
+		Round->printPoliticalPartyArray();
+	}
+	catch (std::exception& ex) {
+		cout << "Error: " << ex.what() << endl;
+	}
 	
 }
+
 //add new vote to current election round
 void addVote()
 {
@@ -399,10 +432,10 @@ int printElectionRoundResultForProprotinal()
 	{
 		return 0;
 	}
-	if (!Round->isRepListComplete())
+	/*if (!Round->isRepListComplete())
 	{
 		return 1;
-	}
+	}*/
 	cout << "__________________________________________________________" << endl;
 	cout << " the Elecation Round in date:" << Round->getDay() << "/" << Round->getMonth() << "/" << Round->getYear() << "   result:" << endl;
 	int StateID = 1;
@@ -461,7 +494,7 @@ int printElectionRoundResultForProprotinal()
 
 int printElectionRoundResult()
 {
-	if (Round->countState == 0 || Round->countPoliticalParty == 0 || Round->countCitizen == 0)
+	/*if (Round->countState == 0 || Round->countPoliticalParty == 0 || Round->countCitizen == 0)
 	{
 		return 0;
 	}
@@ -502,7 +535,7 @@ int printElectionRoundResult()
 	cout << " the wining party in the elecation is:" << Round->getPoliById(maxId+1).getName()<< endl;
 	cout << " the president in the elecation is:" << Round->getPoliById(maxId+1).getPoliticalPartyHead()<< endl;
 	cout << "__________________________________________________________________" << endl;
-
+	*/
 	return 2;
 }
 
