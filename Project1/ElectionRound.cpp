@@ -84,6 +84,8 @@ namespace proj
 			_stateArray[numD]->addCitizen();
 	}
 	
+
+
 	//This function returns ref to the desired citizen according to the given ID 
 	const citizen& ElectionRound::getCitizenById(int numId)
 	{
