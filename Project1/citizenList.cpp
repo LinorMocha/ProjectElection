@@ -15,6 +15,8 @@ namespace proj
 
 
 
+    bool CitizenList::isEmpty()  { return List.empty();  }
+
     //this function add citizen to the end of the list
     void  CitizenList::addCitizenToListTail(citizen* input)
     {
@@ -40,8 +42,7 @@ namespace proj
             if (_id == temp)
                 return *itList;
         }
-        //mabye change to throw
-        return nullptr;
+        throw (_id);
     }
 
     //this function returns the haed of the list

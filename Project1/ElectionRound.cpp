@@ -26,7 +26,7 @@ namespace proj
 
 	}
 	//set the date of the election round
-	bool ElectionRound::setDate(int day, int month, int year)//turn into void?
+	void ElectionRound::setDate(int day, int month, int year)//turn into void?
 	{
 		if (year <= 0)
 			throw invalid_argument("Invalid year");
@@ -37,43 +37,33 @@ namespace proj
 		date.day = day;
 		date.month = month;
 		date.year = year;
-		return true;
+		
 	}
-	//this function get ref to state according to ID
-	State& ElectionRound::getStateById(int id)
-	{
-		return *_stateArray[id-1]; //check if start with zero or one
-	}
-	//this function get ref to political Party according to ID
-	const politicalParty& ElectionRound::getPolitaclPartyById(int id)
-	{
-		return *_politicalPartyArray[id];
-	}
-	//This function returns the total number of votes for party
-	int ElectionRound::getOverAllVotesForPoli(int polyId)
-	{
-		return *_politicalPartyArray[polyId].getOverAllVotesForPoli;
-	}
+	
 
+
+	
 	///////////// STATE implementation//////////////////
 
 	//this function adds the state to the state arr snd to the party arr
-	bool ElectionRound::addState(const string name, int numRep, bool Status)
+	void ElectionRound::addState(const string name, int numRep, bool Status)
 	{
 		State* sta = new State(name, numRep, Status);
 		_stateArray.push_back(sta);
-		return true;
+		
 	}
 	//this function prints the State Array
 	void ElectionRound::printStateArray()
 	{
-		_stateArray[];
+		if (countState <= 0)
+			throw invalid_argument("there is no state");
+		_stateArray.print(); 
 	}
+
 	//This function returns ref to the desired state according to the given ID 
-	State& ElectionRound::getStateById(int numId) const
-	{
-		return *_stateArray[numId];
-	}
+	State& ElectionRound::getStateById(int numId) const	{return *_stateArray[numId-1];}
+
+
 	///////////// CITIZEN implementation//////////////////
 	//This function creates new citizen if he doesn't exist and adds him to the end of the citizen Array
 	void ElectionRound::addCitizen(const string _name, int id, int numD, int _birthYear)
@@ -84,59 +74,44 @@ namespace proj
 			throw invalid_argument("id not valid ");
 		if ((date.year-_birthYear) < 18) 
 			throw  invalid_argument("The citizen is too young to vote");
-		try {
-			getCitizenById(id);
-		}
-		catch (std::exception& ex) {
+		
+		if(!isNumberIdAvilable(id))
+			throw invalid_argument("the citizen is alredy exsict");
+		
 			citizen* newC = new citizen(_name, id, *_stateArray[numD], _birthYear);
-			_citizenList.push_back(newC);
+			_citizenList.addCitizenToListTail(newC);
 			countCitizen++;
 			_stateArray[numD]->addCitizen();
-			return;
-		}
-		throw invalid_argument("this id already exsit");
-		}
 	}
+	
 	//This function returns ref to the desired citizen according to the given ID 
 	const citizen& ElectionRound::getCitizenById(int numId)
 	{
-		list <citizen*>::iterator it;
-		auto it =_citizenList.begin();
-		
-		while (it!=_citizenList.end())
-		{
-			if ((*it)->getId() == numId)
-				return (**it);
-			it++;
-		}
+		return *_citizenList.getCitizenById(numId);
 	}
-	//check if given ID number is avilable
-	void ElectionRound::isNumberIdAvilable(int numId)
+	
+	//if id is taken throw
+	bool ElectionRound::isNumberIdAvilable(int numId)
 	{
-		list <citizen*>::iterator it;
-		auto it = _citizenList.begin();
-		while (it != _citizenList.end())
+		try
 		{
-			if ((*it)->getId() == numId)
-				throw invalid_argument("the citizen is alredy exsict");
-			it++;
+			_citizenList.getCitizenById(numId);
+		}
+		catch(int id) 
+		{
+			return true;
 		}
 
+		return false;
 	}
 
 	//this function prints the citizen list
 	void ElectionRound::printCitizenList()
 	{
-		if (_citizenList.empty())
+		if (_citizenList.isEmpty())
 			throw  invalid_argument("there is no citizen");
-		else
-		{
-			auto it = _citizenList.begin();
-			for (auto it : _citizenList)
-			{
-				cout << (it) << endl;
-			}
-		}
+		
+		cout << _citizenList << endl;		
 	}
 
 
@@ -144,18 +119,37 @@ namespace proj
 	//This function creates new party if he doesn't exist and adds him to the end of the politcal party array
 	void ElectionRound::addPoliticalParty(const string name, int headId)
 	{
-		citizen headPoly = getCitizenById(headId);
-		
-			throw invalid_argument("אין תז");
-		
-		
-		if (headPoly != nullptr && !_politicalPartyArray.isCitizenIsRepORHead(*headPoly))
+		try {
+			isNumberIdAvilable(headId);
+		}
+		catch
 		{
-			_politicalPartyArray.addPoliticalParty(name, headPoly);
+			citizen headPoly = getCitizenById(headId);
+			if (headPoly != nullptr && !_politicalPartyArray.isCitizenIsRepORHead(*headPoly))
+			{
+				_politicalPartyArray.addPoliticalParty(name, headPoly);
+
+
+			}
+
+		}
 
 		
-		}
+			
 		
+		
+		
+		
+	}
+	//this function get ref to political Party according to ID
+	const politicalParty& ElectionRound::getPolitaclPartyById(int id)
+	{
+		return *_politicalPartyArray[id];
+	}
+	//This function returns the total number of votes for party
+	int ElectionRound::getOverAllVotesForPoli(int polyId)
+	{
+		return *_politicalPartyArray[polyId].getOverAllVotesForPoli;
 	}
 	//this function prints the Political party array
 	void ElectionRound::printPoliticalPartyArray()
