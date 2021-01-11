@@ -42,19 +42,18 @@ namespace proj
 	//this function get ref to state according to ID
 	State& ElectionRound::getStateById(int id)
 	{
-		 return _stateArray.getStateById(id);
+		return *_stateArray[id-1]; //check if start with zero or one
 	}
 	//this function get ref to political Party according to ID
 	const politicalParty& ElectionRound::getPolitaclPartyById(int id)
 	{
-		return _politicalPartyArray.getPoliticalPartyById(id);
+		return *_politicalPartyArray[id];
 	}
 	//This function returns the total number of votes for party
 	int ElectionRound::getOverAllVotesForPoli(int polyId)
 	{
-		return _politicalPartyArray.getOverAllVotesForPoli(polyId);
+		return *_politicalPartyArray[polyId].getOverAllVotesForPoli;
 	}
-
 
 	///////////// STATE implementation//////////////////
 
@@ -63,23 +62,18 @@ namespace proj
 	{
 		State* sta = new State(name, numRep, Status);
 		_stateArray.push_back(sta);
-		//_politicalPartyArray.addState();
 		return true;
 	}
 	//this function prints the State Array
 	void ElectionRound::printStateArray()
 	{
-		_stateArray[]
-
+		_stateArray[];
 	}
 	//This function returns ref to the desired state according to the given ID 
 	State& ElectionRound::getStateById(int numId) const
 	{
 		return *_stateArray[numId];
 	}
-
-
-
 	///////////// CITIZEN implementation//////////////////
 	//This function creates new citizen if he doesn't exist and adds him to the end of the citizen Array
 	void ElectionRound::addCitizen(const string _name, int id, int numD, int _birthYear)
@@ -115,9 +109,23 @@ namespace proj
 				return (**it);
 			it++;
 		}
-		
-		throw invalid_argument("citizen is not exsit");
 	}
+	//check if given ID number is avilable
+	void ElectionRound::isNumberIdAvilable(int numId)
+	{
+		try {
+			list <citizen*>::iterator it;
+			auto it = _citizenList.begin();
+			while (it != _citizenList.end())
+			{
+				if ((*it)->getId() == numId)
+					throw invalid_argument("the citizen is alredy exsict");
+				it++;
+			}
+		}
+
+	}
+	//is number id avilable
 
 	//this function prints the citizen list
 	void ElectionRound::printCitizenList()
