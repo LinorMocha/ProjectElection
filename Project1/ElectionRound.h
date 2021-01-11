@@ -51,6 +51,7 @@ namespace proj
 		void printCitizenList();
 		
 
+
 		////////////  Representative//////////
 		virtual bool addRepresentativetoPoli(int repId, int PoliId, int StateId);
 		bool isRepListComplete();
