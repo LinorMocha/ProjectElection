@@ -113,19 +113,16 @@ namespace proj
 	//check if given ID number is avilable
 	void ElectionRound::isNumberIdAvilable(int numId)
 	{
-		try {
-			list <citizen*>::iterator it;
-			auto it = _citizenList.begin();
-			while (it != _citizenList.end())
-			{
-				if ((*it)->getId() == numId)
-					throw invalid_argument("the citizen is alredy exsict");
-				it++;
-			}
+		list <citizen*>::iterator it;
+		auto it = _citizenList.begin();
+		while (it != _citizenList.end())
+		{
+			if ((*it)->getId() == numId)
+				throw invalid_argument("the citizen is alredy exsict");
+			it++;
 		}
 
 	}
-	//is number id avilable
 
 	//this function prints the citizen list
 	void ElectionRound::printCitizenList()

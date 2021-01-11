@@ -49,6 +49,7 @@ namespace proj
 		/////////// CITIZEN //////////////////
 		virtual void addCitizen(const string _name, int id, int numD, int _birthYear);
 		const citizen& getCitizenById(int numId);
+		void isNumberIdAvilable(int numId);
 		void printCitizenList();
 		
 
