@@ -1,16 +1,16 @@
 ﻿#pragma once
-#include "citizen.h"
-#include <vector>
-#include <iostream>
-#include "DynamicArr.h"
 
+#include <iostream>
+#include <list>
+#include "DynamicArr.h"
+#include "RepresentativeList.h"
 using namespace std;
 
 namespace proj {
     class politicalParty {
     private:
         
-        DynamicArray<list<citizen*>> RepListByStateArray;
+        DynamicArray<RepresentativeList> RepListByStateArray;
         string name;
         int numId;
         citizen& head;
@@ -18,7 +18,7 @@ namespace proj {
         
         
     public:
-        //politicalParty();
+        
         ~politicalParty();
         politicalParty(istream& in, const list<citizen*>& currRound, citizen* _head);
         politicalParty(const string partyName, citizen* _head);
@@ -37,11 +37,12 @@ namespace proj {
         void PrintRepListForAllState();
         friend ostream& operator<<(ostream& os,const politicalParty& p_party);
         void addVote(int stateId);
-        void PrintWinningRepresentitives(int state, int repCount) const ;
+        void printWinningRepListForState(int state, int repCount) const ;
         void isRep(const citizen& cit);
 
-       bool save(ostream& out) const;
-       bool load(istream& in,const citizenList& currList);
+
+       void save(ostream& out) const;
+       void load(istream& in,const list<citizen*>& currList);
 
     };
 }

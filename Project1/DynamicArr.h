@@ -151,6 +151,18 @@ namespace proj {
 			cout << endl;
 		}
 
+		
+		void resize(int new_size) {
+			if (new_size = < _physicalSize)
+				return;
+			_physicalSize = new_size;
+			T* temp = new T[new_size];
+			for (int i = 0; i < _logicalSize; i++)
+				temp[i] = _arr[i];
+
+			delete[] _arr;
+			_arr = temp;
+		}
 	private:
 		void resize() {
 			_physicalSize *= 2;

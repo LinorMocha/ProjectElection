@@ -446,7 +446,7 @@ int printElectionRoundResultForProprotinal()
 			cout << "  percent of votes: " << precent * 100 << '%' << endl;
 			cout << "selected representative list:" << endl;
 			numOfRep = howManyRep[i - 1];
-			Round->getPoliById(i).PrintWinningRepresentitives(StateID, numOfRep);
+			Round->getPoliById(i).printWinningRepListForState(StateID, numOfRep);
 			cout << endl;
 		}
 
@@ -554,7 +554,7 @@ int* printElectionResultsForState(int stateId)
 			cout << "  percent of votes: " << precent * 100 << '%' << endl;
 			cout << "selected representative list:" << endl;
 			numOfRep = howManyRep[i - 1];
-			Round->getPoliById(i).PrintWinningRepresentitives(stateId, numOfRep);
+			Round->getPoliById(i).printWinningRepListForState(stateId, numOfRep);
 			cout << endl;
 		}
 

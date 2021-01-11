@@ -33,7 +33,7 @@ namespace proj
         void addVote(int poliId,int stateId);
     
         bool save(ostream& out) const;
-        bool load(istream& in, const citizenList& currList);
+        bool load(istream& in, const RepresentativeList& currList);
 
 
     };
