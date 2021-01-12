@@ -50,12 +50,11 @@ namespace proj {
 		{
 		public:
 			using ds_type = std::conditional_t<is_const, const DynamicArray, DynamicArray>;
-
 			using iterator_category = std::bidirectional_iterator_tag;
-			// other options exist, e.g., std::forward_iterator_tag
+			
 			using different_type = std::ptrdiff_t;
 			using value_type = std::conditional_t<is_const, const T, T>;
-			using pointer = value_type*;
+			using pointer =	value_type*;
 			using reference = value_type&;
 
 			base_iterator(ds_type& arr, int i) : _da(&arr), _i(i) {}
@@ -68,6 +67,7 @@ namespace proj {
 
 			// we want to allow construction of const_iterator from iterator
 			friend class base_iterator<true>;
+
 			template <bool _is_const = is_const, class = std::enable_if_t<_is_const>>
 			base_iterator(const base_iterator<false>& other) : _da(other._da), _i(other._i) {}
 
@@ -110,6 +110,7 @@ namespace proj {
 			ds_type* _da;
 			int			_i;
 		};
+
 		using iterator = base_iterator<false>;
 		using const_iterator = base_iterator<true>;
 
@@ -149,7 +150,7 @@ namespace proj {
 
 		void print() const {
 			for (int i = 0; i < _logicalSize; i++)
-				cout << _arr[i] << " ";
+				cout <<_arr[i] << " ";
 			cout << endl;
 		}
 

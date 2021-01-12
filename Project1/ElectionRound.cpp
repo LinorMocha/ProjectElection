@@ -44,8 +44,13 @@ namespace proj
 	//this function adds the state to the state arr snd to the party arr
 	void ElectionRound::addState(const string name, int numRep, bool Status)
 	{
-		State* sta = new State(name, numRep, Status);
+		/*State sta(name, numRep, Status);
+		_stateArray.push_back(sta);*/
+		
+		State *sta=new State(name, numRep, Status);
+
 		_stateArray.push_back(sta);
+
 		
 	}
 	//this function prints the State Array

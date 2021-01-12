@@ -22,7 +22,7 @@ namespace proj
        int getListSize()const;
 
        bool isEmpty();
-       
+  
        void addCitizenToListTail(citizen* input);
        void addCitizenAfter(const citizen* to_insert, citizen* input);
        void load(istream& in);
