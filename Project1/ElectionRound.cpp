@@ -46,6 +46,7 @@ namespace proj
 	{
 		State sta(name, numRep, Status);
 		_stateArray.push_back(sta);
+
 		
 	}
 	//this function prints the State Array

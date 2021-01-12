@@ -15,7 +15,6 @@ namespace proj
         RepresentativeList(const RepresentativeList& input);
       
         void load(istream& in, const CitizenList& currList);
-
         void operator=(const RepresentativeList& input);
         friend ostream& operator<<(ostream& os, const RepresentativeList& List);
         citizen* getHead()const;
