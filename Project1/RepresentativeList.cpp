@@ -70,9 +70,7 @@ namespace proj {
 
   ostream& operator<<(ostream& os, const RepresentativeList& List)
   {
-      
-
-
+      cout << List << endl;
       return os;
   }
 

@@ -94,11 +94,20 @@ namespace proj
     }
 
 
-    ostream& operator<<(ostream& os, const  CitizenList& List)
+    ostream& operator<<(ostream& os,const CitizenList& _List)
     {
+        for (int i = 0; i < _List.getListSize(); i++)
+        {
+            
+            auto itList = _List.List.begin();
+            int temp;
+            while (itList != _List.List.end())
+            {
+                cout <<(*itList)<< endl;
+            }
 
-
-
-        return os;
+        }
+      return os;
     }
+
 }

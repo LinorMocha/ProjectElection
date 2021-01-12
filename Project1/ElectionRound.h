@@ -12,8 +12,8 @@ namespace proj
 
 
 	protected:
-		DynamicArray<State*>  _stateArray;
-		DynamicArray<politicalParty*> _politicalPartyArray;
+		DynamicArray<State>  _stateArray;
+		DynamicArray<politicalParty> _politicalPartyArray;
 		CitizenList _citizenList;
 		Date date;			
 
@@ -39,7 +39,7 @@ namespace proj
 		/////////// STATE //////////////////
 		void addState(const string name, int numRep,bool Status); ///
 		void printStateArray();
-		State& getStateById(int numId) const ;
+		State& getStateById(int numId) ;
 		
 		
 		/////////// CITIZEN //////////////////

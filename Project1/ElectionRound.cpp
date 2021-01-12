@@ -44,7 +44,7 @@ namespace proj
 	//this function adds the state to the state arr snd to the party arr
 	void ElectionRound::addState(const string name, int numRep, bool Status)
 	{
-		State* sta = new State(name, numRep, Status);
+		State sta(name, numRep, Status);
 		_stateArray.push_back(sta);
 		
 	}
@@ -57,7 +57,7 @@ namespace proj
 	}
 
 	//This function returns ref to the desired state according to the given ID 
-	State& ElectionRound::getStateById(int numId) const	{return *_stateArray[numId-1];}
+	State& ElectionRound::getStateById(int numId) {return _stateArray[numId-1];}
 
 
 	///////////// CITIZEN implementation//////////////////
@@ -75,10 +75,10 @@ namespace proj
 		if(!isNumberIdAvilable(id))
 			throw invalid_argument("the citizen is alredy exsict");
 		
-			citizen* newC = new citizen(_name, id, *_stateArray[numD], _birthYear);
+			citizen* newC = new citizen(_name, id, _stateArray[numD], _birthYear);
 			_citizenList.addCitizenToListTail(newC);
 			countCitizen++;
-			_stateArray[numD-1]->addCitizen();
+			_stateArray[numD-1].addCitizen();
 	}
 	
 
@@ -127,29 +127,28 @@ namespace proj
 		try
 		{
 			auto itArr = _politicalPartyArray.begin();
-			int temp;
 			while (itArr != _politicalPartyArray.end())
 			{
-				(*itArr)->isRep(headPoly);
+				(*itArr).isRep(headPoly);
 			}
 		}
 		catch(std::exception& ex)
 		{
 			throw invalid_argument("citizen is already rep");
 		}
-		politicalParty* poly = new politicalParty(name, &headPoly);
+		politicalParty poly(name, &headPoly);
 		_politicalPartyArray.push_back(poly);
 	}
 
 	//this function get ref to political Party according to ID
 	const politicalParty& ElectionRound::getPolitaclPartyById(int id)
 	{
-		return *_politicalPartyArray[id];
+		return _politicalPartyArray[id];
 	}
 	//This function returns the total number of votes for party
 	int ElectionRound::getOverAllVotesForPoli(int polyId)
 	{
-		return _politicalPartyArray[polyId]->getHowManyVotesOverAll();
+		return _politicalPartyArray[polyId].getHowManyVotesOverAll();
 			
 	}
 	//this function prints the Political party array
@@ -163,7 +162,7 @@ namespace proj
 	const politicalParty& ElectionRound::getPoliById(int numId)
 	{
 		
-		return *_politicalPartyArray[numId];
+		return _politicalPartyArray[numId];
 	}
 
 	/////// REPRESENTATIVE ////////
@@ -178,19 +177,18 @@ namespace proj
 		if(isCitizenRepOrHeadOfPoly(rep))
 			throw invalid_argument("there is no head poly according to this given id ");
 
-		_politicalPartyArray[PoliId]->addRepresentitive(&rep, StateId);
+		_politicalPartyArray[PoliId].addRepresentitive(&rep, StateId);
 		
 	}
 
 	//chaek if representative lists full acourdind states number of representative  
 	void ElectionRound::isRepListComplete()
 	{
-		int numOfExsitesRep;
 		for (int i = 0; i < countPoliticalParty; i++)
 		{
 			for (int j = 0; j < countState; j++)
 			{
-				if (_politicalPartyArray[i]->getNumOfRepInList(j) < _stateArray[j]->getNumOfRepresentative())
+				if (_politicalPartyArray[i].getNumOfRepInList(j) < _stateArray[j].getNumOfRepresentative())
 					throw invalid_argument("Representative list is not complete");
 			}
 		}
@@ -199,11 +197,10 @@ namespace proj
 	bool ElectionRound::isCitizenRepOrHeadOfPoly(const citizen& cit)
 	{
 		auto itArr = _politicalPartyArray.begin();
-		int temp;
 		while (itArr != _politicalPartyArray.end())
 		{
 			try {
-				(*itArr)->isRep(cit);
+				(*itArr).isRep(cit);
 			}
 
 			catch (std::exception& ex)
@@ -233,8 +230,8 @@ namespace proj
 
 			cit->setvote(poliId);
 								/// the first poly is in cell 0 in the array
-			_politicalPartyArray[poliId-1]->addVote(cit->getStateId());
-			_stateArray[cit->getStateId()]->addVote();
+			_politicalPartyArray[poliId-1].addVote(cit->getStateId());
+			_stateArray[cit->getStateId()].addVote();
 	}
 
 
@@ -252,11 +249,10 @@ namespace proj
 
 		//save state array to file
 		auto itStateArr = _stateArray.begin();
-		int temp;
 		while (itStateArr != _stateArray.end())
 		{
 			try {
-				(*itStateArr)->save(out);
+				(*itStateArr).save(out);
 			}
 			catch (std::exception& ex) {
 				throw invalid_argument("save stateArray to file didn't preforemd proprtaly");
@@ -278,7 +274,7 @@ namespace proj
 		while (itPoliticalPartyArr != _politicalPartyArray.end())
 		{
 			try {
-				(*itPoliticalPartyArr)->save(out);
+				(*itPoliticalPartyArr).save(out);
 			}
 			catch (std::exception& ex) {
 				throw invalid_argument("load stateArray to file didn't preforemd proprtaly");
@@ -303,11 +299,10 @@ namespace proj
 		
 		//load the state array from file
 		auto itArr = _stateArray.begin();
-		int temp;
 		while (itArr != _stateArray.end())
 		{
 			try {
-				(*itArr)->load(in);
+				(*itArr).load(in);
 			}
 			catch (std::exception& ex)	{
 				throw invalid_argument("load stateArray to file didn't preforemd proprtaly");
@@ -328,7 +323,7 @@ namespace proj
 		while (itArrPoly != _politicalPartyArray.end())
 		{
 			try {
-				(*itArrPoly)->load(in, _citizenList);
+				(*itArrPoly).load(in, _citizenList);
 			}
 			catch (std::exception& ex) {
 				throw invalid_argument("load political party to file didn't preforemd proprtaly");

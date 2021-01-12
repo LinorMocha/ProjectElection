@@ -490,6 +490,7 @@ int printElectionRoundResultForProprotinal()
 	cout << " the winner in the election is political party:" << Round->getPoliById(winningPoli).getName() << endl;
 	cout << " the president in the elecation is:" << Round->getPoliById(winningPoli).getPoliticalPartyHead() << endl;
 	cout << "__________________________________________________________________" << endl;
+	return 1;//the print preforend propretly
 }
 
 int printElectionRoundResult()

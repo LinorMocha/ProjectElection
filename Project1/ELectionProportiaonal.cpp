@@ -7,7 +7,7 @@ namespace proj {
 	{
 		char n[] = "backgroundState";
 		State* backgroundState = new State(n,numRep,false);
-		_stateArray.push_back(backgroundState);
+		_stateArray.push_back(*backgroundState);
 		countState = defultSTATE;
 	}
 
