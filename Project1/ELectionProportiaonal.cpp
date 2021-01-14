@@ -6,7 +6,16 @@ namespace proj {
 	ElectionProportiaonal::ElectionProportiaonal(int numRep) : ElectionRound()
 	{
 		char n[] = "backgroundState";
-		State* backgroundState = new State(n,numRep,false);
+		if (numRep <= 0)
+			throw invalid_argument("number of representative should be at least 1");
+		State* backgroundState;
+		try {
+			backgroundState = new State(n, numRep, false);
+		}
+		catch (bad_alloc& ex) {
+			throw ex;
+			return;
+		}
 		_stateArray.push_back(backgroundState);
 		countState = defultSTATE;
 	}

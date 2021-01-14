@@ -24,6 +24,12 @@ namespace proj {
         politicalParty(const string partyName, citizen* _head);
         politicalParty(const politicalParty& pol);
 
+        friend ostream& operator<<(ostream& os, const politicalParty& p_party);
+        const politicalParty& operator=(const politicalParty& input);
+
+
+
+
         //// GETERS
         int getNumId()const;
         string getName()const;
@@ -35,7 +41,6 @@ namespace proj {
         /// OTHER FUNCATIONS
         void addRepresentitive(citizen* _citizen, int state);
         void PrintRepListForAllState();
-        friend ostream& operator<<(ostream& os,const politicalParty& p_party);
         void addVote(int stateId);
         void printWinningRepListForState(int state, int repCount) const ;
         void isRep(const citizen& cit);

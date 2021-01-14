@@ -1,23 +1,24 @@
-#include "State.h"
+﻿#include "State.h"
 #include "ElectionRound.h"
 
 
 
 namespace proj
-{	//ctor
-	State::State():numOfRepresentative(0),numId(0), countCitizensInState(0),countVotesInState(0),stateStatus(true)
+{	
+	//ctor
+	State::State():numOfRepresentative(0),numId(0), countCitizensInState(0),countVotesInState(0)
 	{
 	
 	}
-	//ctor
+	//copy ctor
 	State::State(const State& sta)
 	{
 		numId = sta.numId;
 		numOfRepresentative = sta.numOfRepresentative;
 		name = sta.getName();
 		countCitizensInState = sta.countCitizensInState;
-		stateStatus = sta.stateStatus;
 		countVotesInState = sta.countVotesInState;
+		HowManyRepFromEachPoly = sta.HowManyRepFromEachPoly;
 	}
 	//serialize constractor of state
 	State::State(istream& in)
@@ -30,10 +31,8 @@ namespace proj
 		os << "state number: " << state.getNumId();
 		os << "  ||  state name: " << state.getName();
 		os << "  ||  state number of rep: " << state.getNumOfRepresentative();
-		if (state.getStateStatus())
-			os << "  ||  state brand: union "<<endl;
-		else
-			os << "  ||  state brand: sperated "<< endl;
+		
+			
 
 		return os;
 	}
@@ -50,22 +49,18 @@ namespace proj
 		name = input.name;
 		countCitizensInState = input.countCitizensInState;
 		countVotesInState = input.countVotesInState;
+		HowManyRepFromEachPoly = input.HowManyRepFromEachPoly;
 		return *this;
 	}
 	//ctor
-	State::State(const string _name, int _numRep ,bool Status) : State() 
+	State::State(const string _name, int _numRep) : State() 
 	{
 		ElectionRound::countState++;
 		numId = ElectionRound::countState;
 		numOfRepresentative = _numRep;
 		name = _name;
-		stateStatus = Status;
-	}
-	//This function returns the status of the state
-	bool State::getStateStatus()const
-	{
-		return stateStatus;
-	}
+    }
+	
 	//This function returns the name of the state
 	string State::getName()const
 	{
@@ -91,6 +86,8 @@ namespace proj
 	{
 		return countVotesInState;
 	}
+
+	
 	//This function increases the counter of citizens in the current state
 	void State::addCitizen()
 	{
@@ -102,47 +99,44 @@ namespace proj
 		countVotesInState++;
 	}
 	//This function writes the state data to binary file
-	bool State::save(ostream& out) const
+	void State::save(ostream& out) const
 	{
-		if (!out)//checks if the file works properly
-		{
-			return false;
-		}
-
 		out.write(rcastcc(&numId), sizeof(int));
 		out.write(rcastcc(&numOfRepresentative), sizeof(int));
 		out.write(rcastcc(&countCitizensInState), sizeof(countCitizensInState));
 		out.write(rcastcc(&countVotesInState), sizeof(countVotesInState));
-		out.write(rcastcc(&stateStatus), sizeof(stateStatus));
+	
 		int len=name.length();
 		out.write(rcastcc(&len), sizeof(int));
 		out.write(rcastcc(name.c_str()), len);
 		
 
-		return (out.good());//Checks if the writes operations to file performed properly
+		if (!out.good())//Checks if the writes operations to file performed properly
+			throw invalid_argument("save stateArray to file didn't preforemd proprtaly");
 	}
 	//This function reads the state data from binary file
-	bool State::load(istream& in)
+	void State::load(istream& in)
 	{
-		if (!in)//checks if the file works properly
-		{
-			return false;
-		}
+		
 		in.read(rcastc(&numId), sizeof(int));
 		in.read(rcastc(&numOfRepresentative), sizeof(int));
 		in.read(rcastc(&countCitizensInState), sizeof(countCitizensInState));
 		in.read(rcastc(&countVotesInState), sizeof(countVotesInState));
-		in.read(rcastc(&stateStatus), sizeof(stateStatus));
 		
 		int len;
 		in.read(rcastc(&len), sizeof(len));
 		if (!in.good())//check len reading from file
 		{
-			return false;
+			throw invalid_argument("Load stateArray from file didn't preforemd proprtaly");
+
 		}
 		name.resize(len);
 		in.read((char*)&name[0], len);
-	
-		return (in.good());//Checks if the writes operations to file performed properly
+		if (!in.good())//check len reading from file
+		{
+			throw invalid_argument("Load stateArray from file didn't preforemd proprtaly");
+
+		}
+		
 	}
 }

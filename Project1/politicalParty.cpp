@@ -18,12 +18,8 @@ namespace proj
         numId = ElectionRound::countPoliticalParty;
         name = partyName;
         RepListByStateArray.resize(ElectionRound::countState);
-
-     /*for (int i = 0; i < ElectionRound::countState; i++){
-          RepresentativeList* lst=new RepresentativeList();
-          RepListByStateArray.push_back(lst);
-     }*/
     }
+
     
     //copy ctor
     politicalParty::politicalParty(const politicalParty& pol): head(pol.head)
@@ -47,6 +43,17 @@ namespace proj
         os << p_party.head << endl;
         p_party.RepListByStateArray.print();
         return os;
+    }
+    
+    const politicalParty& politicalParty::operator=(const politicalParty& input)
+    {
+        name = input.name;
+        numId = input.numId;
+        head = input.head;
+        RepListByStateArray = input.RepListByStateArray;
+        votesByStatesArray = input.votesByStatesArray;
+
+        return *this;
     }
 
     ///////// GETERS /////////
@@ -109,7 +116,7 @@ namespace proj
             }
 
             catch (std::exception& ex) {
-                throw invalid_argument("citizen is already rep");
+                throw ex;
            }
         }
         
@@ -138,6 +145,7 @@ namespace proj
         int len = name.length();
         out.write(rcastcc(&len), sizeof(int));
         out.write(rcastcc(name.c_str()), len);
+
 
         //Checks if the writes operations to file performed properly
         if (!out){

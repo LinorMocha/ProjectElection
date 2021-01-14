@@ -1,26 +1,30 @@
 #pragma once
-
+#include "DynamicArr.h"
+#include "RepresentativeList.h"
 #include<iostream>
 #include <string.h>
+#include <vector>
 using namespace std;
 
 namespace proj
 {
 	class State
 	{
-	private:
+	protected:
 		string name;
 		int numId;
 		int numOfRepresentative;
 		int countCitizensInState;
 		int countVotesInState;
-		/// true= union false= sperated
-		bool stateStatus;
+		//an array that is full only when we nedded to caculte elecation round
+		vector <int> howManyRepFromEachPoly;
+		
 
+		
 	public:
 
 		State();
-		State(const string _name, int _numRep,bool Status);
+		State(const string _name, int _numRep);
 		State(const State& Sta);
 		State(istream& in);
 		~State();
@@ -28,19 +32,22 @@ namespace proj
 		friend ostream& operator<<(ostream& os, const State& state);
 	
 		/// GETERS ///
-		bool getStateStatus()const;
+		virtual int getStateType()const = 0;
 		int getNumOfRepresentative()const;
 		int getNumId()const;
 		string getName()const;
 		int getHowManyCitizens()const;
 		int getCountVotesInState()const;
+		
+
 
 		//// SETERS /////
 	     void addCitizen();
 		 void addVote();
 
-		 bool save(ostream& out)const;
-		 bool load(istream& in);
+		 void save(ostream& out)const;
+		 void load(istream& in);
+
 	};
 }
 

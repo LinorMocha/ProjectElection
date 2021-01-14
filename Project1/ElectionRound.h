@@ -4,13 +4,13 @@
 #include"politicalParty.h"
 #include <iostream>
 #include <list>
+#include <exception>
+
 using namespace std;
 namespace proj
 {
 	class ElectionRound
 	{
-
-
 	protected:
 		DynamicArray<State*>  _stateArray;
 		DynamicArray<politicalParty*> _politicalPartyArray;
@@ -18,14 +18,13 @@ namespace proj
 		Date date;			
 
 	public:
-		
 		static int countPoliticalParty;
 		static int countState;
 		static int countCitizen;
 		
 		ElectionRound();
 		ElectionRound(istream& in);
-		~ElectionRound();
+		virtual ~ElectionRound();
 		
 		void setDate( int day,int month,int year);
 		
@@ -33,15 +32,12 @@ namespace proj
 		int getDay() const { return date.day; };
 		int getMonth() const { return date.month; };
 		int getYear() const { return date.year; };
-	
-
-		
+			
 		/////////// STATE //////////////////
 		void addState(const string name, int numRep,bool Status); ///
 		void printStateArray();
 		State& getStateById(int numId) const ;
-		
-		
+			
 		/////////// CITIZEN //////////////////
 		virtual void addCitizen(const string _name, int id, int numD, int _birthYear);
 		const citizen& getCitizenById(int numId);

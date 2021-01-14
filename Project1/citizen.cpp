@@ -69,12 +69,8 @@ namespace proj
 		return true;
 	}
 	//This function writes the citizen data to binary file
-	bool citizen::save(ostream& out)const
+	void citizen::save(ostream& out)const
 	{
-		if (!out) //checks if the file works properly
-		{
-			return false; 
-		}
 		int temp = state.getNumId();
 		out.write(rcastcc(&temp), sizeof(int));
 		out.write(rcastcc(&ID), sizeof(ID));
@@ -84,7 +80,9 @@ namespace proj
 		out.write(rcastcc(&len), sizeof(int));
 		out.write(rcastcc(name.c_str()), len);
 		
-		return(out.good()); //Checks if the writes operations to file performed properly
+		if(!out.good()) //Checks if the writes operations to file performed properly
+			throw invalid_argument("save citizen to file didn't preforemd proprtaly");
+
 	}
 	//This function reads the citizen data from binary file
 	bool citizen::load(istream& in)

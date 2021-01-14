@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -143,7 +143,9 @@
     <ClInclude Include="DynamicArr.h" />
     <ClInclude Include="ELectionProportiaonal.h" />
     <ClInclude Include="ElectionRound.h" />
+    <ClInclude Include="SperatedState.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="UnionState.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="citizen.h" />
     <ClInclude Include="politicalParty.h" />
@@ -157,7 +159,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="politicalParty.cpp" />
     <ClCompile Include="RepresentativeList.cpp" />
+    <ClCompile Include="SperatedState.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="UnionState.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

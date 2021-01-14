@@ -34,8 +34,8 @@ namespace proj
 		///// SETERS//////
 		bool setvote(int _vote);
 
-		bool save(ostream& out)const;
-		bool load(istream& in);
+		void save(ostream& out)const;
+		void load(istream& in);
 
 	};
 }

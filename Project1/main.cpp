@@ -3,6 +3,7 @@
 #include <typeinfo>
 #include "ELectionProportiaonal.h"
 #include <fstream>
+#include<string>
 
 using namespace std;
 using namespace proj;
@@ -38,7 +39,7 @@ void loadElectionRound();
 int printElectionRoundResult();
 int* printElectionResultsForState(int stateId);
 int printElectionRoundResultForProprotinal();
-
+void switchMode(int input);
 ElectionRound* Round;
 
 
@@ -52,18 +53,14 @@ int main()
 		int statusRound;
 		cout << "*********************************" << endl;
 		cout << "for regular election round press 1 ,for proprotinal election round please press 2" << endl;
-		cin >> statusRound;
-		if (statusRound == 1)
-		{
-			Round = new ElectionRound();
-		}
-		if (statusRound == 2)
-		{
-			int numRep;
-			cout << "please enter number of representatives" << endl;
-			cin >> numRep;
-			Round = new ElectionProportiaonal(numRep);
-		}
+		
+		do {
+			
+			cin >> statusRound;
+			switchMode(statusRound);
+		} while (statusRound !=2 && statusRound != 1);
+
+		
 		cout << "please enter date first:" << endl;
 		int flag = 0;
 		while (!flag)
@@ -119,6 +116,35 @@ int main()
 		return 0;
 
 }
+
+void switchMode(int input)
+{
+	switch (input)
+	{
+	case 1:
+
+		Round = new ElectionRound();
+		break;
+	case 2:
+		int numRep;
+		cout << "please enter number of representatives" << endl;
+		cin >> numRep;
+		try {
+			Round = new ElectionProportiaonal(numRep);
+		}
+		catch(exception&ex){
+			cout << ex.what() << endl;
+			input = 3;
+		}
+		break;
+	default:
+		cout << "Error! please press ONLY 1 or 2" << endl;
+
+		break;
+	}
+}
+
+
 //This function prints the primary menu
 void printMenuPrimary()
 {
@@ -265,7 +291,9 @@ void addState()
 	{
 		cout << "please enter state name" << endl;
 		string input;
-		cin >> input;
+		cin.ignore();
+		getline(cin,input);
+		cin.clear();
 		
 		cout << "please enter state number of representative" << endl;
 		int input2;
@@ -273,7 +301,9 @@ void addState()
 		int Status;
 		cout << "please enter Status state , for union state press 1 , for sepraeted state press 2" << endl;
 		cin >> Status;
-		
+		if (Status > 2 || Status < 1)
+			cout << "Error: status is 1 or 2" << endl;
+		else
 		Round->addState(input, input2, Status == 1);
 	
 	}
@@ -285,7 +315,9 @@ void addCitizen()
 
 	cout << "please enter citizen name" << endl;  
 	string name;
-	cin >> name;
+	cin.ignore();
+	getline(cin, name);
+	cin.clear();
 	
 	cout << "please enter ID number " << endl;
 	int id;
@@ -311,7 +343,9 @@ void addPoliticalParties()
 {
 	cout << "please enter political party name" << endl; 
 	string name;
-	cin >> name;
+	cin.ignore();
+	getline(cin, name);
+	cin.clear();
 	
 	cout << "please enter political party head Id" << endl;
 	int input2;

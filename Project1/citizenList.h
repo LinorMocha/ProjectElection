@@ -10,20 +10,18 @@ namespace proj
     private:
         list<citizen*> List;
     public:
-        CitizenList() { };
+        CitizenList()= default;
         ~CitizenList();
         CitizenList(const CitizenList& input);
 
-        void operator=(const CitizenList& input);
+        const CitizenList& operator=(const CitizenList& input);
         friend ostream& operator<<(ostream& os, const CitizenList& List);
 
         ///// GETERS ////
        citizen* getCitizenById(int _id) const;
        int getListSize()const;
-
        bool isEmpty();
-       
-       void addCitizenToListTail(citizen* input);
+       void addCitizenToListTail(const string _name, int id, State& numD, int _birthYear);
        void addCitizenAfter(const citizen* to_insert, citizen* input);
        void load(istream& in);
        void save(ostream& out) const;
