@@ -1,31 +1,60 @@
 ﻿#include "UnionState.h"
 #include <vector>
+#include "utils.h"
 
 namespace proj
 {
 	const int UnionState::Type = 1;
-	UnionState::UnionState() : State()
-	{
+	
+	//Ctor
+	UnionState::UnionState() : State(){	}
+	
+	//Serialize constractor of state
+	UnionState::UnionState(istream& in){ 
+		try {
+			load(in);
+		}
+		catch (std::exception& ex) {
+			throw ex;
+		}
 	}
-	UnionState::UnionState(const string _name, int _numRep): State(_name,_numRep)
+
+	//Ctor
+	UnionState::UnionState(const string _name, int _numRep,int _numId):UnionState()
 	{
+		if (_numRep <= 0)
+			throw invalid_argument("Error! number of representative cant be negative ");
+		numId = _numId;
+		name = _name;
+		numOfRepresentative = _numRep;
 	}
+	
+	//Copy Ctor
 	UnionState::UnionState(const UnionState& sta)
 	{
 		this->operator=(sta);
 	}
+	// This function prints the information of the curr state using << operator 
+	ostream& UnionState::toPrint(ostream& os)const
+	{
+		os << "  ||  state type: union" <<endl;
+		return os;
+	}
 
+	//save state to file
+	void UnionState::save(ostream& out) const
+	{
+		int tempStatus = getStateType();
+		out.write(rcastcc(&tempStatus), sizeof(int));
+		State::save(out);
+	}
+
+	//return state type
 	int UnionState::getStateType() const
 	{
 		return Type;
 	}
 
 	
-	ostream& operator<<(ostream& os, const UnionState& state)
-	{
-		os << state;
-		os << "  ||  state brand: union " << endl;
-		return os;
-    }
 
 }

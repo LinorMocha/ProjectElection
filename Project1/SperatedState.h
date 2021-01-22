@@ -6,19 +6,16 @@ namespace proj
 {
 	class SperatedState : virtual public State
 	{
-	private:
-		
 	public:
 
 		SperatedState();
-		~SperatedState() { };
-		SperatedState(const string _name, int _numRep);
+		SperatedState(const string _name, int _numRep,int _numID);
 		SperatedState(const SperatedState& sta);
-		friend ostream& operator<<(ostream& os, const SperatedState& state);
-		const SperatedState& operator=(const SperatedState& input);
+		SperatedState(istream& in);
+		ostream& toPrint(ostream& os)const;
 		static const int Type;
-
 		int getStateType()const;
+		void save(ostream& out) const;
 
 	};
 }

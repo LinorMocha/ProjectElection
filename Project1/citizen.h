@@ -23,6 +23,8 @@ namespace proj
 
 		const citizen& operator=(const citizen& input);
 		friend ostream& operator<<(ostream& os, const citizen& Citizen); 
+		bool operator==(int id);
+		bool operator==(const citizen& input);
 
 		///// GETERS////////
 		int getId() const;

@@ -26,7 +26,7 @@ namespace proj {
 
         friend ostream& operator<<(ostream& os, const politicalParty& p_party);
         const politicalParty& operator=(const politicalParty& input);
-
+        bool operator==(int id);
 
 
 
@@ -38,9 +38,11 @@ namespace proj {
         int getHowManyVotesForState(int stateId)const;
         int getNumOfRepInList(int stateId)const;
        
+        void setVote(int stateId, int numToSet);
+
         /// OTHER FUNCATIONS
         void addRepresentitive(citizen* _citizen, int state);
-        void PrintRepListForAllState();
+        void PrintRepListForAllState()const;
         void addVote(int stateId);
         void printWinningRepListForState(int state, int repCount) const ;
         void isRep(const citizen& cit);

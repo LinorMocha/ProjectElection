@@ -1,11 +1,10 @@
-﻿
-#include "politicalParty.h"
+﻿#include "politicalParty.h"
 #include "utils.h"
 #include "ElectionRound.h"
 namespace proj
 {
   //serialize constractor of political Party
-  politicalParty::politicalParty(istream& in, const CitizenList& currRound, citizen* _head): head(*_head)
+    politicalParty::politicalParty(istream& in, const CitizenList& currRound, citizen* _head) : head(*_head)
     {
         load(in, currRound);
 
@@ -14,10 +13,11 @@ namespace proj
     //ctor
     politicalParty::politicalParty(const string partyName, citizen* _head) : head(*_head)
     {
-        ElectionRound::countPoliticalParty++;
-        numId = ElectionRound::countPoliticalParty;
+        numId = ElectionRound::countPoliticalParty + 1 ;
         name = partyName;
         RepListByStateArray.resize(ElectionRound::countState);
+        votesByStatesArray.resize(ElectionRound::countState);
+        utils::initArray(votesByStatesArray.begin(), ElectionRound::countState);
     }
 
     
@@ -31,17 +31,16 @@ namespace proj
     }
     
     //dctor
-    politicalParty::~politicalParty() { }
+    politicalParty::~politicalParty() { cout << "political party dctor" << endl; }
 
     // This function prints the information of the curr politcal party 
     ostream& operator<<(ostream& os, const politicalParty& p_party)
     {
-
         os << "political party name: " << p_party.name;
         os << "  ||  ID: " << p_party.numId;
         os << "  ||  the head of political party is: ";
         os << p_party.head << endl;
-        p_party.RepListByStateArray.print();
+        p_party.PrintRepListForAllState();
         return os;
     }
     
@@ -56,11 +55,22 @@ namespace proj
         return *this;
     }
 
+    bool politicalParty::operator==(int id)
+    {
+        return numId == id;
+    }
+
     ///////// GETERS /////////
     //Returns the number of representatives within a state of a politcal party
     int politicalParty::getNumOfRepInList(int stateId)const
     {
         return RepListByStateArray[stateId].getListSize();
+    }
+
+    void politicalParty::setVote(int stateId, int numToSet)
+    {
+        votesByStatesArray[stateId-1]=numToSet;
+
     }
 
     //Returns the total number of votes in politcal party
@@ -77,7 +87,7 @@ namespace proj
    //Returns the number of votes within a state
     int politicalParty::getHowManyVotesForState(int stateId)const
     {
-        return votesByStatesArray[stateId];
+        return votesByStatesArray[stateId-1];
     }
     //Returns the name of the party
     string politicalParty::getName() const 
@@ -100,7 +110,9 @@ namespace proj
     //Add new representative in curr state
     void politicalParty::addRepresentitive(citizen* _citizen, int state)
     {
-        RepListByStateArray[state].addCitizenToListTail(_citizen);
+        RepListByStateArray[state-1].addCitizenToListTail(_citizen);
+        
+        
     }
   
     //This function checks whether a specific citizen is a representative
@@ -182,22 +194,29 @@ namespace proj
     //this function adds vote to the total number of votes
     void politicalParty::addVote(int stateId)
     {
-        
-        if (votesByStatesArray.capacity() <= stateId-1)
-            votesByStatesArray.push_back(0);
-     
-        votesByStatesArray[stateId-1]++;
+        int toResize = votesByStatesArray.capacity() - stateId;
+        if (toResize < 0)
+        {
+            for (int i = 0; i <= toResize; i++)
+                votesByStatesArray.push_back(0);
+        }
+         votesByStatesArray[stateId-1]= votesByStatesArray[stateId - 1] + 1;
     }
     
     //this function prints the wining list 
     void politicalParty::printWinningRepListForState(int state, int repCount) const
     {
-        RepListByStateArray[state].printWininigList(repCount);
+        RepListByStateArray[state-1].printWininigList(repCount);
     }
 
     //Prints all arrays of representatives in all states
-    void politicalParty::PrintRepListForAllState()
+    void politicalParty::PrintRepListForAllState() const
     {
-        RepListByStateArray.print();
+        for (int i = 0; i < ElectionRound::countState; i++)
+        {
+            cout << "representative List for state number:" << i + 1 << endl;
+            cout << "_________________________________" << endl;
+            cout << RepListByStateArray[i] << endl;
+        }
     }
 }

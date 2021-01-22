@@ -24,8 +24,12 @@ namespace proj
 	//distractor
 	ElectionRound::~ElectionRound()
 	{
+		utils::deleteElementInArray(_stateArray.begin(), _stateArray.end());
+		utils::deleteElementInArray(_politicalPartyArray.begin(), _politicalPartyArray.end());
 
 	}
+
+
 	//set the date of the election round
 	void ElectionRound::setDate(int day, int month, int year)
 	{
@@ -43,32 +47,54 @@ namespace proj
 	///////////// STATE implementation//////////////////
 
 	//this function adds the state to the state arr snd to the party arr
-	void ElectionRound::addState(const string name, int numRep, bool Status)
+	void ElectionRound::addState(const string name, int numRep, int Status)
 	{
-		if (numRep <= 0)
-			throw invalid_argument("Error! number of representative cant be negative ");
-
-		State* sta = new State(name, numRep, Status);
+		State* sta;
+		if (Status == utils::Union)
+		{
+			try {
+				sta = new  UnionState(name, numRep,countState+1);
+			}
+			catch (std::exception& ex) {
+				throw ex;
+			}
+			
+		}
+		else if (Status == utils::sepretad)
+		{
+			try {
+				sta = new  SperatedState(name, numRep,countState+1);
+			}
+			catch (std::exception& ex) {
+				throw ex;
+			}
+		}
+		else
+			throw invalid_argument("status of state can be only 1 or 2");
 		_stateArray.push_back(sta);
-		
+		countState++;
 	}
 	//this function prints the State Array
 	void ElectionRound::printStateArray()
 	{
 		if (countState <= 0)
 			throw invalid_argument("there is no state");
-		auto itStateArr = _stateArray.begin();
+
+		for (int i = 0; i < countState; i++)
+			cout <<(*_stateArray[i]) << endl;
+		//utils::print(_stateArray.begin(), _stateArray.end());
+		/*auto itStateArr = _stateArray.begin();
 		int temp;
 		while (itStateArr != _stateArray.end())
 		{
 			cout<<(**itStateArr)<<endl;
 			itStateArr++;
-		}
+		}*/
 		
 	}
 
 	//This function returns ref to the desired state according to the given ID 
-	State& ElectionRound::getStateById(int numId) const	{return *_stateArray[numId-1];}
+	State* ElectionRound::getStateById(int numId) const	{return _stateArray[numId-1];}
 
 
 	///////////// CITIZEN implementation//////////////////
@@ -78,12 +104,8 @@ namespace proj
 	{
 		if (numD > countState)
 			throw invalid_argument("state dont exsit");
-		if (id < 100000000 || id>999999999)
-			throw invalid_argument("id not valid ");
 		if ((date.year -_birthYear) < 18) 
 			throw  invalid_argument("The citizen is too young to vote");
-		//if(!isNumberIdAvilable(id))
-		//	throw invalid_argument("the citizen is alredy exsict");
 		try {
 			_citizenList.addCitizenToListTail(_name, id, *_stateArray[numD - 1], _birthYear);
 		}
@@ -130,23 +152,23 @@ namespace proj
 		{
 			throw invalid_argument("there is no head poly according to this given id ");
 		}
-		citizen headPoly = getCitizenById(headId);
-		try
-		{
+		citizen* headPoly = _citizenList.getCitizenById(headId);
 			auto itArr = _politicalPartyArray.begin();
 			int temp;
 			while (itArr != _politicalPartyArray.end())
 			{
-				(*itArr)->isRep(headPoly);
+				try {
+					(*itArr)->isRep(*headPoly);
+				}
+				catch (exception& ex)
+				{
+					throw ex;
+				}
 				itArr++;
 			}
-		}
-		catch(std::exception& ex)
-		{
-			throw invalid_argument("citizen is already rep");
-		}
-		politicalParty* poly = new politicalParty(name, &headPoly);
+		politicalParty* poly = new politicalParty(name, headPoly);
 		_politicalPartyArray.push_back(poly);
+		countPoliticalParty++;
 	}
 
 	//this function get ref to political Party according to ID
@@ -166,28 +188,41 @@ namespace proj
 	{
 		if (countPoliticalParty <= 0)
 			throw invalid_argument("there is no political parties");
-		_politicalPartyArray.print();//change go with itrator
+		auto IT = _politicalPartyArray.begin();
+		int temp;
+		while (IT != _politicalPartyArray.end())
+		{
+			cout << (**IT) << endl;
+			IT++;
+		}
 	}
 	//This function returns ref to the desired party according to the given ID 
 	const politicalParty& ElectionRound::getPoliById(int numId)
 	{
 		
-		return *_politicalPartyArray[numId];
+		return *_politicalPartyArray[numId-1];
 	}
 
 	////////// REPRESENTATIVE ////////
 	//This function adds a representative to party 
 	void ElectionRound::addRepresentativetoPoli(int repId, int PoliId, int StateId)
 	{
+		if(PoliId>countPoliticalParty||PoliId<=0)
+			throw invalid_argument("there is no political party with this id ");
+		if (StateId > countState || StateId <= 0)
+			throw invalid_argument("there is no political party with this id ");
+
+
 		if(isNumberIdAvilable(repId))
 			throw invalid_argument("there is no citizen according to this given id ");
 		
-		citizen rep = getCitizenById(repId);
+		citizen* rep = _citizenList.getCitizenById(repId);
 		
-		if(isCitizenRepOrHeadOfPoly(rep))
+		if(isCitizenRepOrHeadOfPoly(*rep))
 			throw invalid_argument("there is no head poly according to this given id ");
 
-		_politicalPartyArray[PoliId]->addRepresentitive(&rep, StateId);
+		_politicalPartyArray[PoliId-1]->addRepresentitive(rep, StateId);
+
 		
 	}
 
@@ -217,9 +252,9 @@ namespace proj
 
 			catch (std::exception& ex)
 			{
-				//throw invalid_argument("citizen is already rep");
 				return true;
 			}
+			itArr++;
 		}
 		return false;
 	}
@@ -235,12 +270,12 @@ namespace proj
 		if(isNumberIdAvilable(citizenId))
 			throw invalid_argument("there is no citizen according to this given id ");
 		citizen* cit = _citizenList.getCitizenById(citizenId);
-		if(cit->getVote() == -1)
+		if(cit->getVote() != -1)
 			throw invalid_argument("the citizen already voted ");
 			cit->setvote(poliId);
 								/// the first poly is in cell 0 in the array
 			_politicalPartyArray[poliId-1]->addVote(cit->getStateId());
-			_stateArray[cit->getStateId()]->addVote();
+			_stateArray[(cit->getStateId()-1)]->addVote();
 	}
 
 
@@ -309,28 +344,47 @@ namespace proj
 		in.read(rcastc(&countPoliticalParty), sizeof(int));
 		
 		//load the state array from file
-		auto itArr = _stateArray.begin();
-		int temp;
-		while (itArr != _stateArray.end())
+		int Status;
+		for (int i = 0; i < countState; i++)
 		{
-			try {
-				(*itArr)->load(in);
+			in.read(rcastc(&Status), sizeof(int));
+			State* sta;
+			if (Status == utils::Union)
+			{
+				try {
+					sta = new UnionState(in);
+					_stateArray.push_back(sta);
+				}
+				catch (std::exception& ex) {
+					throw ex;
+				}
+
 			}
-			catch (std::exception& ex)	{
+			else if (Status == utils::sepretad)
+			{
+				try {
+					sta = new  SperatedState(in);
+					_stateArray.push_back(sta);
+				}
+				catch (std::exception& ex) {
+					throw ex;
+				}
+			}
+			else
 				throw invalid_argument("load stateArray to file didn't preforemd proprtaly");
-			}
-			itArr++;
+		
 		}
 		
 		//load the citizen list from file
 		try	{
-			_citizenList.load(in);
+			_citizenList.load(in,_stateArray);
 		}
 		catch (std::exception& ex)	{
 			throw invalid_argument("load citizenList to file didn't preforemd proprtaly");
 		}
 		
 		//load the politcal party array from file
+		
 		auto itArrPoly = _politicalPartyArray.begin();
 		
 		while (itArrPoly != _politicalPartyArray.end())
@@ -343,5 +397,42 @@ namespace proj
 			}
 			itArrPoly++;
 		}
+	}
+	
+	
+	// this funcation return a vector that say how many rep from each poly won
+	// winnig poly update only for union state
+	vector<int> ElectionRound::caculateResultForState(int stateId,int & wininigPoly)
+	{
+		float precent;
+
+		State* sta = getStateById(stateId);
+
+		vector <int> howManyRep(countPoliticalParty);
+		vector <float> temp;
+		
+		// if no one from the state voted all of the vote goes to the first political party
+		if (sta->getCountVotesInState() == 0)
+			_politicalPartyArray[0]->setVote(stateId, sta->getHowManyCitizens());
+		
+		for (int i = 0; i < countPoliticalParty; i++)
+		{
+		 temp.push_back((float)getPoliById(i + 1).getHowManyVotesForState(stateId));
+		}
+		
+		float votesForRep = (float)sta->getCountVotesInState() / sta->getNumOfRepresentative();
+
+		int j = utils::returnMaxIndexInArray(temp, countPoliticalParty);
+		wininigPoly = j;
+		for (int i = 0; i < sta->getNumOfRepresentative(); i++)
+		{
+			temp[j] -= votesForRep;
+			howManyRep[j]++;
+
+			j = utils::returnMaxIndexInArray(temp, countPoliticalParty);
+		}
+
+		
+		return howManyRep;
 	}
 }

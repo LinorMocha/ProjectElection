@@ -10,7 +10,7 @@ namespace proj {
 			throw invalid_argument("number of representative should be at least 1");
 		State* backgroundState;
 		try {
-			backgroundState = new State(n, numRep, false);
+			backgroundState = new UnionState(n, numRep,countState+1);
 		}
 		catch (bad_alloc& ex) {
 			throw ex;

@@ -17,7 +17,7 @@ namespace proj
         void operator=(const RepresentativeList& input);
         friend ostream& operator<<(ostream& os, const RepresentativeList& List);
 
-
+        int getListSize()const;
         void load(istream& in, const CitizenList& currList);
         void addCitizenToListTail(citizen* input);
         citizen* getHead()const;

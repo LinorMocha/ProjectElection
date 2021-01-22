@@ -1,6 +1,7 @@
 #pragma once
 #include "State.h"
 
+
 namespace proj
 {
 	class UnionState : virtual public State
@@ -9,14 +10,12 @@ namespace proj
 	public:
 
 		UnionState();
-		~UnionState() { };
-		UnionState(const string _name, int _numRep);
+		UnionState(istream& in);
+		UnionState(const string _name, int _numRep,int _numId);
 		UnionState(const UnionState& sta);
-		friend ostream& operator<<(ostream& os, const UnionState& state);
-		const UnionState& operator=(const UnionState& input);
+		ostream& toPrint(ostream& os)const;
 		static const int Type;
-		
-
+		void save(ostream& out)const;
 		int getStateType()const;
 
 	};

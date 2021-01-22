@@ -5,6 +5,8 @@
 #include <iostream>
 #include <list>
 #include <exception>
+#include "UnionState.h"
+#include "SperatedState.h"
 
 using namespace std;
 namespace proj
@@ -34,10 +36,11 @@ namespace proj
 		int getYear() const { return date.year; };
 			
 		/////////// STATE //////////////////
-		void addState(const string name, int numRep,bool Status); ///
+		void addState(const string name, int numRep,int			Status); ///
 		void printStateArray();
-		State& getStateById(int numId) const ;
-			
+		State* getStateById(int numId) const ;
+		
+
 		/////////// CITIZEN //////////////////
 		virtual void addCitizen(const string _name, int id, int numD, int _birthYear);
 		const citizen& getCitizenById(int numId);
@@ -62,6 +65,10 @@ namespace proj
 		void addVote(int citizenId, int poliId);
 		void save(ostream& out) const;
 		void load(istream& in); 
+
+
+		////////// RESULT ///////////
+		vector <int> caculateResultForState(int stateId,int&wininigPoly);
 	};
 
 }

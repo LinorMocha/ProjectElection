@@ -1,6 +1,5 @@
 #pragma once
 #include "DynamicArr.h"
-#include "RepresentativeList.h"
 #include<iostream>
 #include <string.h>
 #include <vector>
@@ -16,21 +15,21 @@ namespace proj
 		int numOfRepresentative;
 		int countCitizensInState;
 		int countVotesInState;
-		//an array that is full only when we nedded to caculte elecation round
-		vector <int> howManyRepFromEachPoly;
-		
-
-		
+			
 	public:
 
 		State();
 		State(const string _name, int _numRep);
 		State(const State& Sta);
 		State(istream& in);
-		~State();
-		const State& operator=(const State& input);
+		virtual ~State();
+		virtual const State& operator=(const State& input);
+		// to do what sivan said
 		friend ostream& operator<<(ostream& os, const State& state);
-	
+		virtual ostream& toPrint(ostream& os)const=0 ;
+		bool operator==(const State& input);
+		bool operator==(const int id);
+
 		/// GETERS ///
 		virtual int getStateType()const = 0;
 		int getNumOfRepresentative()const;

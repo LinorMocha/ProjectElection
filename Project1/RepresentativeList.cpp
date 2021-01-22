@@ -32,9 +32,11 @@ namespace proj {
     {
         auto itList = RepList.begin();
         int countToPrint = 0;
-        while (itList != RepList.end() && countToPrint <= numOfNodeToPrint)
+        while (itList != RepList.end() && countToPrint < numOfNodeToPrint)
         {
             cout << (**itList) << endl;
+            countToPrint++;
+            itList++;
         }
     }
 
@@ -49,6 +51,11 @@ namespace proj {
             temp = (*itList)->getId();
             out.write(rcastcc(&temp), sizeof(int));
         }
+    }
+
+    int RepresentativeList::getListSize() const
+    {
+        return RepList.size();
     }
 
     //this function loads the citizen list according to the citizens' ID
@@ -69,11 +76,17 @@ namespace proj {
     void RepresentativeList::addCitizenToListTail(citizen* input)
     {
         RepList.push_back(input);
+       
     }
 
-    ostream& operator<<(ostream& os, const RepresentativeList& List)
+    ostream& operator<<(ostream& os, const RepresentativeList& _List)
     {
-        cout << List << endl;
+        auto itList = _List.RepList.begin();
+        for (int i = 0; i < _List.RepList.size(); i++)
+        {
+            cout << (**itList) << endl;
+            itList++;
+        }
         return os;
     }
 }

@@ -162,7 +162,6 @@
     <ClCompile Include="SperatedState.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="UnionState.cpp" />
-    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

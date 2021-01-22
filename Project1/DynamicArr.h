@@ -153,16 +153,20 @@ namespace proj {
 			cout << endl;
 		}
 
-		
+		//resize logicalSize acording to new size
 		void resize(int new_size) {
 			if (new_size <= _physicalSize)
+			{
+				_logicalSize = new_size;
 				return;
+			}
 			_physicalSize = new_size;
 			T* temp = new T[new_size];
 			for (int i = 0; i < _logicalSize; i++)
 				temp[i] = _arr[i];
 
 			delete[] _arr;
+			_logicalSize = new_size;
 			_arr = temp;
 		}
 	private:
