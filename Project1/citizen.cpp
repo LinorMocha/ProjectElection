@@ -13,6 +13,7 @@ namespace proj
 		ID = id;
 		ElectionRound::countCitizen++;
 		vote = -1;
+
 	}
 
 	//serialize constractor of citizen
