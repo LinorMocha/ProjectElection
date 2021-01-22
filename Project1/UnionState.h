@@ -15,7 +15,6 @@ namespace proj
 		UnionState(const UnionState& sta);
 		ostream& toPrint(ostream& os)const;
 		static const int Type;
-		void save(ostream& out)const;
 		int getStateType()const;
 
 	};

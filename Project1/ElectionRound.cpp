@@ -297,8 +297,6 @@ namespace proj
 		{
 			try {
 				(*itStateArr)->save(out);
-				
-
 			}
 			catch (std::exception& ex) {
 				throw ex;
@@ -312,7 +310,7 @@ namespace proj
 		}
 		catch (std::exception& ex)
 		{
-			throw invalid_argument("save citizenList to file didn't preforemd proprtaly");
+			throw ex;
 		}
 
 		//save the politcal party array to file
@@ -323,7 +321,7 @@ namespace proj
 				(*itPoliticalPartyArr)->save(out);
 			}
 			catch (std::exception& ex) {
-				throw invalid_argument("load stateArray to file didn't preforemd proprtaly");
+				throw ex;
 			}
 			itPoliticalPartyArr++;
 		}

@@ -102,6 +102,8 @@ namespace proj
 	//This function writes the state data to binary file
 	void State::save(ostream& out) const
 	{
+		int tempStatus = getStateType();
+		out.write(rcastcc(&tempStatus), sizeof(int));
 		out.write(rcastcc(&numId), sizeof(int));
 		out.write(rcastcc(&numOfRepresentative), sizeof(int));
 		out.write(rcastcc(&countCitizensInState), sizeof(countCitizensInState));

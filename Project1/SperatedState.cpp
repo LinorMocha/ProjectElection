@@ -26,8 +26,11 @@ namespace proj
 			throw ex;
 		}
 	}
+	
 	// This function prints the information of the curr state using << operator 
-	ostream& SperatedState::toPrint(ostream& os) const{
+	
+	ostream& SperatedState::toPrint(ostream& os) const
+	{
 
 		os << "  ||  state brand: sperated " << endl;
 		return os;
@@ -50,11 +53,5 @@ namespace proj
 		return Type;
 	}
 
-	// save state
-	void SperatedState::save(ostream& out) const
-	{
-		int tempStatus = getStateType();
-		out.write(rcastcc(&tempStatus), sizeof(int));
-		save(out);
-	}
+	
 }

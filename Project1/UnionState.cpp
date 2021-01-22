@@ -41,13 +41,7 @@ namespace proj
 		return os;
 	}
 
-	//save state to file
-	void UnionState::save(ostream& out) const
-	{
-		int tempStatus = getStateType();
-		out.write(rcastcc(&tempStatus), sizeof(int));
-		State::save(out);
-	}
+	
 
 	//return state type
 	int UnionState::getStateType() const
