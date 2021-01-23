@@ -374,25 +374,15 @@ namespace proj
 		}
 		
 		//load the citizen list from file
-		int size_list;
-		in.read(rcastc(&size_list), sizeof(size_list));
-		int tempIdState;
-		
-		for (int i = 0; i < size_list; i++)
+		try
 		{
-			in.read(rcastc(&tempIdState), sizeof(tempIdState));
-			try {
-				if (!in.good())
-					throw invalid_argument("ERROR with file");
-
-				citizen* newCit = new citizen(getStateById(tempIdState));
-				newCit->load(in);
-				_citizenList.addCitizenToListTail(newCit);
-			}
-			catch (bad_alloc& ex) {
-				throw ex;
-			}
+			_citizenList.load(in, *this);
 		}
+		catch (exception& ex)
+		{
+			throw ex;
+		}
+		
 		
 		//load the politcal party array from file
 		int tempHeadOfPolyId;

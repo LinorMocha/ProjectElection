@@ -141,18 +141,14 @@ namespace proj
         out.write(rcastcc(&temp), sizeof(int));
         out.write(rcastcc(&numId), sizeof(numId));
         
-        for (int i : votesByStatesArray){
-            if (i <= ElectionRound::countState)
-            {
-                temp = i;
-                out.write(rcastcc(&temp), sizeof(int));
-            }
+        for (int i = 0; i < ElectionRound::countState;i++) {
+            temp = votesByStatesArray[i];
+            out.write(rcastcc(&temp), sizeof(int));
+            
         }
         // Saving each List in the array
-        for (RepresentativeList it : RepListByStateArray) {
-           
-            it.save(out);
-
+        for (int i = 0; i < ElectionRound::countState;i++) {
+            RepListByStateArray[i].save(out);
         }
 
         int len = name.length();
@@ -166,23 +162,25 @@ namespace proj
         }
        
     }
+    
     //This function reads the politcal party data from binary file
-
     void politicalParty::load(istream& in, const CitizenList& currList)
     {
         in.read(rcastc(&numId), sizeof(numId));
         
-        votesByStatesArray.resize(ElectionRound::countState);
+        int temp;
+
         for(int i=0; i< ElectionRound::countState;i++){
-            in.read(rcastc(&votesByStatesArray[i]), sizeof(int));
+            in.read(rcastc(&temp), sizeof(int));
+            votesByStatesArray.push_back(temp);
         }
 
         RepListByStateArray.resize(ElectionRound::countState);
               
         // Reading for each citizen only his ID in the file!
-        for (RepresentativeList it : RepListByStateArray)
+        for (int i=0;i<ElectionRound::countState;i++)
         {
-            it.load(in, currList);
+            RepListByStateArray[i].load(in, currList);
         }
         int len;
         in.read(rcastc(&len), sizeof(len));

@@ -22,8 +22,10 @@ namespace proj
 	//serialize constractor of citizen
 	citizen::citizen(istream& in,State* sta): state(*sta)
 	{
+
 		load(in);
 	}
+
 	//ctor
 	citizen::citizen(const citizen& cit) :name(cit.name),state(cit.state), ID(cit.ID), birthYear(cit.birthYear), vote(cit.vote){
 		
@@ -90,7 +92,7 @@ namespace proj
 		int temp = state.getNumId();
 		out.write(rcastcc(&temp), sizeof(int));
 		out.write(rcastcc(&ID), sizeof(ID));
-		out.write(rcastcc(&birthYear), sizeof(name));
+		out.write(rcastcc(&birthYear), sizeof(int));
 		out.write(rcastcc(&vote), sizeof(vote));
 		int len = name.length();
 		out.write(rcastcc(&len), sizeof(int));
@@ -104,7 +106,7 @@ namespace proj
 	void citizen::load(istream& in)
 	{
 		in.read(rcastc(&ID), sizeof(ID));
-		in.read(rcastc(&birthYear), sizeof(name));
+		in.read(rcastc(&birthYear), sizeof(int));
 		in.read(rcastc(&vote), sizeof(vote));
 		int len;
 		in.read(rcastc(&len), sizeof(len));

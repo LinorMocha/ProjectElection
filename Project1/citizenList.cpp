@@ -2,6 +2,9 @@
 #include "citizenList.h"
 #include "utils.h"
 #include "ElectionRound.h"
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 namespace proj
 {
     //copy constractor 
@@ -39,8 +42,8 @@ namespace proj
          try {
              newC = new citizen(_name, id, citState, _birthYear);
          }
-         catch (std::exception& ex) {
-             throw ex;
+         catch (...) {
+             throw ;
          }
          List.push_back(newC);
    }
@@ -71,7 +74,7 @@ namespace proj
 
  
 
-    //this function saves the citizens' ID numbers
+    //this function saves the citizens
     void  CitizenList::save(ostream& out) const  {
         int temp = List.size();
         out.write(rcastcc(&temp), sizeof(int));
@@ -94,20 +97,21 @@ namespace proj
         int tempIdState;
         State* sta;
         citizen* newCit;
+
         for (int i = 0; i < size_list; i++)
         {
-            in.read(rcastc(&tempIdState), sizeof(tempIdState));
-            //sta = current.getStateById(tempIdState);
+          in.read(rcastc(&tempIdState), sizeof(tempIdState));
+        sta = current.getStateById(tempIdState);
             try {
-                if (!in.good())
-                    throw invalid_argument("ERROR with file");
-                newCit = new citizen(in, (current.getStateById(tempIdState)));
-                List.push_back(newCit);
+                newCit = new citizen(in, sta);
+                      
             }
-            catch (bad_alloc& ex) {
+            catch (exception& ex) {
                 throw ex;
             }
+            List.push_back(newCit);
         }
+        
     }
 
 

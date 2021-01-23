@@ -89,8 +89,13 @@ int main()
 	}
 	else if (input == 2) 
 	{
-		loadElectionRound();
-
+		try {
+			loadElectionRound();
+		}
+		catch(exception& ex){
+			cout << ex.what() << endl;
+			return 0;
+		}
 	}
 	else
 		return 0;
@@ -265,17 +270,38 @@ void loadElectionRound()
 
 	if (!fl)
 	{
-		cout << " Error with FILE" << endl;
-		return;
+		throw invalid_argument( " Error with FILE");
+		
 		
 	}
 	fl.read(rcastc(&status), sizeof(int));
 	if (status)
-		Round = new ElectionProportiaonal(fl);
+	{
+		try {
+			Round = new ElectionProportiaonal(fl);
+		}
+		catch (exception& ex)
+		{
+			throw ex;
+		}
+	}
 	else
-		Round = new ElectionRound(fl);
+	{
+		
+		try {
+			Round = new ElectionRound(fl);
+
+		}
+		catch (exception& ex)
+		{
+			throw ex;
+		}
+
+	}
 	if (!fl.good())
-		cout << " Error with FILE" << endl;
+	{
+		throw invalid_argument(" Error with FILE");
+	}
 	else
 		cout << "Load successfully" << endl;
 	fl.close();
