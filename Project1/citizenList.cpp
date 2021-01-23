@@ -2,9 +2,7 @@
 #include "citizenList.h"
 #include "utils.h"
 #include "ElectionRound.h"
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
+
 namespace proj
 {
     //copy constractor 
