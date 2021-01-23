@@ -31,7 +31,7 @@ namespace proj
     }
     
     //dctor
-    politicalParty::~politicalParty() { cout << "political party dctor" << endl; }
+    politicalParty::~politicalParty() { }
 
     // This function prints the information of the curr politcal party 
     ostream& operator<<(ostream& os, const politicalParty& p_party)

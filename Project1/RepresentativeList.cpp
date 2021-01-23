@@ -50,6 +50,7 @@ namespace proj {
         {
             temp = (*itList)->getId();
             out.write(rcastcc(&temp), sizeof(int));
+            itList++;
         }
     }
 

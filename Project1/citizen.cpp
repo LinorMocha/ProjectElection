@@ -5,6 +5,9 @@
 
 namespace proj
 {
+	citizen::citizen(State* sta):state(*sta)
+	{
+	}
 	//ctor
 	citizen::citizen(const string _name, int id, State& _state, int _birthYear) :name(_name), state(_state), birthYear(_birthYear)
 	{
@@ -17,7 +20,7 @@ namespace proj
 	}
 
 	//serialize constractor of citizen
-	citizen::citizen(istream& in,State& sta): state(sta)
+	citizen::citizen(istream& in,State* sta): state(*sta)
 	{
 		load(in);
 	}
@@ -27,7 +30,7 @@ namespace proj
 	}
 	
 	//dctor
-	citizen::~citizen(){  cout << "citizen dctor" << endl; }
+	citizen::~citizen(){  }
 	
 	const citizen& citizen::operator=(const citizen& input)
 	{

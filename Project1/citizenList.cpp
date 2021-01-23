@@ -44,7 +44,10 @@ namespace proj
          }
          List.push_back(newC);
    }
-
+    void  CitizenList::addCitizenToListTail(citizen* cit) {
+        
+        List.push_back(cit);
+    }
     //this function add citizen to the elected place in the list
     void  CitizenList::addCitizenAfter(const citizen* to_insert, citizen* input)  {
         auto itList = std::find(List.begin(), List.end(), to_insert);
@@ -60,13 +63,6 @@ namespace proj
         if (cit != List.end())
             return *cit;
         
-        /*int temp;
-        while (itList != List.end())
-        {
-            temp = (*itList)->getId();
-            if (_id == temp)
-                return *itList;
-        }*/
         return nullptr;
     }
 
@@ -92,27 +88,51 @@ namespace proj
         }
     }
 
-    //this function load the citizen
-   
-    void  CitizenList::load(istream& in, DynamicArray<State*>& current) {
+    void  CitizenList::load(istream& in, const ElectionRound& current) {
         int size_list;
         in.read(rcastc(&size_list), sizeof(size_list));
         int tempIdState;
+        State* sta;
         citizen* newCit;
         for (int i = 0; i < size_list; i++)
         {
             in.read(rcastc(&tempIdState), sizeof(tempIdState));
-            
-            auto sta = utils::Find(current.begin(), current.end(), tempIdState);
+            //sta = current.getStateById(tempIdState);
             try {
-                newCit = new citizen(in, (State&)sta);
+                if (!in.good())
+                    throw invalid_argument("ERROR with file");
+                newCit = new citizen(in, (current.getStateById(tempIdState)));
+                List.push_back(newCit);
             }
-            catch (exception& ex)
-            {
+            catch (bad_alloc& ex) {
                 throw ex;
             }
         }
     }
+
+
+    //this function load the citizen
+   /* void  CitizenList::load(istream& in, DynamicArray<State*>& current) {
+        int size_list;
+        in.read(rcastc(&size_list), sizeof(size_list));
+        int tempIdState;
+     
+        for (int i = 0; i < size_list; i++)
+        {
+            
+            in.read(rcastc(&tempIdState), sizeof(tempIdState));
+            
+            auto sta = utils::Find(current.begin(), current.end(), tempIdState);
+            try {
+                citizen*newCit = new citizen(in, (**sta));
+                List.push_back(newCit);
+            }
+            catch (bad_alloc& ex)
+            {
+                throw ex;
+            }
+        }
+    }*/
 
     //cheak if citizen is in the list
     void  CitizenList::isCitizenInList(const citizen& cit)  {

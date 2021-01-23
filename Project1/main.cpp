@@ -220,7 +220,7 @@ void saveElectionRound()
 {
 	ofstream File;
 	string Filename;
-	cout << "please enter name file to Load:" << endl;
+	cout << "please enter name file to save:" << endl;
 	cin >> Filename;
 	File.open(Filename, ios::binary);
 	if (!File)
