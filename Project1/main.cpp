@@ -43,6 +43,7 @@ void switchMode(int & input);
 ElectionRound* Round;
 
 
+
 int main()
 {
 	int input;
