@@ -82,15 +82,6 @@ namespace proj
 
 		for (int i = 0; i < countState; i++)
 			cout <<(*_stateArray[i]) << endl;
-		//utils::print(_stateArray.begin(), _stateArray.end());
-		/*auto itStateArr = _stateArray.begin();
-		int temp;
-		while (itStateArr != _stateArray.end())
-		{
-			cout<<(**itStateArr)<<endl;
-			itStateArr++;
-		}*/
-		
 	}
 
 	//This function returns ref to the desired state according to the given ID 
@@ -376,7 +367,7 @@ namespace proj
 		//load the citizen list from file
 		try
 		{
-			_citizenList.load(in, *this);
+			_citizenList.load(in, _stateArray);
 		}
 		catch (exception& ex)
 		{

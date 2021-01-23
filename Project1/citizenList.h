@@ -24,13 +24,10 @@ namespace proj
        citizen* getCitizenById(int _id) const;
        virtual int getListSize()const;
        void  addCitizenToListTail(citizen* cit);
-
        bool isEmpty();
        void addCitizenToListTail(const string _name, int id, State& numD, int _birthYear);
        void addCitizenAfter(const citizen* to_insert, citizen* input);
-       void load(istream& in, const ElectionRound & current);
-      //void load(istream& in, DynamicArray<State*>  & current);
-
+       void load(istream& in, DynamicArray<State*>  & current);
        void save(ostream& out) const;
        void isCitizenInList(const citizen& cit);
     };

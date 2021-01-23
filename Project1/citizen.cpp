@@ -5,9 +5,6 @@
 
 namespace proj
 {
-	citizen::citizen(State* sta):state(*sta)
-	{
-	}
 	//ctor
 	citizen::citizen(const string _name, int id, State& _state, int _birthYear) :name(_name), state(_state), birthYear(_birthYear)
 	{
@@ -42,10 +39,12 @@ namespace proj
 		name = input.name;
 		return *this;
 	}
+	
 	bool citizen::operator==(int id)
 	{
 		return ID == id;
 	}
+	
 	bool citizen::operator==(const citizen& input)
 	{
 		if (ID == input.ID && state == input.state && vote == input.vote &&
@@ -53,16 +52,19 @@ namespace proj
 			return true;
 		return false;
 	}
+	
 	//This function returns the state's ID number
 	int citizen::getStateId() const
 	{
 		return state.getNumId();
 	}
+	
 	//This function returns the citizen's voting status
 	int citizen::getVote() const
 	{
 		return vote;
 	}
+	
 	//This function returns the birth year of the citizen
 	int citizen::getBirthYear() const
 	{

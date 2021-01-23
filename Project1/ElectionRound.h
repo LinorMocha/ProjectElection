@@ -36,7 +36,7 @@ namespace proj
 		int getYear() const { return date.year; };
 			
 		/////////// STATE //////////////////
-		void addState(const string name, int numRep,int			Status); ///
+		void addState(const string name, int numRep,int Status); ///
 		void printStateArray();
 		State* getStateById(int numId) const ;
 		

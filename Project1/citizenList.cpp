@@ -91,52 +91,30 @@ namespace proj
         }
     }
 
-    void  CitizenList::load(istream& in, const ElectionRound& current) {
+     //this function load the citizen
+    void  CitizenList::load(istream& in, DynamicArray<State*>& current) {
         int size_list;
         in.read(rcastc(&size_list), sizeof(size_list));
         int tempIdState;
-        State* sta;
         citizen* newCit;
-
-        for (int i = 0; i < size_list; i++)
-        {
-          in.read(rcastc(&tempIdState), sizeof(tempIdState));
-        sta = current.getStateById(tempIdState);
-            try {
-                newCit = new citizen(in, sta);
-                      
-            }
-            catch (exception& ex) {
-                throw ex;
-            }
-            List.push_back(newCit);
-        }
-        
-    }
-
-
-    //this function load the citizen
-   /* void  CitizenList::load(istream& in, DynamicArray<State*>& current) {
-        int size_list;
-        in.read(rcastc(&size_list), sizeof(size_list));
-        int tempIdState;
-     
         for (int i = 0; i < size_list; i++)
         {
             
             in.read(rcastc(&tempIdState), sizeof(tempIdState));
             
             auto sta = utils::Find(current.begin(), current.end(), tempIdState);
+            
             try {
-                citizen*newCit = new citizen(in, (**sta));
-                List.push_back(newCit);
+                newCit = new citizen(in, (*sta));
+               
             }
             catch (bad_alloc& ex)
             {
                 throw ex;
             }
+            List.push_back(newCit);
         }
-    }*/
+    }
 
     //cheak if citizen is in the list
     void  CitizenList::isCitizenInList(const citizen& cit)  {

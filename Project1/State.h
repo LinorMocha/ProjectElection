@@ -24,7 +24,6 @@ namespace proj
 		State(istream& in);
 		virtual ~State();
 		virtual const State& operator=(const State& input);
-		// to do what sivan said
 		friend ostream& operator<<(ostream& os, const State& state);
 		virtual ostream& toPrint(ostream& os)const=0 ;
 		bool operator==(const State& input);
