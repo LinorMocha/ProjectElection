@@ -10,7 +10,7 @@ namespace proj
     class ElectionRound;
     class CitizenList
     {
-    private:
+    protected:
         list<citizen*> List;
     public:
         CitizenList()= default;
@@ -19,11 +19,10 @@ namespace proj
 
         const CitizenList& operator=(const CitizenList& input);
         friend ostream& operator<<(ostream& os, const CitizenList& List);
-
+        void deleteAllCitizen();
         ///// GETERS ////
        citizen* getCitizenById(int _id) const;
        virtual int getListSize()const;
-       void  addCitizenToListTail(citizen* cit);
        bool isEmpty();
        void addCitizenToListTail(const string _name, int id, State& numD, int _birthYear);
        void addCitizenAfter(const citizen* to_insert, citizen* input);

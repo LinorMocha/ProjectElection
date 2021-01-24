@@ -26,7 +26,8 @@ namespace proj
 	{
 		utils::deleteElementInArray(_stateArray.begin(), _stateArray.end());
 		utils::deleteElementInArray(_politicalPartyArray.begin(), _politicalPartyArray.end());
-
+		_citizenList.deleteAllCitizen();
+		
 	}
 
 
@@ -201,7 +202,7 @@ namespace proj
 		if(PoliId>countPoliticalParty||PoliId<=0)
 			throw invalid_argument("there is no political party with this id ");
 		if (StateId > countState || StateId <= 0)
-			throw invalid_argument("there is no political party with this id ");
+			throw invalid_argument("there is state with this id ");
 
 
 		if(isNumberIdAvilable(repId))
@@ -210,7 +211,7 @@ namespace proj
 		citizen* rep = _citizenList.getCitizenById(repId);
 		
 		if(isCitizenRepOrHeadOfPoly(*rep))
-			throw invalid_argument("there is no head poly according to this given id ");
+			throw invalid_argument("this citizen is already representative or head of poly");
 
 		_politicalPartyArray[PoliId-1]->addRepresentitive(rep, StateId);
 
@@ -241,7 +242,7 @@ namespace proj
 				(*itArr)->isRep(cit);
 			}
 
-			catch (std::exception& ex)
+			catch (...)
 			{
 				return true;
 			}
@@ -289,7 +290,7 @@ namespace proj
 			try {
 				(*itStateArr)->save(out);
 			}
-			catch (std::exception& ex) {
+			catch (exception& ex) {
 				throw ex;
 			}
 			itStateArr++;
@@ -299,7 +300,7 @@ namespace proj
 		{
 			_citizenList.save(out);
 		}
-		catch (std::exception& ex)
+		catch (exception& ex)
 		{
 			throw ex;
 		}
@@ -311,7 +312,7 @@ namespace proj
 			try {
 				(*itPoliticalPartyArr)->save(out);
 			}
-			catch (std::exception& ex) {
+			catch (exception& ex) {
 				throw ex;
 			}
 			itPoliticalPartyArr++;

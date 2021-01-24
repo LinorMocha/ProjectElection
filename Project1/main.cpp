@@ -5,11 +5,11 @@
 #include <fstream>
 #include<string>
 
-
 using namespace std;
 using namespace proj;
 
 /// const values ///
+
 const int ADD_STATE = 1;
 const int ADD_CITIZEN = 2;
 const int ADD_POLITICAL_PARTY = 3;
@@ -37,12 +37,12 @@ void printResult();
 void printMenuPrimary();
 void saveElectionRound();
 void loadElectionRound();
-int printElectionRoundResult();
+void printElectionRoundResult();
 vector <int> printElectionResultsForState(int stateId,int&winingPoly);
-int printElectionRoundResultForProprotinal();
+void printElectionRoundResultForProprotinal();
 void switchMode(int & input);
-ElectionRound* Round;
 
+ElectionRound* Round;
 
 
 int main()
@@ -121,7 +121,7 @@ int main()
 
 		delete Round;
 		
-
+		
 		return 0;
 
 }
@@ -486,27 +486,36 @@ void printResult()
 	int res;
 	if (typeid(*Round) == typeid(ElectionProportiaonal))
 	{
-		res = printElectionRoundResultForProprotinal();
+		try {
+			printElectionRoundResultForProprotinal();
+		}
+		catch (exception& ex)
+		{
+			cout << ex.what() << endl;
+		}
 	}
-	else
-		 res = printElectionRoundResult();
-	if (res == 0)
-		cout << "enter first State Citizens and PoliticalParty" << endl;
-	if (res == 1)
-		cout << " the representative isnt full!. you need to enter more representative" << endl;
+	else {
+		try{
+			printElectionRoundResult();
+		}
+		catch (exception& ex)
+		{
+			cout << ex.what() << endl;
+		}
+
+	}
 }
 
 //This function prints the results of the election round propprotinal
-int printElectionRoundResultForProprotinal()
+void printElectionRoundResultForProprotinal()
 {
 	if (Round->countPoliticalParty == 0 || Round->countCitizen == 0)
-		return 0;
+		throw invalid_argument("enter first State Citizens and PoliticalParty");
 	try {
 		Round->isRepListComplete();
 	}
-	catch (std::exception& ex) {
-		cout << "Error: " << ex.what() << endl;
-		return 1;
+	catch (exception& ex) {
+		throw ex;
 	}
 	
 	cout << "__________________________________________________________" << endl;
@@ -530,6 +539,8 @@ int printElectionRoundResultForProprotinal()
 		Round->getPoliById(i).printWinningRepListForState(StateID, numOfRep);
 		cout << endl;
 	}
+	//start with zero
+	winningPoli++;
 	precent = (float)sta->getCountVotesInState() / sta->getHowManyCitizens();
 	cout << " the voter turn out is:" << precent * 100 << '%' << endl;
 	cout << " the winner in the election is political party:" << Round->getPoliById(winningPoli).getName() << endl;
@@ -537,16 +548,16 @@ int printElectionRoundResultForProprotinal()
 	cout << "__________________________________________________________________" << endl;
 }
 
-int printElectionRoundResult()
+void printElectionRoundResult()
 {
 	if (Round->countState == 0 || Round->countPoliticalParty == 0 || Round->countCitizen == 0)
-		return 0;
+		throw invalid_argument("enter first State Citizens and PoliticalParty");
+
 	try {
 		Round->isRepListComplete();
 	}
 	catch (std::exception& ex) {
-		cout << "Error: " << ex.what() << endl;
-		return 1;
+		throw ex;
 	}
 	cout << "__________________________________________________________" << endl;
 	cout << " the Elecation Round in date:" << Round->getDay() << "/" << Round->getMonth() << "/" << Round->getYear() << "   result:" << endl;
@@ -588,7 +599,7 @@ int printElectionRoundResult()
 	cout << " the president in the elecation is:" << Round->getPoliById(maxId+1).getPoliticalPartyHead()<< endl;
 	cout << "__________________________________________________________________" << endl;
 	
-	return 2;
+	
 }
 
 vector <int> printElectionResultsForState(int stateId,int &winningPoly)

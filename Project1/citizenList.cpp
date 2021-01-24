@@ -14,20 +14,26 @@ namespace proj
     //distractor - defulte because the citizens is deleted by elecation round
     CitizenList::~CitizenList()
     {
-        auto itList = List.begin();
-        auto temp=itList;
-        while (temp != List.end())
-        {
-            temp++;
-            delete (*itList);
-            itList = temp;
-        }
+       //Empty because representative list have the same objects
     }
 
     //operator = copy input list
     const CitizenList& CitizenList::operator=(const  CitizenList& input)  {
         List = input.List;
         return *this;
+    }
+
+    //delete all the citizen in the memory
+    void CitizenList::deleteAllCitizen()
+    {
+        auto itList = List.begin();
+        auto temp = itList;
+        while (temp != List.end())
+        {
+            temp++;
+            delete (*itList);
+            itList = temp;
+        }
     }
 
     bool CitizenList::isEmpty()  { return List.empty();  }
@@ -45,10 +51,7 @@ namespace proj
          }
          List.push_back(newC);
    }
-    void  CitizenList::addCitizenToListTail(citizen* cit) {
-        
-        List.push_back(cit);
-    }
+   
     //this function add citizen to the elected place in the list
     void  CitizenList::addCitizenAfter(const citizen* to_insert, citizen* input)  {
         auto itList = std::find(List.begin(), List.end(), to_insert);
@@ -116,7 +119,8 @@ namespace proj
 
     //cheak if citizen is in the list
     void  CitizenList::isCitizenInList(const citizen& cit)  {
-        auto it = utils::Find(List.begin(), List.end(), cit);
+      
+        auto it = utils::Find(this->List.begin(), this->List.end(), cit);
         if (it != List.end())
             throw invalid_argument("citizen is in list");
     }

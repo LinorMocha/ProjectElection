@@ -7,8 +7,6 @@ namespace proj
 {
     class RepresentativeList : public CitizenList
     {
-    private:
-          list<citizen*> RepList;
     public:
         RepresentativeList() { };
         ~RepresentativeList() ;

@@ -11,9 +11,8 @@ namespace proj
 		if (id < 100000000 || id>999999999)
 			throw invalid_argument("id not valid ");
 		ID = id;
-		ElectionRound::countCitizen++;
 		vote = -1;
-
+	
 	}
 
 	//serialize constractor of citizen
