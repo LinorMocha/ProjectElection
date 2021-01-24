@@ -24,10 +24,7 @@ namespace proj
     //copy ctor
     politicalParty::politicalParty(const politicalParty& pol): head(pol.head)
     {
-        numId = pol.numId;
-        RepListByStateArray = pol.RepListByStateArray;
-        votesByStatesArray = pol.votesByStatesArray;
-        name = pol.name;
+        this->operator=(pol);
     }
     
     //dctor
@@ -213,7 +210,7 @@ namespace proj
     {
         for (int i = 0; i < ElectionRound::countState; i++)
         {
-            cout << "representative List for state number:" << i + 1 << endl;
+            cout << "representative List for state number:  " << i + 1 << endl;
             cout << "_________________________________" << endl;
             cout << RepListByStateArray[i] << endl;
         }

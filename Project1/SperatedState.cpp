@@ -9,13 +9,9 @@ namespace proj
 	SperatedState::SperatedState() : State(){ }
 	
 	//Ctor
-	SperatedState::SperatedState(const string _name, int _numRep, int _numId): SperatedState()
+	SperatedState::SperatedState(const string _name, int _numRep, int _numId): State(_name,_numRep,_numId)
 	{
-		if (_numRep <= 0)
-			throw invalid_argument("Error! number of representative cant be negative ");
-		numId = _numId;
-		name = _name;
-		numOfRepresentative = _numRep;
+		
 	}
 	//Serialize constractor of state
 	SperatedState::SperatedState(istream& in) {
@@ -37,13 +33,8 @@ namespace proj
 	}
 	
 	//Copy Ctor
-	SperatedState::SperatedState(const SperatedState& sta)
+	SperatedState::SperatedState(const SperatedState& sta) :State(sta)
 	{
-		numId = sta.numId;
-		numOfRepresentative = sta.numOfRepresentative;
-		name = sta.name;
-		countCitizensInState = sta.countCitizensInState;
-		countVotesInState = sta.countVotesInState;
 	}
 	
 	

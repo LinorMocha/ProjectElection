@@ -19,15 +19,15 @@ namespace proj
 	public:
 
 		State();
-		State(const string _name, int _numRep);
+		State(const string _name, int _numRep, int _numId);
 		State(const State& Sta);
 		State(istream& in);
 		virtual ~State();
 		virtual const State& operator=(const State& input);
 		friend ostream& operator<<(ostream& os, const State& state);
-		virtual ostream& toPrint(ostream& os)const=0 ;
-		bool operator==(const State& input);
-		bool operator==(const int id);
+		virtual ostream& toPrint(ostream& os)const = 0 ;
+		virtual bool operator==(const State& input);
+		virtual bool operator==(const int id);
 
 		/// GETERS ///
 		virtual int getStateType()const = 0;

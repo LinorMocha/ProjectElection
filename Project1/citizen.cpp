@@ -23,9 +23,7 @@ namespace proj
 	}
 
 	//ctor
-	citizen::citizen(const citizen& cit) :name(cit.name),state(cit.state), ID(cit.ID), birthYear(cit.birthYear), vote(cit.vote){
-		
-	}
+	citizen::citizen(const citizen& cit): state(cit.state){	this->operator=(cit);}
 	
 	//dctor
 	citizen::~citizen(){  }

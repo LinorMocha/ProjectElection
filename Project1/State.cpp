@@ -9,23 +9,18 @@ namespace proj
 	State::State():numOfRepresentative(0),numId(0), countCitizensInState(0),countVotesInState(0){}
 	//ctor
 
-	State::State(const string _name, int _numRep) : State()
+	State::State(const string _name, int _numRep, int _numId) : State()
 	{
 		if (_numRep <= 0)
 			throw invalid_argument("Error! number of representative cant be negative ");
-		numId = ElectionRound::countState;
-		numOfRepresentative = _numRep;
+		numId = _numId;
 		name = _name;
+		numOfRepresentative = _numRep;
 	}
 	//copy ctor
 	State::State(const State& sta)
 	{
-		numId = sta.numId;
-		numOfRepresentative = sta.numOfRepresentative;
-		name = sta.getName();
-		countCitizensInState = sta.countCitizensInState;
-		countVotesInState = sta.countVotesInState;
-	
+		this->operator=(sta);
 	}
 	//serialize constractor of state
 	State::State(istream& in)

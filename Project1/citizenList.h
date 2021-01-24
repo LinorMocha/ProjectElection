@@ -7,7 +7,6 @@ using namespace std;
 
 namespace proj
 {
-    class ElectionRound;
     class CitizenList
     {
     protected:

@@ -20,19 +20,14 @@ namespace proj
 	}
 
 	//Ctor
-	UnionState::UnionState(const string _name, int _numRep,int _numId):UnionState()
+	UnionState::UnionState(const string _name, int _numRep,int _numId):State(_name,_numRep,_numId)
 	{
-		if (_numRep <= 0)
-			throw invalid_argument("Error! number of representative cant be negative ");
-		numId = _numId;
-		name = _name;
-		numOfRepresentative = _numRep;
 	}
 	
 	//Copy Ctor
-	UnionState::UnionState(const UnionState& sta)
+	UnionState::UnionState(const UnionState& sta):State(sta)
 	{
-		this->operator=(sta);
+	
 	}
 	// This function prints the information of the curr state using << operator 
 	ostream& UnionState::toPrint(ostream& os)const
