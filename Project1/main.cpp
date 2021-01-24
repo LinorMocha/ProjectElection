@@ -5,6 +5,7 @@
 #include <fstream>
 #include<string>
 
+
 using namespace std;
 using namespace proj;
 
@@ -42,7 +43,7 @@ vector <int> printElectionResultsForState(int stateId,int&winingPoly);
 void printElectionRoundResultForProprotinal();
 void switchMode(int & input);
 
-ElectionRound* Round;
+ElectionRound* Round=nullptr;
 
 
 int main()
@@ -89,15 +90,13 @@ int main()
 		
 
 	}
-	else if (input == 2) 
+	else if (input == 2)
 	{
-		try {
-			loadElectionRound();
-		}
-		catch(exception& ex){
-			cout << ex.what() << endl;
+		loadElectionRound();
+
+		//if the loaded didnt worked
+		if (Round == nullptr)
 			return 0;
-		}
 	}
 	else
 		return 0;
@@ -142,7 +141,7 @@ void switchMode(int& input)
 			Round = new ElectionProportiaonal(numRep);
 		}
 		catch(exception&ex){
-			cout <<"ERROR!"<< ex.what() << endl;
+			cout << ex.what() << endl;
 			cout << "for regular election round press 1 ,for proprotinal election round please press 2" << endl;
 			input = 3;
 		}
@@ -219,7 +218,7 @@ void exe(int n)
 		saveElectionRound();
 		break;
 	case LOAD_ROUND:
-		loadElectionRound();
+			loadElectionRound();
 		break; 
 
 	}
@@ -262,7 +261,7 @@ void saveElectionRound()
 //this function loads the current round election
 void loadElectionRound()
 {
-	delete Round;
+	ElectionRound* temp= Round;
 	ifstream fl;
 	string Filename;
 	cout << "please enter name file to Load:" << endl;
@@ -274,8 +273,13 @@ void loadElectionRound()
 
 	if (!fl)
 	{
-		throw invalid_argument( " Error with FILE");
-		
+		cout<< "Error with FILE"<<endl;
+		if (Round != nullptr) {
+			
+			cout << "file didnt load your still in the current election round" << endl;
+			
+		}
+		return;
 		
 	}
 	fl.read(rcastc(&status), sizeof(int));
@@ -286,7 +290,12 @@ void loadElectionRound()
 		}
 		catch (exception& ex)
 		{
-			throw ex;
+			cout << ex.what() << endl;
+			if (Round != nullptr) {
+				cout << "file didnt load your still in the current election round" << endl;
+				Round = temp;
+			}
+			return;
 		}
 	}
 	else
@@ -298,17 +307,17 @@ void loadElectionRound()
 		}
 		catch (exception& ex)
 		{
-			throw ex;
+			cout << ex.what() << endl;
+			if (Round != nullptr) {
+				cout << "file didnt load your still in the current election round" << endl;
+				Round = temp;
+			}
 		}
 
 	}
-	if (!fl.good())
-	{
-		throw invalid_argument(" Error with FILE");
-	}
-	else
-		cout << "Load successfully" << endl;
+	cout << "Load successfully" << endl;
 	fl.close();
+	delete temp;
 }
 
 //this function adds new state to the curr election round

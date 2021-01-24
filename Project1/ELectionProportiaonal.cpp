@@ -6,8 +6,6 @@ namespace proj {
 	ElectionProportiaonal::ElectionProportiaonal(int numRep) : ElectionRound()
 	{
 		char n[] = "backgroundState";
-		if (numRep <= 0)
-			throw invalid_argument("number of representative should be at least 1");
 		State* backgroundState;
 		try {
 			backgroundState = new UnionState(n, numRep,countState+1);
