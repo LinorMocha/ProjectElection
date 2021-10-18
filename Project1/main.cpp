@@ -48,6 +48,16 @@ ElectionRound* Round=nullptr;
 
 int main()
 {
+
+	UnionState sta1;
+	UnionState  sta2("a",10,9);
+
+	citizen cit1("b",123456789,sta1,12);
+	citizen cit3("d", 223456789, sta1, 12);
+	citizen cit2("c", 123456787, sta2, 12);
+	
+	cit1 = cit2;
+
 	int input;
 	printMenuPrimary();
 	cin >> input;
@@ -105,6 +115,8 @@ int main()
 
 		int chose;
 		cin >> chose;
+
+
 
 		while (chose != 12)
 		{

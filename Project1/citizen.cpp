@@ -23,7 +23,8 @@ namespace proj
 	}
 
 	//ctor
-	citizen::citizen(const citizen& cit): state(cit.state){	this->operator=(cit);}
+	citizen::citizen(const citizen& cit): state(cit.state){
+		this->operator=(cit);}
 	
 	//dctor
 	citizen::~citizen(){  }
